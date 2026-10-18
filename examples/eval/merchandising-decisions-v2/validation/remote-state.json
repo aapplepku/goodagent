@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-09-07T04:49:19Z",
+  "repository": "aapplepku/opencommerce",
+  "visibility": "private",
+  "default_branch": "main",
+  "remote_heads": {
+    "feature/merchandising-intelligence": "5962b51571a10b84c787a6d8a06aa3b884ce4275",
+    "feature/model-backed-goal-planning": "8389d65f529c570eab91477b46dfe8a4b585f443",
+    "prep/public-preview": "fc13a4bf29db06051f550fbe7dfc2b2d6a9bb820",
+    "main": "c2617412d0d926946c0b532c9ea7250cc89eb21d",
+    "release/v0.1.0-rc1": "c2617412d0d926946c0b532c9ea7250cc89eb21d"
+  },
+  "rc_tag": {
+    "name": "v0.1.0-rc1",
+    "object": "d95722d260252d6cc81f0471082c4f9939db02a8",
+    "peeled_commit": "c2617412d0d926946c0b532c9ea7250cc89eb21d"
+  },
+  "parent_prs": [
+    {
+      "number": 1,
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "url": "https://github.com/aapplepku/opencommerce/pull/1"
+    },
+    {
+      "number": 2,
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "url": "https://github.com/aapplepku/opencommerce/pull/2"
+    },
+    {
+      "number": 3,
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "url": "https://github.com/aapplepku/opencommerce/pull/3"
+    }
+  ],
+  "new_remote_branch_exists": false,
+  "new_pr_created": false,
+  "push_attempt": "Rejected by safety review before execution; no upload occurred. Explicit owner confirmation of private source/security-artifact upload requested; no retry.",
+  "ollama_listening": false,
+  "no_publication_or_ref_rewrite_performed": true,
+  "checks": [
+    "GitHub repository and parent-PR metadata",
+    "independent git ls-remote origin heads and RC tag",
+    "local port 11434 listener query",
+    "historical merchandising/search results, lockfiles, OpenAPI/SDK and Compose files unchanged versus base"
+  ]
+}

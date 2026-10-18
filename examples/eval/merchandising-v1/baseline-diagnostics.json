@@ -1,0 +1,14 @@
+{
+  "schema_version": "baseline-diagnostics-v1",
+  "source_commit": "8389d65f529c570eab91477b46dfe8a4b585f443",
+  "original_evidence": "examples/eval/capability-v1/results/development/",
+  "reproduction": {"seed": 11, "arm": "deterministic", "phase": "planning", "cases": 3, "original_failures_reproduced": 3},
+  "redaction": "Only repository-relative module/function names, exception types, constraint name and synthetic case IDs. No exception messages, SQL statements/parameters, tenant IDs, local paths, request data or credentials.",
+  "findings": [
+    {"case": "discount_margin_tradeoff", "cause_types": ["ValueError"], "frames": ["controller/durable.py:process_run", "controller/compiler.py:_compile_discount", "controller/facts.py:safety_facts"], "cause": "No products satisfy the proposed discount unit-margin floor. An empty candidate scope aborted all planning.", "resolution": "Record NO_ELIGIBLE_DISCOUNT_TARGET and continue independently eligible candidates."},
+    {"case": "inventory_constrained", "cause_types": ["ValueError"], "frames": ["controller/durable.py:process_run", "controller/compiler.py:_compile_discount", "controller/facts.py:safety_facts"], "cause": "No available non-low-stock products remain in candidate scope. Empty scope aborted all planning.", "resolution": "Record the unavailable candidate, never relax inventory eligibility, continue other candidates."},
+    {"case": "delayed_noisy_outcomes", "cause_types": ["IntegrityError", "IntegrityError", "UniqueViolationError"], "constraint": "uq_actions_tenant_idempotency", "frames": ["controller/durable.py:process_run", "persistence/repositories/controller.py:add_action"], "cause": "A revised run proposed the same tenant-scoped logical action already persisted by fixture history.", "resolution": "Under the existing tenant write lock, record the prior action reference and skip creating a duplicate. Preserve the database unique constraint and earlier approvals/receipts."}
+  ],
+  "regression": "tests/integration/test_capability_baseline_failures.py",
+  "historical_artifacts_modified": false
+}

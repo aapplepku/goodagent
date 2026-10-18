@@ -1,0 +1,25 @@
+name: Future connector proposal
+description: Discuss a typed provider boundary; live connectors are outside v0.1.0.
+body:
+  - type: markdown
+    attributes:
+      value: A proposal does not authorize live integration or writes. Do not provide account credentials.
+  - type: textarea
+    id: capabilities
+    attributes:
+      label: Provider and capabilities
+      description: Identify read-only and write capabilities separately, using official provider documentation.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety contract
+      description: Describe preconditions, idempotency, ambiguity/reconciliation, approvals, rollback and tenant isolation.
+    validations:
+      required: true
+  - type: textarea
+    id: testing
+    attributes:
+      label: Test environment and scope
+      description: Explain how capabilities can be verified without production data or unapproved writes.

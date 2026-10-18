@@ -1,0 +1,27 @@
+{
+  "files": [
+    {
+      "path": "packages.json.gz",
+      "sha256": "dfef2827f1955d1e06b8c5d0fde105111d1ec24573e238fbb04f193f8e4cb1b5",
+      "uncompressed_sha256": "60b1ddcf86fb90a4eee735959b5a9043e0bba70a174cbd8531e0fb7d6ca3b99a"
+    },
+    {
+      "path": "images.json.gz",
+      "sha256": "d0a13393291876c5799593e590fec7b3d98c0f3bcf49070cf12f6d33da126867",
+      "uncompressed_sha256": "85c341673a0c158f2ea2baa25cd1176b287bcaed539382d46a93e657fa9a07cf"
+    },
+    {
+      "path": "secret-scan-controls.json.gz",
+      "sha256": "ba80211f36383bc33f427a61b64c6388e9a136ff79b5326d4a5a317d056034c6",
+      "uncompressed_sha256": "44bc5665bb090be2865caddc3a7b4cb7c1785227f45ba0f71caf252c1d5259a4"
+    },
+    {
+      "path": "original-secret-false-positive.json.gz",
+      "sha256": "5a24b26ae0f2832f3a7cd2652b10bd1dbf75ae075f8919475c87485169bf1122",
+      "uncompressed_sha256": "8a58f71223b6deaa078de4e53cdbbc3f906f104584f17d56f573005e49ded3a7"
+    }
+  ],
+  "generated_at": "2026-09-05T18:16:27.159986+00:00",
+  "image_scan_archive": "../../reports/2026-09-05-owner-legal-arm64/manifest.json",
+  "scope": "local rc1 package archives and final arm64 project-built image filesystems; no publication"
+}

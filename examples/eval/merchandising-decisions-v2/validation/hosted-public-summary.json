@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "kind": "sanitized_historical_hosted_summary",
+  "prepared_on_utc": "2026-10-18",
+  "scope": "Selected execution outcomes from retained private records, not raw API responses or a new hosted run",
+  "omitted": [
+    "Account-specific provider annotations and diagnoses",
+    "Internal tool-response wrappers and unrelated account/repository metadata"
+  ],
+  "original_records_retained_privately": [
+    {
+      "record": "original-hosted-api-evidence",
+      "sha256": "45fccfa306659ba5a85806f5a7e83158f16bba98334a1743805d456f90036581"
+    },
+    {
+      "record": "later-hosted-delivery-evidence",
+      "sha256": "19445af8174a0a6d05a9966369bdb89d3666453b2271eb0fd74fd7d4fa22bfc9"
+    }
+  ],
+  "runs": [
+    {
+      "id": 34065619247,
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-09-06T23:00:22Z",
+      "updated_at": "2026-09-07T00:54:49Z",
+      "successful_jobs": 6,
+      "failed_job": {
+        "id": 101589007654,
+        "name": "qualification / Full controller reproduction",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-09-07T00:54:41Z",
+        "completed_at": "2026-09-07T00:54:48Z",
+        "steps_recorded": 0,
+        "execution_observation": "The failing job did not start its code-validation steps"
+      },
+      "retry_dispatched": false,
+      "whole_run_passed": false
+    },
+    {
+      "id": 34153571264,
+      "observed_at": "2026-09-07T18:56:30Z",
+      "status": "completed",
+      "conclusion": "failure",
+      "duration_seconds": 3,
+      "authorization_job": {
+        "id": 101840633342,
+        "name": "Private RC and DCO",
+        "status": "completed",
+        "conclusion": "failure",
+        "steps_recorded": 0
+      },
+      "qualification_job": {
+        "id": 101840641378,
+        "name": "qualification",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      "execution_observation": "Execution stopped before source checkout or hosted code validation",
+      "retry_dispatched": false,
+      "whole_run_passed": false
+    }
+  ],
+  "limitations": [
+    "Original repository, Git history and artifact ZIPs remain private and are not supplied by this export",
+    "Public readers can inspect the selected summary but cannot independently reconstruct the original provider responses from their hashes",
+    "No fresh provider query, hosted validation, publication or qualification is implied"
+  ]
+}

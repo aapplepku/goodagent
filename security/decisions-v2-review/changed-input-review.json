@@ -1,0 +1,32 @@
+{
+  "changed_deployment_files": [
+    "packages/backend/src/open_commerce/controller/durable.py",
+    "packages/backend/src/open_commerce/controller/merchandising_candidates.py",
+    "packages/backend/src/open_commerce/controller/merchandising_evidence.py",
+    "packages/backend/src/open_commerce/controller/merchandising_observation.py",
+    "packages/backend/src/open_commerce/controller/merchandising_planner.py",
+    "packages/backend/src/open_commerce/controller/service.py"
+  ],
+  "expires_on": "2026-10-05",
+  "extra_evidence_uncompressed_sha256": {
+    "controller-image-source.json": "3b3c46131f12680967dc74e7f7a9c5721d7fad84e606879d1735f51d2e41a07f",
+    "learned-runtime.json": "d960802f628372cf2b167d7b35e0f40714bf2aec38389b525e5f2a903ac30f77",
+    "legal.json": "d11e620f6a5d8f841934a5b3b145a8285cf47da9cbb57292489cccc210c0a94b",
+    "scan-reference-changes.json": "ad6262a7d5e6c0af22896e06b88eff5a458046454aa4339440bfb74dbbf4b443"
+  },
+  "high_critical_records": 268,
+  "mechanisms": {
+    "no-privileged-acl-caller": 5,
+    "no-systemd-homed": 10,
+    "removed-gnu-gzip": 5,
+    "removed-infocmp": 18,
+    "removed-mount-and-namespace-tools": 180,
+    "removed-perl-runtime": 40,
+    "sqlite-fts5-reachability": 10
+  },
+  "new_deployment_sha256": "bc39b92050061678ade34dd73bd4bfd60ee965d8b1b7ace3f01c5eb1357288e4",
+  "prior_review_sha256": "42801e64b8bab78569989a0a8e845365eb9913eb98ba4646dbf25226a23a659d",
+  "prior_source_archive": "security/reports/2026-09-06-merchandising-final-arm64",
+  "rationale": "2026-09-07 controller-only reachability review: changed code aggregates typed in-memory serving and redemption records, evaluates finite known economics, and selects one typed candidate after existing compiler/policy. Tenant transactions, provider dispatch, approval hashes, native parsers, pinned model files, package locks and Compose isolation are unchanged. No new subprocess, shell, SQLite/FTS5, Perl, ACL, mount, compression executable or privileged operation is invoked by the changed runtime. Fresh exact-image privilege/component/storage probes and network-none learned encoder execution are retained. This is deployment-specific applicability, not repaired system packages or independent certification. Thirty-five records across seven advisories have reviewed References-only URL substitutions for Red Hat/AlmaLinux/Rocky errata; all other advisory fields and scanner contexts are unchanged. The exact before/after records are retained; no general reference-field exemption is added to the gate.",
+  "reviewed_on": "2026-09-07"
+}

@@ -1,0 +1,74 @@
+{
+  "engine_version": "simulator.2",
+  "results": [
+    {
+      "days": 30,
+      "result_hash": "sha256:d5f78250dbc876ab2e4a78ff1b8e3956d3c59647f06c20c4713b80e6b534d5d6",
+      "scenario_id": "acquisition_v1",
+      "seed": 42,
+      "totals": {
+        "ad_spend_minor": 2340000,
+        "cac_minor": 310,
+        "cogs_minor": 87822088,
+        "contribution_margin_rate": "0.4092",
+        "contribution_profit_minor": 65674203,
+        "conversion_rate": "0.1531",
+        "days": 30,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 160490630,
+        "new_customers": 7536,
+        "orders": 13459,
+        "search_attributed_purchases": 1732,
+        "sessions": 87909,
+        "units_sold": 13459,
+        "variable_fees_minor": 4654339
+      }
+    },
+    {
+      "days": 30,
+      "result_hash": "sha256:3bb020af8bd1006dd0d3203c345f03a6b73535e7fa799228e9ea171764e2909d",
+      "scenario_id": "excess_inventory_v1",
+      "seed": 42,
+      "totals": {
+        "ad_spend_minor": 2340000,
+        "cac_minor": 313,
+        "cogs_minor": 85046064,
+        "contribution_margin_rate": "0.4090",
+        "contribution_profit_minor": 63605948,
+        "conversion_rate": "0.1534",
+        "days": 30,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 155501657,
+        "new_customers": 7465,
+        "orders": 13489,
+        "search_attributed_purchases": 1742,
+        "sessions": 87909,
+        "units_sold": 13489,
+        "variable_fees_minor": 4509645
+      }
+    },
+    {
+      "days": 30,
+      "result_hash": "sha256:9b2714a96234f83948c40fbe363b1054458356c175a8cc2509809cd37ce05eda",
+      "scenario_id": "search_conversion_v1",
+      "seed": 42,
+      "totals": {
+        "ad_spend_minor": 2340000,
+        "cac_minor": 310,
+        "cogs_minor": 87822088,
+        "contribution_margin_rate": "0.4092",
+        "contribution_profit_minor": 65674203,
+        "conversion_rate": "0.1531",
+        "days": 30,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 160490630,
+        "new_customers": 7536,
+        "orders": 13459,
+        "search_attributed_purchases": 1732,
+        "sessions": 87909,
+        "units_sold": 13459,
+        "variable_fees_minor": 4654339
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "open-commerce-agent",
+  "version": "0.1.0-rc1",
+  "private": true,
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.17.1",
+  "scripts": {
+    "lint": "pnpm --filter @open-commerce/web lint && pnpm --filter @open-commerce/shopper lint && pnpm --filter @open-commerce/sdk-typescript lint",
+    "typecheck": "pnpm --filter @open-commerce/sdk-typescript typecheck && pnpm --filter @open-commerce/web typecheck && pnpm --filter @open-commerce/shopper typecheck",
+    "test": "pnpm --filter @open-commerce/sdk-typescript test && pnpm --filter @open-commerce/web test && pnpm --filter @open-commerce/shopper test",
+    "test:e2e": "pnpm --filter @open-commerce/web test:e2e && pnpm --filter @open-commerce/shopper test:e2e"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@types/node": "22.13.4",
+    "eslint": "9.39.5",
+    "openapi-typescript": "7.13.0",
+    "prettier": "3.5.1",
+    "typescript": "5.7.3",
+    "typescript-eslint": "8.71.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss": "8.5.28",
+      "@redocly/openapi-core>js-yaml": "4.3.2"
+    },
+    "patchedDependencies": {
+      "braces@3.0.3": "infra/patches/braces@3.0.3.patch"
+    }
+  }
+}

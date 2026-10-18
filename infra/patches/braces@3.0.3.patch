@@ -1,0 +1,238 @@
+diff --git a/lib/compile.js b/lib/compile.js
+index dce69beb90ece5c3b0ca234a949418f9f34eedbc..e46d3f733af9e767f34e2a03aa84a1cfb1a30017 100644
+--- a/lib/compile.js
++++ b/lib/compile.js
+@@ -4,7 +4,10 @@ const fill = require('fill-range');
+ const utils = require('./utils');
+ 
+ const compile = (ast, options = {}) => {
+-  const walk = (node, parent = {}) => {
++  utils.validateOptions(options);
++  utils.validateAst(ast);
++  const walk = (node, parent = {}, depth = 0) => {
++    utils.checkDepth(depth);
+     const invalidBlock = utils.isInvalidBrace(parent);
+     const invalidNode = node.invalid === true && options.escapeInvalid === true;
+     const invalid = invalidBlock === true || invalidNode === true;
+@@ -47,7 +50,7 @@ const compile = (ast, options = {}) => {
+ 
+     if (node.nodes) {
+       for (const child of node.nodes) {
+-        output += walk(child, node);
++        output += walk(child, node, depth + 1);
+       }
+     }
+ 
+diff --git a/lib/expand.js b/lib/expand.js
+index 35b2c41d6afdb8f0197959e26079f266e48370d3..400adebc8549ccab139ad1b032b88705c3d74669 100644
+--- a/lib/expand.js
++++ b/lib/expand.js
+@@ -4,7 +4,8 @@ const fill = require('fill-range');
+ const stringify = require('./stringify');
+ const utils = require('./utils');
+ 
+-const append = (queue = '', stash = '', enclose = false) => {
++const append = (queue = '', stash = '', enclose = false, depth = 0) => {
++  utils.checkDepth(depth);
+   const result = [];
+ 
+   queue = [].concat(queue);
+@@ -18,12 +19,12 @@ const append = (queue = '', stash = '', enclose = false) => {
+   for (const item of queue) {
+     if (Array.isArray(item)) {
+       for (const value of item) {
+-        result.push(append(value, stash, enclose));
++        result.push(append(value, stash, enclose, depth + 1));
+       }
+     } else {
+       for (let ele of stash) {
+         if (enclose === true && typeof ele === 'string') ele = `{${ele}}`;
+-        result.push(Array.isArray(ele) ? append(item, ele, enclose) : item + ele);
++        result.push(Array.isArray(ele) ? append(item, ele, enclose, depth + 1) : item + ele);
+       }
+     }
+   }
+@@ -31,15 +32,20 @@ const append = (queue = '', stash = '', enclose = false) => {
+ };
+ 
+ const expand = (ast, options = {}) => {
++  utils.validateOptions(options);
++  utils.validateAst(ast);
+   const rangeLimit = options.rangeLimit === undefined ? 1000 : options.rangeLimit;
+ 
+-  const walk = (node, parent = {}) => {
++  const walk = (node, parent = {}, depth = 0) => {
++    utils.checkDepth(depth);
+     node.queue = [];
+ 
+     let p = parent;
+     let q = parent.queue;
++    let parentDepth = 0;
+ 
+     while (p.type !== 'brace' && p.type !== 'root' && p.parent) {
++      utils.checkDepth(++parentDepth);
+       p = p.parent;
+       q = p.queue;
+     }
+@@ -74,8 +80,10 @@ const expand = (ast, options = {}) => {
+     const enclose = utils.encloseBrace(node);
+     let queue = node.queue;
+     let block = node;
++    let blockDepth = 0;
+ 
+     while (block.type !== 'brace' && block.type !== 'root' && block.parent) {
++      utils.checkDepth(++blockDepth);
+       block = block.parent;
+       queue = block.queue;
+     }
+@@ -100,7 +108,7 @@ const expand = (ast, options = {}) => {
+       }
+ 
+       if (child.nodes) {
+-        walk(child, node);
++        walk(child, node, depth + 1);
+       }
+     }
+ 
+diff --git a/lib/parse.js b/lib/parse.js
+index 3a6988e629f52aee6609dc5ec290a5e9ff47cecb..cf745ff4ef3a6d184e87c06036c61d4cde064e88 100644
+--- a/lib/parse.js
++++ b/lib/parse.js
+@@ -1,6 +1,7 @@
+ 'use strict';
+ 
+ const stringify = require('./stringify');
++const utils = require('./utils');
+ 
+ /**
+  * Constants
+@@ -34,7 +35,8 @@ const parse = (input, options = {}) => {
+   }
+ 
+   const opts = options || {};
+-  const max = typeof opts.maxLength === 'number' ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
++  utils.validateOptions(opts);
++  const max = Number.isFinite(opts.maxLength) ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
+   if (input.length > max) {
+     throw new SyntaxError(`Input length (${input.length}), exceeds max characters (${max})`);
+   }
+@@ -143,6 +145,7 @@ const parse = (input, options = {}) => {
+      */
+ 
+     if (value === CHAR_LEFT_PARENTHESES) {
++      utils.checkDepth(stack.length + 1);
+       block = push({ type: 'paren', nodes: [] });
+       stack.push(block);
+       push({ type: 'text', value });
+@@ -195,6 +198,7 @@ const parse = (input, options = {}) => {
+      */
+ 
+     if (value === CHAR_LEFT_CURLY_BRACE) {
++      utils.checkDepth(stack.length + 1);
+       depth++;
+ 
+       const dollar = prev.value && prev.value.slice(-1) === '$' || block.dollar === true;
+diff --git a/lib/stringify.js b/lib/stringify.js
+index 8bcf872c31894f81a8c64d9202fd607e4fd7ea2b..488f402410007a35b479538975ec0bb56202ac79 100644
+--- a/lib/stringify.js
++++ b/lib/stringify.js
+@@ -3,7 +3,10 @@
+ const utils = require('./utils');
+ 
+ module.exports = (ast, options = {}) => {
+-  const stringify = (node, parent = {}) => {
++  utils.validateOptions(options);
++  utils.validateAst(ast);
++  const stringify = (node, parent = {}, depth = 0) => {
++    utils.checkDepth(depth);
+     const invalidBlock = options.escapeInvalid && utils.isInvalidBrace(parent);
+     const invalidNode = node.invalid === true && options.escapeInvalid === true;
+     let output = '';
+@@ -21,7 +24,7 @@ module.exports = (ast, options = {}) => {
+ 
+     if (node.nodes) {
+       for (const child of node.nodes) {
+-        output += stringify(child);
++        output += stringify(child, {}, depth + 1);
+       }
+     }
+     return output;
+diff --git a/lib/utils.js b/lib/utils.js
+index d19311fe044ad5157624077670dc297e8b53da49..d2da202788da9a19e34622bf0e67a49b58122894 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -1,5 +1,58 @@
+ 'use strict';
+ 
++// Local security patch: bound recursive walkers independently of caller options.
++exports.checkDepth = depth => {
++  if (depth > 128) {
++    throw new RangeError('braces nesting depth exceeds limit (128)');
++  }
++};
++
++exports.validateOptions = options => {
++  for (const name of ['step', 'rangeLimit', 'relaxZeros', 'shorthand', 'capture', 'wrap']) {
++    const value = options[name];
++    if (value != null && !['string', 'number', 'boolean'].includes(typeof value)) {
++      throw new TypeError(`braces option ${name} must be a primitive`);
++    }
++  }
++};
++
++// Only child edges are walked: ordinary parser ASTs contain parent/prev backreferences.
++exports.validateAst = ast => {
++  const pending = [{ node: ast, depth: 0 }];
++  const seen = new Set();
++  while (pending.length) {
++    const { node, depth } = pending.pop();
++    exports.checkDepth(depth);
++    if (!node || typeof node !== 'object' || Array.isArray(node)) {
++      throw new TypeError('braces AST nodes must be objects');
++    }
++    if (seen.has(node)) {
++      throw new RangeError('braces AST must be an acyclic tree');
++    }
++    seen.add(node);
++    if (seen.size > 20000) {
++      throw new RangeError('braces AST traversal exceeds limit (20000)');
++    }
++    if (node.value !== undefined && typeof node.value !== 'string') {
++      throw new TypeError('braces AST values must be strings');
++    }
++    for (const name of ['ranges', 'commas']) {
++      if (node[name] !== undefined && typeof node[name] !== 'number') {
++        throw new TypeError(`braces AST ${name} must be numeric`);
++      }
++    }
++    if (node.nodes !== undefined) {
++      if (!Array.isArray(node.nodes)) {
++        throw new TypeError('braces AST children must be an array');
++      }
++      if (node.nodes.length > 20000 - seen.size - pending.length) {
++        throw new RangeError('braces AST traversal exceeds limit (20000)');
++      }
++      for (const child of node.nodes) pending.push({ node: child, depth: depth + 1 });
++    }
++  }
++};
++
+ exports.isInteger = num => {
+   if (typeof num === 'number') {
+     return Number.isInteger(num);
+@@ -101,12 +154,13 @@ exports.reduce = nodes => nodes.reduce((acc, node) => {
+ exports.flatten = (...args) => {
+   const result = [];
+ 
+-  const flat = arr => {
++  const flat = (arr, depth = 0) => {
++    exports.checkDepth(depth);
+     for (let i = 0; i < arr.length; i++) {
+       const ele = arr[i];
+ 
+       if (Array.isArray(ele)) {
+-        flat(ele);
++        flat(ele, depth + 1);
+         continue;
+       }
+ 

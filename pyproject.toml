@@ -1,0 +1,64 @@
+[project]
+name = "open-commerce-agent"
+version = "0.1.0rc1"
+description = "Open-source autonomous commerce optimization runtime foundation."
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "alembic==1.14.1",
+    "asyncpg==0.30.0",
+    "fastapi==0.141.1",
+    "greenlet==3.5.5",
+    "httpx==0.28.1",
+    "mypy==1.15.0",
+    "open-commerce-backend",
+    "pytest==9.0.3",
+    "pytest-asyncio==1.4.0",
+    "qdrant-client==1.19.0",
+    "redis==5.2.1",
+    "ruff==0.9.7",
+    "setuptools==83.0.0",
+    "sqlalchemy==2.0.38",
+    "structlog==25.1.0",
+    "uvicorn[standard]==0.34.0",
+    "wheel==0.46.2",
+]
+
+[tool.uv.workspace]
+members = ["packages/backend"]
+
+[tool.uv.sources]
+open-commerce-backend = { workspace = true }
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["packages/backend/src", "packages/backend/tests", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "RUF"]
+ignore = ["B008"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+mypy_path = ["packages/backend/src"]
+packages = ["open_commerce"]
+
+[[tool.mypy.overrides]]
+module = ["onnxruntime.*", "tokenizers.*", "sklearn.*", "authlib.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+pythonpath = [".", "packages/backend/src"]
+testpaths = ["packages/backend/tests", "tests"]
+markers = [
+    "integration: requires local infrastructure services",
+    "fault: explicitly stops and restarts services in a named disposable Compose stack",
+]

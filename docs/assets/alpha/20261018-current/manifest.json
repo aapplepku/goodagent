@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic_fixture_screenshots",
+  "implementation_source_tree_sha256": "c9e090dbc1fc54721d12b0876cccf0ca73bcb339d4df6ab2c7453fa532c7a50d",
+  "source_inventory_sha256": "d6f0b739c9c65f6f881d9d94b4418f9820ecf92bbbc282cbf2346e6dc3483f60",
+  "source_file_count": 1802,
+  "source_unchanged_during_run": true,
+  "capture_window_utc": {
+    "started": "2026-10-18T11:59:22.716892+00:00",
+    "finished": "2026-10-18T12:00:56.764425+00:00"
+  },
+  "source_test": "apps/web/e2e/self-service.spec.ts",
+  "source_test_sha256": "08a660931c14570c9c7f7fcc5c9f1397dbb18a79ca1c6571a1771ecd48118df8",
+  "fixture": {
+    "store_name": "Trail & Table",
+    "products": 2,
+    "variants": 3,
+    "synthetic_prices_and_stock": true,
+    "product_images_in_selected_scenes": false,
+    "image_delivery_markers_attached_after_selected_scenes": true,
+    "model_provider": "deterministic",
+    "real_model_calls": 0,
+    "real_payments": false
+  },
+  "capture": {
+    "browser": "Playwright Chromium; exact browser build not captured",
+    "pixel_edits": false,
+    "masks_applied_to_selected_frames": false,
+    "private_traces_included": false,
+    "visual_review": "Assistant inspected all four original frames for credentials, legibility, clipping and truthful scene descriptions",
+    "publication_approved": false,
+    "release_qualified": false
+  },
+  "images": [
+    {
+      "path": "docs/assets/alpha/20261018-current/catalog-review-resumed-1440x1000.png",
+      "scene": "catalog-review-resumed",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "785fd472aff7009f3d0b37b78a68b34f3fb535557cd7d35642ccbab0ad59ec82"
+    },
+    {
+      "path": "docs/assets/alpha/20261018-current/catalog-review-resumed-390x844.png",
+      "scene": "catalog-review-resumed",
+      "width": 390,
+      "height": 844,
+      "sha256": "34d4c107fe575ddf46d3afe807d651bb183b14b1f9ed6900c139659565f18de8"
+    },
+    {
+      "path": "docs/assets/alpha/20261018-current/private-preview-1440x1000.png",
+      "scene": "private-preview-basic-result",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "3a5483f5cb72b6ffbde708cb8a689663a238233f267efb7b597fe99c5f35a54b"
+    },
+    {
+      "path": "docs/assets/alpha/20261018-current/private-preview-390x844.png",
+      "scene": "private-preview-basic-result",
+      "width": 390,
+      "height": 844,
+      "sha256": "70441c11964b199b58cc135506dfdadb2a6e699debe6216ae29ee43ae57b0e11"
+    }
+  ]
+}

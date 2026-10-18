@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic_fixture_screenshots",
+  "implementation_source_tree_sha256": "a66b9d2f85dfa2615a5c8ca7865f02eb5c04e030d9d7b5632388458eef402e52",
+  "capture_window_utc": {
+    "started": "2026-10-18T01:16:19.684457+00:00",
+    "finished": "2026-10-18T01:17:02.733258+00:00"
+  },
+  "source_test": "apps/web/e2e/self-service.spec.ts",
+  "fixture": {
+    "store_name": "Trail & Table",
+    "products": 2,
+    "variants": 3,
+    "synthetic_prices_and_stock": true,
+    "product_images": false,
+    "model_provider": "deterministic",
+    "real_model_calls": 0,
+    "real_payments": false
+  },
+  "capture": {
+    "browser": "Playwright Chromium; exact browser build not captured",
+    "pixel_edits": false,
+    "private_traces_included": false,
+    "visual_review": "Assistant inspected each selected desktop/mobile frame for content, legibility and overlap",
+    "publication_approved": false,
+    "release_qualified": false
+  },
+  "images": [
+    {
+      "path": "docs/assets/alpha/owner-products-desktop.png",
+      "scene": "catalog-review-resumed",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "f091efd4e714420935c06ceafdf7195b453d08fcb04f37d3da4dd822b759897e"
+    },
+    {
+      "path": "docs/assets/alpha/owner-products-mobile.png",
+      "scene": "catalog-review-resumed",
+      "width": 390,
+      "height": 844,
+      "sha256": "4f7a709d3920e8cf6e74bd4a6998e6530bcbed9cd4afbbf729e1007038df52d6"
+    },
+    {
+      "path": "docs/assets/alpha/shopper-results-desktop.png",
+      "scene": "private-preview",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "5bc717aa2c851183c785d32acdabc810141dc160d245b82be6e6198c94600a87"
+    },
+    {
+      "path": "docs/assets/alpha/shopper-results-mobile.png",
+      "scene": "private-preview",
+      "width": 390,
+      "height": 844,
+      "sha256": "bee5b0db8174a7b959d3d21a6db2221177690198b67c122be024a648d50e7c6e"
+    }
+  ]
+}

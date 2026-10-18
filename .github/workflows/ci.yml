@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  authorization:
+    name: Alpha DCO
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out trusted base policy
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.event.repository.default_branch }}
+          path: trusted-policy
+          persist-credentials: false
+      - name: Fetch contribution history as data only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: contribution-history
+          fetch-depth: 0
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      - name: Verify contributions including an initial snapshot
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          BASE_SHA="$PR_BASE"
+          if [ -z "$BASE_SHA" ]; then
+            # A previous push is not proof that its history passed DCO.
+            python3 -I trusted-policy/scripts/check_dco.py --repository contribution-history --all --head "$HEAD_SHA"
+            exit 0
+          fi
+          python3 -I trusted-policy/scripts/check_dco.py --repository contribution-history --base "$BASE_SHA" --head "$HEAD_SHA"
+  qualification:
+    needs: authorization
+    uses: ./.github/workflows/qualification.yml
+    with:
+      full-benchmark: true

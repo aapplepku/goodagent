@@ -1,0 +1,38 @@
+{
+  "version": "7.4.11",
+  "license": "RSAL-2.0 OR SSPL-1.0",
+  "base_image": "redis:7-alpine@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499",
+  "source": {
+    "repository": "https://github.com/redis/redis",
+    "tag": "7.4.11",
+    "commit": "aaf0ce63b3239f4b51f86ca1da8711b055721993",
+    "archive_url": "https://github.com/redis/redis/archive/refs/tags/7.4.11.tar.gz",
+    "archive_sha256": "e973da69febfea096ab94690b44bf976482788a1b5e070df373b4f27697d57d4",
+    "raw_file_base_url": "https://raw.githubusercontent.com/redis/redis/aaf0ce63b3239f4b51f86ca1da8711b055721993/"
+  },
+  "upstream_path_overrides": {
+    "deps/hiredis/COPYING.txt": "deps/hiredis/COPYING",
+    "deps/jemalloc/COPYING.txt": "deps/jemalloc/COPYING",
+    "deps/linenoise/linenoise.h.txt": "deps/linenoise/linenoise.h",
+    "deps/lua/src/lua_bit.c.txt": "deps/lua/src/lua_bit.c",
+    "deps/lua/src/lua_cjson.c.txt": "deps/lua/src/lua_cjson.c",
+    "deps/lua/src/lua_cmsgpack.c.txt": "deps/lua/src/lua_cmsgpack.c",
+    "deps/lua/src/lua_struct.c.txt": "deps/lua/src/lua_struct.c",
+    "src/version.h.txt": "src/version.h"
+  },
+  "files": {
+    "LICENSE.txt": "abffee3703161c0a6a0cd7f635b2c1ebb3b81bd199e9d18ea89652d678ae4287",
+    "deps/fpconv/LICENSE.txt": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+    "deps/hdr_histogram/COPYING.txt": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+    "deps/hdr_histogram/LICENSE.txt": "c124afa369aae960fa33f6944c82e161e482f2e998d6f07b37ae2c018f3c6c69",
+    "deps/hiredis/COPYING.txt": "dca05ce8fc87a8261783b4aed0deef8becc9350b6aa770bc714d0c1833b896eb",
+    "deps/jemalloc/COPYING.txt": "94aa2caa98c25d942f58b956c71dba6a99ff98fc3a31cbc669fe2a4cd0268b53",
+    "deps/linenoise/linenoise.h.txt": "a4e9aed50c78edf16fb3d7203e519c7ca104bd207f5131812d70724ecc26270b",
+    "deps/lua/COPYRIGHT": "ee5e3e82af1e1b543c4f216e399d7c8cfee797711913f349e385101c4ae60a79",
+    "deps/lua/src/lua_bit.c.txt": "78e10247b33d0db026cbe906d19b4bd3636840f195a63e93ce08c5dee9fb578a",
+    "deps/lua/src/lua_cjson.c.txt": "20bcf34ee652800d41d769847022315d2e04beffb5c3070b8321f0e7f69d0054",
+    "deps/lua/src/lua_cmsgpack.c.txt": "0d2fd82fb47fc247a0e6f0a287f5429e81b7eb6735665e8d851bfb109961640d",
+    "deps/lua/src/lua_struct.c.txt": "57bc18e91a747a846ba76c070d9213452283c0ed9e652861ee7fabf87d590878",
+    "src/version.h.txt": "9fa5ed92da961ec8030876760e89881670ebd2370add4f77ae582eaabb103a24"
+  }
+}

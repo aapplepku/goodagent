@@ -1,0 +1,23 @@
+{
+  "name": "Acquire 200 new customers",
+  "scenario_id": "acquisition_v1",
+  "objective_metric": "new_customers",
+  "target_value": "200",
+  "seed": 42,
+  "objective_direction": "reach",
+  "horizon_days": 30,
+  "budget": {
+    "amount_minor": 1000000,
+    "currency": "USD"
+  },
+  "daily_budget": {
+    "amount_minor": 25000,
+    "currency": "USD"
+  },
+  "default_mode": "approval_required",
+  "allowed_action_types": [
+    "create_discount",
+    "set_campaign_budget",
+    "set_search_boost"
+  ]
+}

@@ -1,0 +1,73 @@
+diff --git a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,5 +1,5 @@
+ [project]
+ name = "open-commerce-agent"
+-version = "0.1.0rc1"
++version = "0.1.0"
+ description = "Open-source autonomous commerce optimization runtime foundation."
+ requires-python = ">=3.12"
+diff --git a/packages/backend/pyproject.toml b/packages/backend/pyproject.toml
+--- a/packages/backend/pyproject.toml
++++ b/packages/backend/pyproject.toml
+@@ -1,5 +1,5 @@
+ [project]
+ name = "open-commerce-backend"
+-version = "0.1.0rc1"
++version = "0.1.0"
+ description = "Backend foundation for the Open Commerce Agent runtime."
+ requires-python = ">=3.12"
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -1,5 +1,5 @@
+ {
+   "name": "open-commerce-agent",
+-  "version": "0.1.0-rc1",
++  "version": "0.1.0",
+   "private": true,
+   "license": "Apache-2.0",
+diff --git a/apps/web/package.json b/apps/web/package.json
+--- a/apps/web/package.json
++++ b/apps/web/package.json
+@@ -1,5 +1,5 @@
+ {
+   "name": "@open-commerce/web",
+-  "version": "0.1.0-rc1",
++  "version": "0.1.0",
+   "private": true,
+   "license": "Apache-2.0",
+diff --git a/packages/sdk-typescript/package.json b/packages/sdk-typescript/package.json
+--- a/packages/sdk-typescript/package.json
++++ b/packages/sdk-typescript/package.json
+@@ -1,5 +1,5 @@
+ {
+   "name": "@open-commerce/sdk-typescript",
+-  "version": "0.1.0-rc1",
++  "version": "0.1.0",
+   "private": true,
+   "license": "Apache-2.0",
+diff --git a/packages/backend/src/open_commerce/__init__.py b/packages/backend/src/open_commerce/__init__.py
+--- a/packages/backend/src/open_commerce/__init__.py
++++ b/packages/backend/src/open_commerce/__init__.py
+@@ -1,3 +1,3 @@
+ """Open Commerce Agent backend package."""
+
+-__version__ = "0.1.0rc1"
++__version__ = "0.1.0"
+diff --git a/uv.lock b/uv.lock
+--- a/uv.lock
++++ b/uv.lock
+@@ -622,4 +622,4 @@
+ [[package]]
+ name = "open-commerce-agent"
+-version = "0.1.0rc1"
++version = "0.1.0"
+ source = { virtual = "." }
+@@ -667,4 +667,4 @@
+ [[package]]
+ name = "open-commerce-backend"
+-version = "0.1.0rc1"
++version = "0.1.0"
+ source = { editable = "packages/backend" }

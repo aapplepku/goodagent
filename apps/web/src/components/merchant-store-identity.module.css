@@ -1,0 +1,23 @@
+.identity,
+.compact {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+.identity strong,
+.compact strong {
+  font-size: 14px;
+  line-height: 18px;
+}
+.identity span,
+.compact span {
+  font-size: 12px;
+  line-height: 16px;
+}
+.compact > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

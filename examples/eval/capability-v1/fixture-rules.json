@@ -1,0 +1,17 @@
+{
+  "version": "planning-capability-v1-fixtures-1",
+  "registered_before_case_execution": true,
+  "registered_on": "2026-09-06",
+  "thin_margin_catalog": {"cost_fraction_of_current_price": "0.90", "history": "original observed history retained; cost change is current evidence"},
+  "low_inventory_catalog": {"units_per_variant": 3, "available": true, "low_stock": true, "history": "original history retained; current stock contraction is explicit fixture state"},
+  "scheduled_campaign_decay": {"evaluation_day": 2, "baseline_quality_multiplier": "0.50", "apply_to": "all campaigns identically in all arms", "planner_access": "observed outcomes only, never schedule or quality coefficient"},
+  "pending_intervention_window": {"prior_action": "first policy-eligible search boost from deterministic prior planning", "prior_approval": "exact operator approval through durable executor", "warmup_days": 0},
+  "prior_intervention_followed_by_adverse_observations": {"prior_action": "same policy-eligible search boost", "after_execution_cost_fraction": "0.90", "warmup_days": 4, "measurement": "real sampled window via existing worker, not a fabricated outcome", "causal_claim": false},
+  "shared_prior_rule": "Every arm, including no new intervention, receives the same actual prior action and exogenous fixture conditions. Prior actions are excluded from evaluation-period action counts and reported separately. Setup failure is retained, not resampled.",
+  "warmup_clarification": "Evaluation lasts 10 days after any preregistered warmup. Existing goal starts before warmup and is explicitly revised to end at warmup+10 days. Count target equals already-observed current count plus ceiling(observed prior-seven-day daily mean * 10 * factor). Report incremental objective outcomes and target separately from the goal cumulative total. No future outcomes determine targets.",
+  "warmup_budget_rule": "Original total/daily caps apply throughout warmup and evaluation. Prior spend/reservations are retained, not reset. Starting available balances must match across arms.",
+  "warmup_review_rule": "A sampled adverse prior may pause its fixture goal. The evaluation operator explicitly reviews and activates the revised goal once at evaluation start. Any subsequent measurement pause remains authoritative; no evaluation auto-resume.",
+  "infeasible_rule": "Cumulative goal target equals current observed objective value plus current physical stock plus one. No feasibility is inferred from held-out demand.",
+  "setup_checks": ["identical observable starting world and budgets across arms", "discount ceiling zero and action absent in no-discount case", "all declared low-stock/thin-margin fixture values applied", "prior receipt reconciled", "pending prior window actually pending", "adverse prior measurement actually breached or explicitly reported uninformative", "day-2 campaign coefficient schedule applied identically without exposing it to planner"],
+  "uninformative_rule": "Report fixtures whose observed evidence does not test the intended condition as uninformative; never resample to force a favorable comparison. Numerical recipe is frozen before development or held-out case calls. Standalone integration smoke attempts are not these evaluation cases."
+}

@@ -1,0 +1,263 @@
+{
+  "archive_sha256": "1f1426a654bad7c31054e279ff179ec7bd1ed60c38d9917df20545e923339e69",
+  "files": {
+    "filelock@3.32.5/filelock-3.32.5.dist-info/licenses/LICENSE": "608c89d5060ae9921adccf3236695bc654a9946e12323ef6c021dfa04e294d48",
+    "fsspec@2026.7.0/fsspec-2026.7.0.dist-info/licenses/LICENSE": "2dc35496ce53a7307915c008a844aad53e772b49b34cdd00445067691407ec94",
+    "hf-xet@1.6.0/hf_xet-1.6.0.dist-info/licenses/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "huggingface-hub@1.30.0/huggingface_hub-1.30.0.dist-info/licenses/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "model/model-card.md": "7dfc82496ec33f906b5b0d6750c1e2397da6530c74d1ae3568c55bc2739125e7",
+    "onnxruntime@1.29.0/onnxruntime/LICENSE": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+    "onnxruntime@1.29.0/onnxruntime/ThirdPartyNotices.txt": "53d3fa5821ac016ac24dd35775c996efec86e2ae0841e9a3a5e146c0ae916845",
+    "tqdm@4.70.0/tqdm-4.70.0.dist-info/licenses/LICENCE": "fcff87c3a47ce8028a8512aa182d4fcf0ad1c90544ee75cf9b343684cac194de",
+    "upstream/google-flatbuffers/7e163021e59cca4f8e1e35a7c828b5c6b7915953/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "upstream/huggingface-tokenizers/88a4498ad4ea1a9487b0a9b0ff881383fd5a06a3/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "records": [
+    {
+      "classifiers": [
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: POSIX :: Linux",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: MacOS",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Mathematics",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Software Development",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14"
+      ],
+      "installed_notices": {
+        "onnxruntime@1.29.0/onnxruntime/LICENSE": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+        "onnxruntime@1.29.0/onnxruntime/ThirdPartyNotices.txt": "53d3fa5821ac016ac24dd35775c996efec86e2ae0841e9a3a5e146c0ae916845"
+      },
+      "license_expression": "MIT License",
+      "package": "onnxruntime",
+      "version": "1.29.0"
+    },
+    {
+      "classifiers": [
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
+        "Programming Language :: Python :: 3 :: Only",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence"
+      ],
+      "installed_notices": {},
+      "license_expression": null,
+      "package": "tokenizers",
+      "version": "0.23.2"
+    },
+    {
+      "classifiers": [
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence"
+      ],
+      "installed_notices": {
+        "huggingface-hub@1.30.0/huggingface_hub-1.30.0.dist-info/licenses/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "license_expression": "Apache-2.0",
+      "package": "huggingface-hub",
+      "version": "1.30.0"
+    },
+    {
+      "classifiers": [
+        "Development Status :: 5 - Production/Stable",
+        "License :: OSI Approved :: Apache Software License",
+        "Programming Language :: Rust",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
+        "Programming Language :: Python :: Free Threading",
+        "Programming Language :: Python :: Free Threading :: 2 - Beta",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence"
+      ],
+      "installed_notices": {
+        "hf-xet@1.6.0/hf_xet-1.6.0.dist-info/licenses/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "license_expression": "Apache-2.0",
+      "package": "hf-xet",
+      "version": "1.6.0"
+    },
+    {
+      "classifiers": [
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
+        "Topic :: Software Development :: Libraries :: Python Modules"
+      ],
+      "installed_notices": {},
+      "license_expression": "Apache 2.0",
+      "package": "flatbuffers",
+      "version": "25.12.19"
+    },
+    {
+      "classifiers": [
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14"
+      ],
+      "installed_notices": {
+        "fsspec@2026.7.0/fsspec-2026.7.0.dist-info/licenses/LICENSE": "2dc35496ce53a7307915c008a844aad53e772b49b34cdd00445067691407ec94"
+      },
+      "license_expression": "BSD-3-Clause",
+      "package": "fsspec",
+      "version": "2026.7.0"
+    },
+    {
+      "classifiers": [
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
+        "Programming Language :: Python :: 3.15",
+        "Topic :: Internet",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: System"
+      ],
+      "installed_notices": {
+        "filelock@3.32.5/filelock-3.32.5.dist-info/licenses/LICENSE": "608c89d5060ae9921adccf3236695bc654a9946e12323ef6c021dfa04e294d48"
+      },
+      "license_expression": "MIT",
+      "package": "filelock",
+      "version": "3.32.5"
+    },
+    {
+      "classifiers": [
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Environment :: MacOS X",
+        "Environment :: Other Environment",
+        "Environment :: Win32 (MS Windows)",
+        "Environment :: X11 Applications",
+        "Framework :: IPython",
+        "Framework :: Jupyter",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Intended Audience :: End Users/Desktop",
+        "Intended Audience :: Other Audience",
+        "Intended Audience :: System Administrators",
+        "Operating System :: MacOS",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft",
+        "Operating System :: Microsoft :: MS-DOS",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: POSIX",
+        "Operating System :: POSIX :: BSD",
+        "Operating System :: POSIX :: BSD :: FreeBSD",
+        "Operating System :: POSIX :: Linux",
+        "Operating System :: POSIX :: SunOS/Solaris",
+        "Operating System :: Unix",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: Implementation",
+        "Programming Language :: Python :: Implementation :: IronPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Programming Language :: Unix Shell",
+        "Topic :: Desktop Environment",
+        "Topic :: Education :: Computer Aided Instruction (CAI)",
+        "Topic :: Education :: Testing",
+        "Topic :: Office/Business",
+        "Topic :: Other/Nonlisted Topic",
+        "Topic :: Software Development :: Build Tools",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: Pre-processors",
+        "Topic :: Software Development :: User Interfaces",
+        "Topic :: System :: Installation/Setup",
+        "Topic :: System :: Logging",
+        "Topic :: System :: Monitoring",
+        "Topic :: System :: Shells",
+        "Topic :: Terminals",
+        "Topic :: Utilities"
+      ],
+      "installed_notices": {
+        "tqdm@4.70.0/tqdm-4.70.0.dist-info/licenses/LICENCE": "fcff87c3a47ce8028a8512aa182d4fcf0ad1c90544ee75cf9b343684cac194de"
+      },
+      "license_expression": "MPL-2.0 AND MIT",
+      "package": "tqdm",
+      "version": "4.70.0"
+    },
+    {
+      "commit": "88a4498ad4ea1a9487b0a9b0ff881383fd5a06a3",
+      "file": "upstream/huggingface-tokenizers/88a4498ad4ea1a9487b0a9b0ff881383fd5a06a3/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "tag": "v0.23.2",
+      "upstream_repository": "huggingface/tokenizers",
+      "url": "https://raw.githubusercontent.com/huggingface/tokenizers/88a4498ad4ea1a9487b0a9b0ff881383fd5a06a3/LICENSE"
+    },
+    {
+      "commit": "7e163021e59cca4f8e1e35a7c828b5c6b7915953",
+      "file": "upstream/google-flatbuffers/7e163021e59cca4f8e1e35a7c828b5c6b7915953/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "tag": "v25.12.19",
+      "upstream_repository": "google/flatbuffers",
+      "url": "https://raw.githubusercontent.com/google/flatbuffers/7e163021e59cca4f8e1e35a7c828b5c6b7915953/LICENSE"
+    },
+    {
+      "license_basis": "Apache-2.0 declaration in pinned model card; no separate LICENSE in model repository",
+      "model_card_url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/raw/dfa9feb5cece5be2cc8fc23a3cf1f32473a9d56f/README.md",
+      "revision": "dfa9feb5cece5be2cc8fc23a3cf1f32473a9d56f",
+      "sha256": "7dfc82496ec33f906b5b0d6750c1e2397da6530c74d1ae3568c55bc2739125e7"
+    }
+  ],
+  "scope": "Optional learned encoder, installed Python package notices and supplemental upstream licenses. Native transitive inventories are scanner-limited, not a redistribution certification."
+}

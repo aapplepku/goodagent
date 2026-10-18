@@ -1,0 +1,352 @@
+[
+  {
+    "service": "api",
+    "package": "gzip",
+    "advisory": "CVE-2026-41992",
+    "old_sha256": "b00359c1b66052d38a76490fb128397c90cdd6385d266ff685a1bcf01deadf6f",
+    "new_sha256": "01a6a1c8b7ab4b7d6aa667fb9351295b04b8371613d6671a6e6d8a39eb1cdb98",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "api",
+    "package": "libacl1",
+    "advisory": "CVE-2026-54369",
+    "old_sha256": "6870fdee9294641c776415c051839053e6bba4a906c48eebb8d2669ca6a9d96b",
+    "new_sha256": "d664fc41302822bddeff21d71c079098330010efdb17dedbf5a401957884feb0",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "api",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11822",
+    "old_sha256": "d768f5f9adaff3be10baef5e4dcda294b8aacec2cb1e5639a7b3af40ed6bdfc7",
+    "new_sha256": "9a50d04bf3ecf895e0437bb6315af3a45a0d0125420084541e74d5a255d3e082",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "api",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11824",
+    "old_sha256": "3c8db3fa2082c30c5ab8ef8a77d20524e46f89208054349fd91b14d1cd92931b",
+    "new_sha256": "af5503c5043c9e1c6c21343f93d10bd02e20e8b374709fce12868548dfe7d273",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "api",
+    "package": "perl-base",
+    "advisory": "CVE-2026-42496",
+    "old_sha256": "07ff5357bf89a3eb4ccbfb9d9e682a20e346f963a1dc47c7104f50a5854943fa",
+    "new_sha256": "b2ae3e30ecb3b49a5d181c45248e001381d4923fa8a7885771bf67a3955eb6a9",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "api",
+    "package": "perl-base",
+    "advisory": "CVE-2026-48962",
+    "old_sha256": "7843f759b08907e6606f93d2f21ecfb167c025d8981313e9ca30942000dc1460",
+    "new_sha256": "9bf378871dfb9b85c6b657e314313984b157208bf04544311c4c8cd7cbc0aa1c",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "api",
+    "package": "perl-base",
+    "advisory": "CVE-2026-9538",
+    "old_sha256": "e2a66fae2f14e07402f58393e470c2f5194b345894cf5b59aadb5f95b393af1d",
+    "new_sha256": "747a3c0f218e27c5a36f189f97f24b0f2b48aced728fa80a6b147ff54a91786d",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "migrate",
+    "package": "gzip",
+    "advisory": "CVE-2026-41992",
+    "old_sha256": "1ee15cbc26fda0d03305f06698970c29059141b4ee94ba71a2529c6663896aac",
+    "new_sha256": "25a769fc9dc54dc301b860575aebfacfbe43a428ecc24f6b7edc4925551102d2",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "migrate",
+    "package": "libacl1",
+    "advisory": "CVE-2026-54369",
+    "old_sha256": "11d7bc06357237fcefbeafed7564227bb2483c443f1bb8be7b9dd216f6d3e745",
+    "new_sha256": "34e7386e21f75d62a9421b7bf614d93054e20f4bd35dce95b8f3fa9fb75c0bc1",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "migrate",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11822",
+    "old_sha256": "273cc1f44f3ef4a0e3c124096596807a075e4cf9609f131f74b637bbae8d41b1",
+    "new_sha256": "5345280aebd416bff1d725f0690cb83de14c6609933f83217be817fc31befcc9",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "migrate",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11824",
+    "old_sha256": "225c03ba2bc7dd3f8ef71580db8c63637ed2696743d0f99a73df9b95feaa78e1",
+    "new_sha256": "e0d0e9954226162f83ccc648ed133dbc235c1d7e5fd582072a0618d8d4d4662e",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "migrate",
+    "package": "perl-base",
+    "advisory": "CVE-2026-42496",
+    "old_sha256": "99e9c73dc1e37de737cd75342d6f16cf3767bea4e245026e26d08e5fc33d1538",
+    "new_sha256": "ff61b9a9b63c1604b4d50564ce5a155c4a68f9baa78555de8a242271a023cee9",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "migrate",
+    "package": "perl-base",
+    "advisory": "CVE-2026-48962",
+    "old_sha256": "d2787c6e856af0832dd92e338a9596806486ee7ed5d92c7c0a67e4723a27e9f8",
+    "new_sha256": "543cf389ffc73e7d6550fc2c8e7fbf4591f44b88f932c7d71a536131efa33b76",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "migrate",
+    "package": "perl-base",
+    "advisory": "CVE-2026-9538",
+    "old_sha256": "b977416ad0484d52bf74c98398c4b7bad631e8174948806cb015cf8496084d24",
+    "new_sha256": "2247b6029ba8e9cac0289138de62202050bdc3bbcbae84740f7057470620555f",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "qdrant",
+    "package": "gzip",
+    "advisory": "CVE-2026-41992",
+    "old_sha256": "90c7a20acb987cc9748983f33d4dcf0c74a4fa8c5cf52341a281a7bba41acd02",
+    "new_sha256": "cc0fe15041cdb2e1958cf4dd2a5796cdb737bd5129968cfd5926b384caf99bb4",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "qdrant",
+    "package": "libacl1",
+    "advisory": "CVE-2026-54369",
+    "old_sha256": "cb722d3da6c907b8f560684f921b01c1099c48be5a25897b0ff8d5ab38e4cff0",
+    "new_sha256": "3a2ffe10679752b43e8e69cfb986da441f955c59f849f4de4fca5e7d6c91729e",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "qdrant",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11822",
+    "old_sha256": "4b3fad85f57bfbe458a41a5b7470082b6d49b6a2ceb2067fd1bd9c4377e1cad8",
+    "new_sha256": "e1b3894a2f900e0c8be71049c15b73fdee7730e5e87479b278d68f8c2bf66229",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "qdrant",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11824",
+    "old_sha256": "15ec1899940ff90382fe73efa877ce1010e259b9d65d7d59086b5c8147631580",
+    "new_sha256": "a5bbc3fa96c2bab962d622b2fe08a1a88a5cadabf6099aed0462a504015fee96",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "qdrant",
+    "package": "perl-base",
+    "advisory": "CVE-2026-42496",
+    "old_sha256": "7c6165f0b71a0c37b894b8fce94823390bde95b44237965a4e444d18b121b344",
+    "new_sha256": "3439cf53008d6b10db6c78884b4a5a5d7c2c3f36503a25c34e6aaa7daad909b9",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "qdrant",
+    "package": "perl-base",
+    "advisory": "CVE-2026-48962",
+    "old_sha256": "b52840f7c2a36588b9dd150798f540d1ce437681bd3361ba4d7d7a32390da3b6",
+    "new_sha256": "6c3efb4aea1f113c442a4ad35397dd16796b74e4ef409ebf582259c6471bf10c",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "qdrant",
+    "package": "perl-base",
+    "advisory": "CVE-2026-9538",
+    "old_sha256": "1e70fe363197a9740f41a72f023277ae0342b0abe2bb456e99b86acb1806033a",
+    "new_sha256": "97ff7be058bf5f2e6b1d77af7738007cb3b61ffe0b01c4f2a1ae58d90c66fc2e",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "web",
+    "package": "gzip",
+    "advisory": "CVE-2026-41992",
+    "old_sha256": "c9d7db08ccd503cd6f3953ab66972c56ba29cf93b0a9b096cb175f062d4d21a7",
+    "new_sha256": "6b74ed5a45b0fd8cf3dbfd1938533fbbd447199ceca3feb440781e52bc4a10ce",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "web",
+    "package": "libacl1",
+    "advisory": "CVE-2026-54369",
+    "old_sha256": "c6e9c48eed16f5670c451119d21382f5fcd6380bcb0769b7cc7da0536076f296",
+    "new_sha256": "0b724b8f5cecde5e7cc2d3d1e2d8585e23067bbe5400eb0f273e1f8adaba4e8d",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "web",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11822",
+    "old_sha256": "3cfd963532c29606d2c77c1e636b5e7e737395685105de088306bb7c518db363",
+    "new_sha256": "10cf3ec388e7fa1d6d4cbdf579bdd921fc5d1b0357cfcdc2cf3ea385636d57ba",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "web",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11824",
+    "old_sha256": "b78ddfc3d06937623ee9a5ac10d98546f5343ceff1ca1a805bb8b6a9a1825623",
+    "new_sha256": "bf4dec8bb585039d8fe045a597ffb1032fa0c5621f44648a429854079646cff6",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "web",
+    "package": "perl-base",
+    "advisory": "CVE-2026-42496",
+    "old_sha256": "50b24f5242025418a107854e35679dfacd4a5bac00a8cea8c526c8454345f201",
+    "new_sha256": "3ee801aa84848bb49671e613e03b176277d577c484e3900675aa98eee815e85d",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "web",
+    "package": "perl-base",
+    "advisory": "CVE-2026-48962",
+    "old_sha256": "82fa582da059e25e13a34cf6c106aac183219a53ded9ba1bec9039d45a7a4902",
+    "new_sha256": "780b3746491c4d0d6cd496453d866a03c39133263754ff6d77018cb73db1a6e9",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "web",
+    "package": "perl-base",
+    "advisory": "CVE-2026-9538",
+    "old_sha256": "84e705db33a0ab8c25bb3f83c17cb938a266aa680c724c29b241d6d33552694e",
+    "new_sha256": "8b6e8e0f4d076ae6ff6bca922f2ee1f6284251a504702d2ebe9806712e0b9984",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "worker",
+    "package": "gzip",
+    "advisory": "CVE-2026-41992",
+    "old_sha256": "0895357f18d280fc97fe76fd50aef178770a5d0dca6242f96521751f471a42a3",
+    "new_sha256": "4bc6539c14340ece1579d2240e2ec9775eb112d94a0dde45648507ae527bc5f9",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "worker",
+    "package": "libacl1",
+    "advisory": "CVE-2026-54369",
+    "old_sha256": "e5a33e278c31837492db5f4c5c2e05c8975735353c66be4279ead3db647f1325",
+    "new_sha256": "ccfc07b574f737a38c8e50862a84b500a7da5f03b05774284592af8fcf77f516",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "worker",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11822",
+    "old_sha256": "e5121690ae08a55b6cc31d406a0435ce5879f6c22573c927874a5f7729aba8af",
+    "new_sha256": "b33d211e6606b8bcaa6f3caa455503a3a9f99f75351cd14e6ab637aeef24796b",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "worker",
+    "package": "libsqlite3-0",
+    "advisory": "CVE-2026-11824",
+    "old_sha256": "4f2a163bb38741352c8a1d61dad8f984cb5b6729bd81192894afde9ce7491dc5",
+    "new_sha256": "bf5485dd285a7049ff6f13299c8ea4b214e9ff81fa72c326f0ff262118f3938d",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "worker",
+    "package": "perl-base",
+    "advisory": "CVE-2026-42496",
+    "old_sha256": "fb974430e451a017d096aeb66955c8c021465916eff9c8778e20a590c01986d3",
+    "new_sha256": "39601e9ef390494eecf89725dfc449214221e05e840b7cd11693a5d906695771",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "worker",
+    "package": "perl-base",
+    "advisory": "CVE-2026-48962",
+    "old_sha256": "3af0eed262fdf2aef9aa5dfb60cee9c7bd899d51172a775de33b3eb177e712e4",
+    "new_sha256": "57e475a3fa0e6ec793f155e706f80a7d06fc8a111125330eb83433c2249d61ca",
+    "changed_fields": [
+      "References"
+    ]
+  },
+  {
+    "service": "worker",
+    "package": "perl-base",
+    "advisory": "CVE-2026-9538",
+    "old_sha256": "41af3e6cdca16fa61560ab01ecf9522f16825622c1827842433cddcf54f00d35",
+    "new_sha256": "fd495a114f993f632912ec2d49d19e0a0bb635651e04b8abd3113d6cf742f3e8",
+    "changed_fields": [
+      "References"
+    ]
+  }
+]

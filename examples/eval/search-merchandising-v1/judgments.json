@@ -1,0 +1,27 @@
+{
+  "version": "search-merchandising-v1",
+  "catalog_version": "merchandising-catalog-v1",
+  "positive_grade": 3,
+  "families": [
+    {"family": "hiking_boots", "exact": "waterproof hiking boots", "material": "leather hiking boots", "paraphrase": "footwear that keeps feet dry on rocky mountain walks", "use_intent": "ankle support and traction on wet trails"},
+    {"family": "running_shoes", "exact": "mesh running shoes", "material": "mesh running shoes", "paraphrase": "light breathable footwear for jogging on pavement", "use_intent": "comfortable shoes for dry road runs"},
+    {"family": "hiking_socks", "exact": "merino hiking socks", "material": "merino wool hiking socks", "paraphrase": "warm breathable layers for feet inside walking boots", "use_intent": "keep feet insulated on long hikes"},
+    {"family": "rain_jackets", "exact": "waterproof rain jackets", "material": "nylon rain jackets", "paraphrase": "outerwear that stops rain soaking my clothes", "use_intent": "a wearable shell for a rainy commute"},
+    {"family": "hiking_backpacks", "exact": "hiking backpacks", "material": "nylon hiking backpacks", "paraphrase": "a bag to carry supplies on a day in the mountains", "use_intent": "carry water and snacks on a walking trip"},
+    {"family": "camping_tents", "exact": "two person camping tents", "material": "polyester camping tents", "paraphrase": "portable shelter for two people sleeping outdoors", "use_intent": "stay dry overnight at a campsite"},
+    {"family": "sleeping_bags", "exact": "three season sleeping bags", "material": "polyester sleeping bags", "paraphrase": "an insulated wrap to sleep in on cold outdoor nights", "use_intent": "keep an adult warm while sleeping in a tent"},
+    {"family": "wall_chargers", "exact": "USB-C wall chargers", "material": "polycarbonate wall chargers", "paraphrase": "power adapter to charge a laptop from a wall socket", "use_intent": "supply 65 watts of USB-C power to a device"},
+    {"family": "charging_cables", "exact": "USB-C charging cables", "material": "braided nylon charging cables", "paraphrase": "a two meter cord connecting a USB-C adapter and laptop", "use_intent": "connect the catalog wall charger to a compatible device"},
+    {"family": "headphones", "exact": "wireless noise cancelling headphones", "material": "aluminum headphones", "paraphrase": "over ear audio that blocks surrounding chatter", "use_intent": "listen to music without train noise"},
+    {"family": "mugs", "exact": "ceramic mugs", "material": "ceramic mugs", "paraphrase": "a handled cup for hot coffee", "use_intent": "drink tea at my desk"},
+    {"family": "food_containers", "exact": "nesting food containers", "material": "polypropylene food containers", "paraphrase": "sealed boxes for packing lunch that fit inside one another", "use_intent": "store leftover meals without taking much cupboard space"}
+  ],
+  "no_result_queries": [
+    "industrial laser engraving machine",
+    "prescription contact lenses",
+    "electric violin with bow",
+    "replacement car transmission",
+    "fresh cut flower bouquet",
+    "refrigerated laboratory centrifuge"
+  ]
+}

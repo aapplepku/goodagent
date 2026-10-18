@@ -1,0 +1,75 @@
+title = "Open Commerce Agent secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Published Python release-signing fingerprint in exact Python image metadata fields"
+condition = "AND"
+regexTarget = "match"
+regexes = ['''^GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305"$''']
+paths = ['''^/data/(api|migrate|worker)\.(image-config|scan)\.json$''']
+
+[[rules.allowlists]]
+description = "Verified SHA-256 of the preserved stumpalo allocator source, not a credential"
+condition = "AND"
+regexTarget = "secret"
+regexes = ['''^28fb0ff2e44a9804145b583160e000119c949a7368d1d9e5649c0489d8a26bc7$''']
+paths = ['''(^|/)security/third-party/qdrant-1\.19\.1/manifest\.json$''']
+
+[[rules.allowlists]]
+description = "Verified public pinned MiniLM tokenizer SHA-256, not an access token"
+condition = "AND"
+regexTarget = "secret"
+regexes = ['''^be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037$''']
+paths = ['''(^|/)examples/eval/search-merchandising-v1/(development|held-out|post-fix-regression)\.json$''']
+
+[[rules.allowlists]]
+description = "Verified MiniLM tokenizer file checksum in the exact offline runtime verifier field"
+condition = "AND"
+regexTarget = "match"
+regexes = ['''^tokenizer\.json": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037"$''']
+paths = ['''^(?:/source/|/reports/source/)?scripts/verify_learned_search_runtime\.py$''']
+
+[[rules.allowlists]]
+description = "Two reproducible synthetic action idempotency hashes, not credentials"
+condition = "AND"
+regexTarget = "secret"
+regexes = ['''^idem_(6c1be383d16c4021a409f58237c8459890cdc241dae46337ee972d98c160fd6b|762931103139b387fbee9aab5bd17f5ea18fb75b7597027332e5f3a47256d5c1)$''']
+paths = ['''(^|/)examples/eval/merchandising-v1/summary\.json$''']
+
+[[rules.allowlists]]
+description = "Verified archive SHA-256 values in the public retention manifest, not credentials"
+condition = "AND"
+regexTarget = "secret"
+paths = ['''^(?:/source/|/reports/source/)?infra/public-export-archives\.json$''']
+regexes = [
+  '''^035977dfa5c3c9dca584950ad0ad83bc63eb7a106adbf417d2212d04d7041776$''',
+  '''^1304e10611da1e2f5860e2e851bf402697acf5173221df284aca9f1018c179a1$''',
+  '''^27619e0f8191229bc3a5d8bd0e90d5610020448afbebb748ee883056451413d9$''',
+  '''^2e9823c3db0ad2015a4682e7719d5c43d2a8b28e1f9ab6e525cbf5d1e481bd1f$''',
+  '''^318c696a63b093f7a779aa3c20a36525387254137917eee83d18d31bc536eff6$''',
+  '''^38b5296933d48f38c0e535aada2911027b37d054511124e4e6f75703f70a8da7$''',
+  '''^51bbd2d56fe161b3a9c16dcb5cd650c9631ca2502711e09fdc96e86421d85535$''',
+  '''^52e5e8c2488ec7afff72b98312e83d44bce58a611f033b82ae0f374109c67384$''',
+  '''^825390146ef96df4f1af430890ce20854e4ed0e58ed8910655681e42f176cc98$''',
+  '''^8737dd0e2d8b3800225d72561717108dcd15e6261aa8d9c64d6e17ad1b176000$''',
+  '''^8f0b28f7c118f0e6edb462e17e92293269896bec6ca9c6db5c89d0b98fca94cb$''',
+  '''^9fd73ddd8cd9eaa20cabee2a7bc4baea0ad55e48fa4d02f212ff60559eae7f2c$''',
+  '''^a2bcf7f613b3103c779de07067bd2e70d66c9e402e6baec99c21411ff23a3f7f$''',
+  '''^a758cdd7213d91d50d7cad42b66358a2357e5deb8c69583c539f03bfc1c47b2b$''',
+  '''^ac35089cf04447f341a3720168b2aaa0673f9a8af25e22a68dcb459573f6df90$''',
+  '''^af118003ed3f8e15382796f6bcc993c8ad560e14649ca6f477fcc0d98831ef34$''',
+  '''^af271965933b3284518ac8ba7f9c7e2e0cb66fecd1e5029f650366ee2254046b$''',
+  '''^bd748fd1c3243da96e070e1a2a2cbc4c0633bb0e49a21e31960a675921e76a52$''',
+  '''^c5aa18dd2ea4a4eea83313d82b1179b1aba4091d1833259a7dd6dd3bfdafe221$''',
+  '''^c9e8ef3beabbeba83bd34646dd662e34ecf54d158595b2efa2c10984afc1c307$''',
+  '''^cdf9fdba46bb931bd4460e48a92f10c6f53fcb952c882ae03e0e1796e5992882$''',
+  '''^ddffc41c674f6a95415892347d5a5b163e92ab671b34a97e1a1d7e6580f8de05$''',
+  '''^e6d96c9a0ec05d25c884d17864e20ddf3fc5c9608a62ae53cb119e54da067a6f$''',
+  '''^e7572ee3d31e84f522f251ae0522380fda14b5c8e505c961dfc9315e157d898e$''',
+  '''^fe716511ec2b8b5f3db02454dd6d18cc64fadfdf82bdb1722e3594cef7afbac1$''',
+]

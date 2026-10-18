@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a reproducible simulator or tooling defect without private data.
+body:
+  - type: markdown
+    attributes:
+      value: Do not submit vulnerabilities, secrets or customer data here. Read SECURITY.md for private reporting.
+  - type: input
+    id: revision
+    attributes:
+      label: Revision and environment
+      description: Commit, OS/architecture, Docker/Compose, Python and Node versions.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Synthetic reproduction
+      description: Include scenario, seed, commands, expected behavior and actual behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence
+      description: Include redacted logs, request IDs or screenshots. Do not include a private database dump.

@@ -1,0 +1,213 @@
+x-store-environment: &store-environment
+  OPEN_COMMERCE_RUNTIME_PROFILE: ${OPEN_COMMERCE_RUNTIME_PROFILE:-self_hosted}
+  OPEN_COMMERCE_ENCRYPTION_KEY: ${OPEN_COMMERCE_ENCRYPTION_KEY:-}
+  OPEN_COMMERCE_OIDC_ISSUER: ${OPEN_COMMERCE_OIDC_ISSUER:-}
+  OPEN_COMMERCE_OIDC_CLIENT_ID: ${OPEN_COMMERCE_OIDC_CLIENT_ID:-}
+  OPEN_COMMERCE_OIDC_CLIENT_SECRET: ${OPEN_COMMERCE_OIDC_CLIENT_SECRET:-}
+  OPEN_COMMERCE_OIDC_CALLBACK_URL: ${OPEN_COMMERCE_OIDC_CALLBACK_URL:-}
+  OPEN_COMMERCE_PUBLIC_ORIGINS: ${OPEN_COMMERCE_PUBLIC_ORIGINS:-[]}
+  OPEN_COMMERCE_PUBLIC_HOSTS: ${OPEN_COMMERCE_PUBLIC_HOSTS:-[]}
+  OPEN_COMMERCE_HOSTED_DAILY_REQUEST_LIMIT: ${OPEN_COMMERCE_HOSTED_DAILY_REQUEST_LIMIT:-1000}
+  OPEN_COMMERCE_HOSTED_DAILY_TOKEN_LIMIT: ${OPEN_COMMERCE_HOSTED_DAILY_TOKEN_LIMIT:-5000000}
+  OPEN_COMMERCE_MANAGER_MODEL_PROVIDER: ${OPEN_COMMERCE_MANAGER_MODEL_PROVIDER:-deterministic}
+  OPEN_COMMERCE_MANAGER_MODEL_ID: ${OPEN_COMMERCE_MANAGER_MODEL_ID:-gpt-5.4-mini}
+  OPEN_COMMERCE_MANAGER_MODEL_MAX_ITERATIONS: ${OPEN_COMMERCE_MANAGER_MODEL_MAX_ITERATIONS:-12}
+  OPEN_COMMERCE_MANAGER_MODEL_MAX_TOOL_CALLS: ${OPEN_COMMERCE_MANAGER_MODEL_MAX_TOOL_CALLS:-10}
+  OPEN_COMMERCE_MANAGER_MODEL_MAX_OUTPUT_TOKENS: ${OPEN_COMMERCE_MANAGER_MODEL_MAX_OUTPUT_TOKENS:-2048}
+  OPEN_COMMERCE_MANAGER_MODEL_MAX_INPUT_BYTES: ${OPEN_COMMERCE_MANAGER_MODEL_MAX_INPUT_BYTES:-64000}
+  OPEN_COMMERCE_OPENAI_API_KEY: ${OPEN_COMMERCE_OPENAI_API_KEY:-}
+  OPEN_COMMERCE_ASSET_DIRECTORY: /app/.opencommerce/assets
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: infra/docker/postgres/Dockerfile
+    user: postgres
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    environment:
+      POSTGRES_DB: opencommerce
+      POSTGRES_USER: opencommerce
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-opencommerce}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U opencommerce -d opencommerce"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    build:
+      context: .
+      dockerfile: infra/docker/redis/Dockerfile
+    user: redis
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - redis-data:/data
+
+  qdrant:
+    build:
+      context: .
+      dockerfile: infra/docker/qdrant/Dockerfile
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    ports:
+      - "127.0.0.1:${QDRANT_PORT:-6333}:6333"
+      - "127.0.0.1:${QDRANT_GRPC_PORT:-6334}:6334"
+    healthcheck:
+      test: ["CMD", "bash", "/usr/local/bin/qdrant-healthcheck"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - qdrant-data:/qdrant/storage
+
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    command: ["python", "scripts/wait_for_deps.py"]
+    environment:
+      OPEN_COMMERCE_ENVIRONMENT: local_demo
+      OPEN_COMMERCE_DATABASE_URL: postgresql+asyncpg://opencommerce:${POSTGRES_PASSWORD_URLENCODED:-${POSTGRES_PASSWORD:-opencommerce}}@postgres:5432/opencommerce
+      OPEN_COMMERCE_REDIS_URL: redis://redis:6379/0
+      OPEN_COMMERCE_QDRANT_URL: http://qdrant:6333
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      <<: *store-environment
+      OPEN_COMMERCE_ENVIRONMENT: local_demo
+      OPEN_COMMERCE_DATABASE_URL: postgresql+asyncpg://opencommerce:${POSTGRES_PASSWORD_URLENCODED:-${POSTGRES_PASSWORD:-opencommerce}}@postgres:5432/opencommerce
+      OPEN_COMMERCE_REDIS_URL: redis://redis:6379/0
+      OPEN_COMMERCE_QDRANT_URL: http://qdrant:6333
+      OPEN_COMMERCE_CORS_ALLOW_ORIGINS: '[]'
+      OPEN_COMMERCE_MANAGER_MODEL_PROVIDER: ${OPEN_COMMERCE_MANAGER_MODEL_PROVIDER:-deterministic}
+      OPEN_COMMERCE_MANAGER_MODEL_ID: ${OPEN_COMMERCE_MANAGER_MODEL_ID:-gpt-5.4-mini}
+      OPEN_COMMERCE_MANAGER_MODEL_TIMEOUT_SECONDS: ${OPEN_COMMERCE_MANAGER_MODEL_TIMEOUT_SECONDS:-45}
+      OPEN_COMMERCE_MANAGER_WEB_HEALTH_URL: http://web:3000/health
+      OPEN_COMMERCE_SHOPPER_WEB_HEALTH_URL: http://shopper:3001/health
+      OPEN_COMMERCE_SHOPPER_SESSION_DAYS: ${OPEN_COMMERCE_SHOPPER_SESSION_DAYS:-7}
+      OPEN_COMMERCE_OPENAI_API_KEY: ${OPEN_COMMERCE_OPENAI_API_KEY:-}
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    volumes:
+      - catalog-assets:/app/.opencommerce/assets:ro
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready', timeout=4).read()"]
+      interval: 30s
+      timeout: 20s
+      retries: 20
+      start_period: 90s
+
+  worker:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    environment:
+      <<: *store-environment
+      OPEN_COMMERCE_ENVIRONMENT: local_demo
+      OPEN_COMMERCE_DATABASE_URL: postgresql+asyncpg://opencommerce:${POSTGRES_PASSWORD_URLENCODED:-${POSTGRES_PASSWORD:-opencommerce}}@postgres:5432/opencommerce
+      OPEN_COMMERCE_REDIS_URL: redis://redis:6379/0
+      OPEN_COMMERCE_QDRANT_URL: http://qdrant:6333
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    read_only: true
+    volumes:
+      - catalog-assets:/app/.opencommerce/assets
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-m", "open_commerce.worker.health"]
+      interval: 10s
+      timeout: 45s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      OPEN_COMMERCE_API_BASE_URL: http://api:8000
+      OPEN_COMMERCE_RUNTIME_PROFILE: ${OPEN_COMMERCE_RUNTIME_PROFILE:-self_hosted}
+      OPEN_COMMERCE_PUBLIC_ORIGINS: ${OPEN_COMMERCE_PUBLIC_ORIGINS:-[]}
+      OPEN_COMMERCE_SHOPPER_PUBLIC_URL: ${OPEN_COMMERCE_SHOPPER_PUBLIC_URL:-http://localhost:3001}
+      NEXT_TELEMETRY_DISABLED: "1"
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    ports:
+      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  shopper:
+    build:
+      context: .
+      dockerfile: apps/shopper/Dockerfile
+    environment:
+      OPEN_COMMERCE_API_BASE_URL: http://api:8000
+      OPEN_COMMERCE_RUNTIME_PROFILE: ${OPEN_COMMERCE_RUNTIME_PROFILE:-self_hosted}
+      OPEN_COMMERCE_PUBLIC_ORIGINS: ${OPEN_COMMERCE_PUBLIC_ORIGINS:-[]}
+      NEXT_TELEMETRY_DISABLED: "1"
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    ports:
+      - "127.0.0.1:${SHOPPER_PORT:-3001}:3001"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  catalog-assets:
+  postgres-data:
+  redis-data:
+  qdrant-data:

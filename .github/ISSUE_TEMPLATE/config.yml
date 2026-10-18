@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report
+    url: "mailto:hc414t@gmail.com?subject=%5BOpen%20Commerce%20Agent%20Security%5D"
+    about: Use Security / Advisories / Report a vulnerability when available; otherwise email privately. Never file a public vulnerability issue.

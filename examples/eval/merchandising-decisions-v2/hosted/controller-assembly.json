@@ -1,0 +1,8 @@
+{
+  "cases_per_sweep": 1200,
+  "commit_sha": "b2ec9351c225b244c206c0e84854da8148ba7e58",
+  "hashes": {
+    "primary": "sha256:a1aeb60320deb3a202a6bc00ac1397f25a0d8b3a59bd2c74ecbe2cd321328e76",
+    "reproduction": "sha256:a1aeb60320deb3a202a6bc00ac1397f25a0d8b3a59bd2c74ecbe2cd321328e76"
+  }
+}

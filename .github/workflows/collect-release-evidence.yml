@@ -1,0 +1,158 @@
+name: Collect Release Evidence (Not Qualification)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: collect-release-evidence
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    name: Acquire raw candidate evidence only
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 180
+    env:
+      COMPOSE_PROJECT_NAME: opencommerce-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - name: Require a fresh default-branch collection
+        env:
+          REF: ${{ github.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          test "$REF" = "refs/heads/$DEFAULT_BRANCH"
+          test "$ATTEMPT" = 1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "22"
+          package-manager-cache: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.8.15"
+          python-version: "3.12"
+          enable-cache: false
+      - name: Install locked collection tools
+        id: dependencies
+        run: |
+          uv sync --frozen --all-packages --group dev
+          npm exec --yes pnpm@10.17.1 -- install --frozen-lockfile
+          mkdir -p .opencommerce/ci-evidence "$RUNNER_TEMP/evidence-docker"
+      - name: Bind the clean initial export commit
+        id: before
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: .venv/bin/python -m scripts.check_frozen_checkout --commit "$EXPECTED_COMMIT" > .opencommerce/ci-evidence/checkout-before.json
+      - name: Collect and validate source scans without accepting findings
+        id: source
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          set +e
+          env -i PATH="$PATH" HOME="$HOME" TMPDIR="$RUNNER_TEMP" \
+            DOCKER_HOST=unix:///var/run/docker.sock DOCKER_CONFIG="$RUNNER_TEMP/evidence-docker" \
+            .venv/bin/python scripts/scan-source.py
+          scanner_exit=$?
+          set -e
+          .venv/bin/python -m scripts.collect_release_evidence source \
+            --commit "$EXPECTED_COMMIT" --scanner-exit "$scanner_exit"
+      - name: Build only the candidate images with controlled inputs
+        id: build
+        run: |
+          env -i PATH="$PATH" HOME="$HOME" TMPDIR="$RUNNER_TEMP" \
+            DOCKER_HOST=unix:///var/run/docker.sock DOCKER_CONFIG="$RUNNER_TEMP/evidence-docker" \
+            COMPOSE_FILE=docker-compose.yml COMPOSE_PROJECT_NAME="$COMPOSE_PROJECT_NAME" \
+            docker compose --env-file .env.example build --no-cache
+      - name: Collect raw image scans and SBOMs
+        id: images
+        run: |
+          env -i PATH="$PATH" HOME="$HOME" TMPDIR="$RUNNER_TEMP" \
+            DOCKER_HOST=unix:///var/run/docker.sock DOCKER_CONFIG="$RUNNER_TEMP/evidence-docker" \
+            COMPOSE_FILE=docker-compose.yml COMPOSE_PROJECT_NAME="$COMPOSE_PROJECT_NAME" \
+            .venv/bin/python scripts/scan-images.py --env-file .env.example
+      - name: Check image evidence for secrets before upload
+        id: image_privacy
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: |
+          .venv/bin/python -m scripts.stage_release_upload prepare-images
+          env -i PATH="$PATH" HOME="$HOME" DOCKER_HOST=unix:///var/run/docker.sock \
+            DOCKER_CONFIG="$RUNNER_TEMP/evidence-docker" docker run --rm --network none \
+            --user "$(id -u):$(id -g)" \
+            --cap-drop ALL --security-opt no-new-privileges \
+            -v "$PWD/.opencommerce/release-upload/.opencommerce/security-scans/final:/data:ro" \
+            -v "$PWD/.gitleaks.toml:/config/.gitleaks.toml:ro" \
+            ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f \
+            dir /data --config /config/.gitleaks.toml --redact=100 --no-banner --ignore-gitleaks-allow
+      - name: Validate complete acquisition and preserve raw counts
+        id: finalize
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: .venv/bin/python -m scripts.collect_release_evidence images --commit "$EXPECTED_COMMIT"
+      - name: Recheck checkout even after a failed stage
+        id: after
+        if: ${{ always() && steps.before.outcome == 'success' }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: .venv/bin/python -m scripts.check_frozen_checkout --commit "$EXPECTED_COMMIT" > .opencommerce/ci-evidence/checkout-after.json
+      - name: Record actual stage outcomes and exact evidence hashes
+        if: always()
+        env:
+          EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EVIDENCE_COMMIT: ${{ github.sha }}
+          EVIDENCE_RUN_ATTEMPT: ${{ github.run_attempt }}
+          EVIDENCE_RUNNER_OS: ${{ runner.os }}
+          EVIDENCE_RUNNER_ARCH: ${{ runner.arch }}
+          EVIDENCE_WORKFLOW_PATH: .github/workflows/collect-release-evidence.yml
+          EVIDENCE_STAGE_OUTCOMES: '{"dependencies":"${{ steps.dependencies.outcome }}","before":"${{ steps.before.outcome }}","source":"${{ steps.source.outcome }}","build":"${{ steps.build.outcome }}","images":"${{ steps.images.outcome }}","image_privacy":"${{ steps.image_privacy.outcome }}","finalize":"${{ steps.finalize.outcome }}","after":"${{ steps.after.outcome }}"}'
+        run: python3 scripts/record-hosted-evidence.py
+      - name: Prepare the exact screened artifact tree
+        id: upload_ready
+        run: .venv/bin/python -m scripts.stage_release_upload finalize
+      - name: Retain redacted source reports and failure provenance
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: collection-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            .opencommerce/ci-evidence/*.json
+            .opencommerce/source-scans/*.json
+            .opencommerce/source-scans/*.log
+            .opencommerce/source-scans/*-version.stdout
+            .opencommerce/source-scans/*-version.stderr
+            .opencommerce/source-scans/python-requirements.txt
+      - name: Retain secret-checked image reports even on incomplete collection
+        id: image_upload_check
+        if: ${{ always() && steps.image_privacy.outcome == 'success' }}
+        run: .venv/bin/python -m scripts.stage_release_upload verify-images
+      - name: Retain the verified screened image reports
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: ${{ always() && steps.image_privacy.outcome == 'success' && steps.image_upload_check.outcome == 'success' }}
+        with:
+          name: image-collection-${{ github.run_id }}-${{ github.run_attempt }}
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
+          path: .opencommerce/release-upload/.opencommerce/security-scans/final/*.json
+      - name: Retain complete candidate evidence without qualification
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: ${{ success() && steps.source.outcome == 'success' && steps.image_privacy.outcome == 'success' && steps.finalize.outcome == 'success' && steps.after.outcome == 'success' && steps.upload_ready.outcome == 'success' && steps.image_upload_check.outcome == 'success' }}
+        with:
+          name: candidate-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
+          path: .opencommerce/release-upload/

@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-09-05T22:56:13.887439+00:00",
+  "format": "gzip with mtime=0; original reports unmodified",
+  "files": [
+    {
+      "path": "old-build-requirements.txt.gz",
+      "uncompressed_sha256": "de4bba04099c8ce8f6bf5d19f4a1e8f3f3edc556e76d5dd4768b2868f34eecaf",
+      "compressed_sha256": "5eed66a9a9d49dc148839bf7af0582cd39fb8bac47148004715040ba017efcc6"
+    },
+    {
+      "path": "old-build-audit.json.gz",
+      "uncompressed_sha256": "fca58314df336d118d15c4ed64189b461453f1213b4ffc3674d1d89a26ef59c1",
+      "compressed_sha256": "56cdfa0447408ac3c1a3b415b1dc48d6b09691e48e532756dfb068f3cee50356"
+    },
+    {
+      "path": "GHSA-5rjg-fvgr-3xxf.json.gz",
+      "uncompressed_sha256": "fea267220c961d101e1a9c0ac3bffea890a10bdb8b44afddbe60079a6fc39404",
+      "compressed_sha256": "aec20d1f5aaee50766bb72ff2149e594b0f5cc037ade8effce381b9e251c2188"
+    },
+    {
+      "path": "GHSA-8rrh-rw8j-w5fx.json.gz",
+      "uncompressed_sha256": "d77445e5cbdbda8d70f9c2dbcfb12b1e0e8139094255f07bfb05df7d6f9d245a",
+      "compressed_sha256": "c7dc19179d9b288b6a1e4a9e5d252fc79dd3f94c8c3cfdfde296441c220d75ee"
+    },
+    {
+      "path": "GHSA-h35f-9h28-mq5c.json.gz",
+      "uncompressed_sha256": "8d7b66dff124c0d5011a3063227c3f629609203eb7a6c3fb6ecaf39164959c6a",
+      "compressed_sha256": "32aa9d686e1dc6a761ad739e880386c3e539e02a5615ed34c566364b7a3fb5bb"
+    },
+    {
+      "path": "patched-python-audit.json.gz",
+      "uncompressed_sha256": "5016f2ccb1d51fc0297f71c2697c192e8218a8f2821d31d10503e8c0a16f1c3e",
+      "compressed_sha256": "6c5552337dc7efa5182b5764a1db6b6171be655e8ad266dd4b66e238a3e4eb0a"
+    }
+  ],
+  "scope": "failed build audit and authoritative advisory inputs; not a passing release attestation"
+}

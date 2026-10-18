@@ -1,0 +1,351 @@
+.page {
+  height: calc(100dvh - var(--store-shell-header-height, 0px));
+  display: grid;
+  grid-template-rows: 52px minmax(0, 1fr);
+  background: #fff;
+  color: #1c2b26;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+.page * {
+  box-sizing: border-box;
+  min-width: 0;
+  letter-spacing: 0;
+}
+.page a {
+  color: #087a70;
+  text-decoration: none;
+}
+.page button,
+.page select,
+.page input {
+  font: inherit;
+}
+.page button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 8px;
+  border: 1px solid #d5ded9;
+  border-radius: 5px;
+  background: #fff;
+  color: #18574b;
+  cursor: pointer;
+}
+.page button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.page :is(button, a, input, select, summary):focus-visible {
+  outline: 3px solid #208d80;
+  outline-offset: 3px;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 24px;
+  background: #173b30;
+  color: #fff;
+}
+.topbar a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+}
+.topbar strong {
+  font-size: 13px;
+}
+.topbar span {
+  color: #a6c4b7;
+  font-weight: 400;
+}
+.scroll {
+  overflow-y: auto;
+  padding: 24px max(20px, calc((100% - 1260px) / 2)) 40px;
+}
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.heading p {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: #718179;
+}
+.heading h1 {
+  font-size: 28px;
+  margin: 0;
+  line-height: 1.2;
+}
+.sync {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #627268;
+  font-size: 11px;
+}
+.source {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px 0;
+  border-block: 1px solid #dfe5e0;
+}
+.source > svg {
+  flex-shrink: 0;
+  color: #337566;
+}
+.source strong {
+  overflow-wrap: anywhere;
+  font-size: 15px;
+}
+.source p {
+  margin: 5px 0 0;
+  color: #637368;
+}
+.ready {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-left: auto;
+  color: #147960;
+  font-size: 12px;
+}
+.identity {
+  padding: 12px 0;
+  font-size: 12px;
+  color: #52695d;
+  border-bottom: 1px solid #e2e8e3;
+}
+.identity summary,
+.product summary {
+  cursor: pointer;
+}
+.identity dl {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 8px 12px;
+}
+.identity dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.indexing {
+  overflow-wrap: anywhere;
+  display: grid;
+  gap: 8px;
+  padding: 14px 0;
+  color: #79561b;
+  border-bottom: 1px solid #e8cf9b;
+}
+.indexing progress {
+  width: 100%;
+  height: 5px;
+  accent-color: #c48f25;
+}
+.error {
+  color: #9b3c40;
+  padding: 12px 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.filters {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(150px, 220px) 150px;
+  gap: 10px;
+  padding: 22px 0 16px;
+}
+.filters select {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #cfd9d2;
+  border-radius: 5px;
+  background: #fff;
+  color: #324b3f;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #cfd9d2;
+  border-radius: 5px;
+  padding: 0 0 0 12px;
+  color: #61766a;
+}
+.search input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #1c2b26;
+  height: 36px;
+}
+.search button {
+  border: 0;
+  flex-shrink: 0;
+}
+.resultsHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+.resultsHeader span {
+  color: #728175;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.product {
+  overflow: hidden;
+  border: 1px solid #e1e6e1;
+  border-radius: 6px;
+  background: #fff;
+}
+.image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid #edf0ed;
+}
+.image img {
+  object-fit: contain;
+  padding: 16px;
+}
+.image > span {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  color: #97a69b;
+  font-size: 11px;
+}
+.productCopy {
+  padding: 13px;
+}
+.productCopy > span {
+  display: block;
+  color: #087a70;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+.productCopy h2 {
+  font-size: 13px;
+  line-height: 1.45;
+  height: 57px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin: 6px 0;
+  overflow-wrap: anywhere;
+}
+.productCopy > p {
+  margin: 0 0 10px;
+  color: #758074;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 11px;
+}
+.productCopy > strong {
+  display: block;
+  font-size: 14px;
+}
+.productCopy > small {
+  display: block;
+  margin: 5px 0 12px;
+  color: #68776b;
+  font-size: 11px;
+}
+.product details {
+  padding-top: 10px;
+  border-top: 1px solid #e9ede8;
+  color: #566b5e;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.product details p {
+  white-space: pre-wrap;
+}
+.empty {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  min-height: 240px;
+  gap: 12px;
+  color: #78867a;
+}
+.empty h2 {
+  font-size: 17px;
+  margin: 0;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+.pagination span {
+  margin-right: 8px;
+  color: #66796c;
+}
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .scroll {
+    padding: 18px 14px 28px;
+  }
+  .topbar {
+    padding: 0 14px;
+  }
+  .topbar span {
+    display: none;
+  }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .search {
+    grid-column: 1 / -1;
+  }
+  .source {
+    flex-wrap: wrap;
+  }
+  .ready {
+    margin-left: 34px;
+  }
+  .productCopy {
+    padding: 10px;
+  }
+  .resultsHeader {
+    flex-wrap: wrap;
+  }
+  .sync {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .image img {
+    padding: 10px;
+  }
+}

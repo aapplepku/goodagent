@@ -1,0 +1,242 @@
+name: Simulator Qualification
+
+on:
+  workflow_call:
+    inputs:
+      full-benchmark:
+        type: boolean
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 180
+    env:
+      COMPOSE_PROJECT_NAME: opencommerce-ci
+      # Historical simulator regressions use their explicit, private demo profile.
+      OPEN_COMMERCE_RUNTIME_PROFILE: legacy_demo
+      OPEN_COMMERCE_DATABASE_URL: postgresql+asyncpg://opencommerce:opencommerce@127.0.0.1:5432/opencommerce
+      OPEN_COMMERCE_REDIS_URL: redis://127.0.0.1:6379/0
+      OPEN_COMMERCE_QDRANT_URL: http://127.0.0.1:6333
+      PLAYWRIGHT_BASE_URL: http://127.0.0.1:3000
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "22"
+          package-manager-cache: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.8.15"
+          python-version: "3.12"
+          enable-cache: false
+      - name: Install locked dependencies
+        id: dependencies
+        run: |
+          cp .env.example .env
+          make bootstrap
+          make check-openapi
+          git diff --exit-code -- openapi packages/sdk-typescript/src/client.ts
+      - name: Validate workflows
+        run: docker run --rm --network none --cap-drop ALL --security-opt no-new-privileges -v "$PWD/.github/workflows:/repo/.github/workflows:ro" -w /repo rhysd/actionlint:1.7.12@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667 .github/workflows/ci.yml .github/workflows/qualification.yml .github/workflows/release-candidate.yml .github/workflows/dco.yml .github/workflows/current-release-security.yml .github/workflows/collect-release-evidence.yml
+      - name: Verify legal files in local package archives
+        run: |
+          uv build --package open-commerce-backend --out-dir .opencommerce/distribution-artifacts
+          npm exec --yes pnpm@10.17.1 -- --dir packages/sdk-typescript pack --pack-destination "$PWD/.opencommerce/distribution-artifacts"
+          npm exec --yes pnpm@10.17.1 -- --dir apps/web pack --pack-destination "$PWD/.opencommerce/distribution-artifacts"
+          npm exec --yes pnpm@10.17.1 -- --dir apps/shopper pack --pack-destination "$PWD/.opencommerce/distribution-artifacts"
+          .venv/bin/python scripts/verify_release_legal.py --artifacts .opencommerce/distribution-artifacts --output .opencommerce/package-legal-proof.json
+      - name: Build and initialize empty Compose volumes
+        id: images
+        run: |
+          docker compose build --no-cache
+          docker compose up -d --wait --wait-timeout 180
+          docker compose run --rm migrate
+          docker compose up -d --wait --wait-timeout 180
+      - name: Verify legal files in actual image filesystems
+        run: .venv/bin/python scripts/verify_release_legal.py --images --output .opencommerce/image-legal-proof.json
+      - name: Validate the complete repository against real services
+        run: make check
+      - name: Install Chromium for browser qualification
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        run: npm exec --yes pnpm@10.17.1 -- --filter @open-commerce/web exec playwright install --with-deps chromium
+      - name: Production browser smoke
+        run: make test-e2e
+      - name: Container outage and recovery tests
+        run: make test-fault
+      - name: Complete volume reset
+        run: |
+          docker compose down --volumes
+          docker compose up -d --wait --wait-timeout 180
+          make test-e2e
+      - name: Isolated owner setup and guest shopping browser journey
+        env:
+          OPEN_COMMERCE_RUN_INTEGRATION: "1"
+          OPEN_COMMERCE_SELF_SERVICE_BROWSER: "1"
+        run: .venv/bin/pytest tests/integration/test_self_service_browser.py -q -s
+      - name: Isolated production Compose owner and shopper journey
+        if: ${{ !cancelled() && steps.images.outcome == 'success' }}
+        run: .venv/bin/python scripts/test_self_hosted_compose.py --run --image-project opencommerce-ci
+      - name: Image privilege and component evidence
+        if: ${{ !cancelled() && steps.images.outcome == 'success' }}
+        run: .venv/bin/python scripts/verify-runtime-images.py
+      - name: Dependency and secret scans, source SBOM
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        run: .venv/bin/python scripts/scan-source.py
+      - name: Container scans and per-image SBOMs
+        if: ${{ !cancelled() && steps.images.outcome == 'success' }}
+        run: .venv/bin/python scripts/scan-images.py
+      - name: Review gate for container findings
+        if: ${{ !cancelled() && steps.images.outcome == 'success' }}
+        run: .venv/bin/python scripts/check-image-findings.py
+      - name: Capture service logs
+        if: always()
+        run: |
+          mkdir -p .opencommerce/ci-evidence
+          docker compose ps --all --format json > .opencommerce/ci-evidence/compose-status.json
+          docker compose logs --no-color > .opencommerce/ci-evidence/compose.log
+      - name: Record exact commit, environment and artifact hashes
+        if: always()
+        env:
+          EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EVIDENCE_COMMIT: ${{ github.sha }}
+          EVIDENCE_RUN_ATTEMPT: ${{ github.run_attempt }}
+          EVIDENCE_RUNNER_OS: ${{ runner.os }}
+          EVIDENCE_RUNNER_ARCH: ${{ runner.arch }}
+        run: python3 scripts/record-hosted-evidence.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: simulator-qualification-${{ github.run_id }}-${{ github.run_attempt }}
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            .opencommerce/ci-evidence/
+            .opencommerce/runtime-image-proof.json
+            .opencommerce/package-legal-proof.json
+            .opencommerce/image-legal-proof.json
+            .opencommerce/source-scans/*.json
+            .opencommerce/source-scans/*.log
+            .opencommerce/source-scans/*-version.stdout
+            .opencommerce/source-scans/*-version.stderr
+            .opencommerce/source-scans/python-requirements.txt
+            .opencommerce/security-scans/final/*.json
+            security/image-assessments.json
+            security/reviewed-image-findings.json
+            .opencommerce/controller-reproduction.json.gz
+            .opencommerce/controller-primary.json.gz
+            .opencommerce/controller-smoke*
+            examples/eval/results/
+            apps/web/test-results/
+            apps/shopper/test-results/
+      - name: Remove this runner's disposable Compose volumes
+        if: always()
+        run: docker compose down --volumes
+
+  controller-shards:
+    if: inputs.full-benchmark
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [0, 1, 2, 3]
+    env:
+      COMPOSE_PROJECT_NAME: opencommerce-controller
+      OPEN_COMMERCE_RUNTIME_PROFILE: legacy_demo
+      OPEN_COMMERCE_DATABASE_URL: postgresql+asyncpg://opencommerce:opencommerce@127.0.0.1:5432/opencommerce
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "22"
+          package-manager-cache: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.8.15"
+          python-version: "3.12"
+          enable-cache: false
+      - name: Clean locked setup and PostgreSQL
+        run: |
+          cp .env.example .env
+          make bootstrap
+          docker compose up -d --wait --wait-timeout 180 postgres
+      - name: Full benchmark shard and independent reproduction
+        timeout-minutes: 270
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: .venv/bin/python scripts/controller-shards.py run --shard "$SHARD"
+      - name: Preserve exact-SHA shard provenance including partial journals
+        if: always()
+        env:
+          EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EVIDENCE_COMMIT: ${{ github.sha }}
+          EVIDENCE_RUN_ATTEMPT: ${{ github.run_attempt }}
+          EVIDENCE_RUNNER_OS: ${{ runner.os }}
+          EVIDENCE_RUNNER_ARCH: ${{ runner.arch }}
+        run: python3 scripts/record-hosted-evidence.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: controller-shard-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.shard }}
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            .opencommerce/controller-*
+            .opencommerce/ci-evidence/
+      - name: Remove disposable benchmark infrastructure
+        if: always()
+        run: docker compose down --volumes
+
+  controller-complete:
+    name: Full controller reproduction
+    if: ${{ always() && inputs.full-benchmark }}
+    needs: controller-shards
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 20
+    steps:
+      - name: Require every shard to pass
+        env:
+          SHARD_RESULT: ${{ needs.controller-shards.result }}
+        run: test "$SHARD_RESULT" = success
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.8.15"
+          python-version: "3.12"
+          enable-cache: false
+      - name: Install locked verification dependencies
+        run: uv sync --frozen
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          pattern: controller-shard-${{ github.run_id }}-${{ github.run_attempt }}-*
+          path: .opencommerce/controller-shards
+      - name: Require all 1200 cases twice and match the committed full reference
+        env:
+          RC_SHA: ${{ github.sha }}
+        run: .venv/bin/python scripts/controller-shards.py assemble --directory .opencommerce/controller-shards --expected-sha "$RC_SHA"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: controller-complete-${{ github.run_id }}-${{ github.run_attempt }}
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            .opencommerce/controller-primary.json.gz
+            .opencommerce/controller-reproduction.json.gz
+            .opencommerce/controller-assembly.json

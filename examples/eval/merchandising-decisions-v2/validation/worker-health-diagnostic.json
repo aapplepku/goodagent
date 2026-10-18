@@ -1,0 +1,46 @@
+{
+  "configured_timeout_seconds": 5,
+  "docker_health": {
+    "FailingStreak": 13,
+    "Log": [
+      {
+        "End": "2026-09-07T00:19:37.771306086-04:00",
+        "ExitCode": -1,
+        "Output": "Health check exceeded timeout (5s)",
+        "Start": "2026-09-07T00:19:32.416301277-04:00"
+      },
+      {
+        "End": "2026-09-07T00:19:53.285508077-04:00",
+        "ExitCode": -1,
+        "Output": "Health check exceeded timeout (5s)",
+        "Start": "2026-09-07T00:19:47.77738991-04:00"
+      },
+      {
+        "End": "2026-09-07T00:20:08.606732242-04:00",
+        "ExitCode": -1,
+        "Output": "Health check exceeded timeout (5s)",
+        "Start": "2026-09-07T00:20:03.286539207-04:00"
+      },
+      {
+        "End": "2026-09-07T00:20:23.807805329-04:00",
+        "ExitCode": -1,
+        "Output": "Health check exceeded timeout (5s)",
+        "Start": "2026-09-07T00:20:18.608192986-04:00"
+      },
+      {
+        "End": "2026-09-07T00:20:39.276371954-04:00",
+        "ExitCode": -1,
+        "Output": "Health check exceeded timeout (5s)",
+        "Start": "2026-09-07T00:20:33.812154999-04:00"
+      }
+    ],
+    "Status": "unhealthy"
+  },
+  "exit_code": 0,
+  "recorded_at": "2026-09-07T04:20:51.371787+00:00",
+  "runtime_unchanged": true,
+  "scope": "Single diagnostic under a shared, heavily populated local Docker host; not a latency SLA or a passed Compose --wait result",
+  "stderr": "",
+  "stdout": "{\"import_seconds\": 9.003850362001685, \"dependency_seconds\": 1.0725114599918015, \"total_seconds\": 10.076362196996342, \"dependencies_passed\": true}\n",
+  "wall_seconds": 14.66681791562587
+}

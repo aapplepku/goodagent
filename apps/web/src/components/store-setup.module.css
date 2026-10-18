@@ -1,0 +1,368 @@
+.shell {
+  min-height: 100dvh;
+  background: #fafcfa;
+  color: #172b25;
+  font-size: 14px;
+  letter-spacing: 0;
+  padding: 0 28px 28px;
+}
+.measurements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 16px;
+  padding: 18px 0;
+  border-block: 1px solid #d9e1dc;
+}
+.measurements dd {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 8px 0 0;
+}
+.header {
+  min-height: 66px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d9e1dc;
+  gap: 16px;
+}
+.brand {
+  font-size: 20px;
+  font-weight: 750;
+  padding: 20px 0;
+}
+.shell h1 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+.shell h2 {
+  font-size: 18px;
+}
+.shell button,
+.shell a.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #baccc2;
+  background: white;
+  color: #174d40;
+  border-radius: 5px;
+  padding: 10px 14px;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+.shell button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.shell input,
+.shell select {
+  font: inherit;
+  padding: 10px;
+  border: 1px solid #adbbb3;
+  border-radius: 4px;
+  min-width: 0;
+  background: white;
+  color: #172b25;
+}
+.shell :focus-visible {
+  outline: 3px solid #25a18c;
+  outline-offset: 3px;
+}
+.shell label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.shell .primary {
+  background: #087e6f;
+  color: white;
+  border-color: #087e6f;
+}
+.header > div,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.steps {
+  max-width: 1000px;
+  margin: 30px auto;
+  display: flex;
+  gap: 12px;
+}
+.steps button {
+  border: 0;
+  background: none;
+  color: #65726c;
+}
+.steps button[aria-current] {
+  color: #087e6f;
+  font-weight: 700;
+  border-bottom: 2px solid;
+  border-radius: 0;
+}
+.steps span {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid;
+  display: grid;
+  place-items: center;
+}
+.content,
+.warning,
+.error,
+.recoveryActions {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.recoveryActions {
+  padding: 8px 0;
+}
+.content section {
+  padding: 20px 0 28px;
+  border-bottom: 1px solid #d9e1dc;
+}
+.profile,
+.mappings {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 20px;
+}
+.profile button {
+  justify-self: start;
+}
+.sourceDetails > summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 600;
+  color: #174d40;
+}
+.sourceDetails:not([open]) {
+  border-bottom: 1px solid #d9e1dc;
+}
+.upload {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.upload label {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.upload input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+}
+.upload small {
+  flex-basis: 100%;
+  color: #65726c;
+}
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+.sectionHeader h2 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.sectionHeader button {
+  min-width: 44px;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+.content code {
+  overflow-wrap: anywhere;
+}
+.actions {
+  margin: 20px 0;
+}
+.error {
+  color: #9b243c;
+  background: #fff0f2;
+  padding: 12px;
+  overflow-wrap: anywhere;
+}
+.warning {
+  background: #fff4d9;
+  padding: 16px;
+  border-left: 3px solid #bd831e;
+}
+.warning code {
+  display: block;
+  overflow-wrap: anywhere;
+  padding: 10px 0;
+}
+.table {
+  overflow: auto;
+  max-height: 280px;
+}
+.table table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.table td,
+.table th {
+  padding: 12px 8px;
+  border-bottom: 1px solid #d9e1dc;
+  overflow-wrap: anywhere;
+}
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  max-width: 600px;
+}
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #d9e1dc;
+}
+.checklist small {
+  margin-left: auto;
+  color: #65726c;
+}
+.shell .checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 16px 0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 24px;
+}
+.auth {
+  max-width: 430px;
+  margin: 8dvh auto 0;
+}
+.auth form {
+  display: grid;
+  gap: 18px;
+}
+.workspaceBar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  background: #123b30;
+  color: #fff;
+  padding: 8px 12px;
+  height: var(--store-shell-header-height);
+}
+.workspace {
+  --store-shell-header-height: 60px;
+  height: 100dvh;
+  overflow: hidden;
+}
+.workspaceBar button {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.workspaceBar button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+}
+@media (max-width: 600px) {
+  .workspaceBar {
+    padding-inline: 8px;
+  }
+  .workspaceBar button span {
+    display: none;
+  }
+}
+.workspaceError {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: fixed;
+  z-index: 100;
+  bottom: 16px;
+  right: 16px;
+  width: min(360px, calc(100% - 32px));
+  padding: 14px;
+  border: 1px solid #b44350;
+  border-radius: 5px;
+  background: #fff0f2;
+  color: #85223a;
+  font-size: 14px;
+}
+.workspaceError button {
+  flex-shrink: 0;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+}
+@media (max-width: 650px) {
+  .shell {
+    padding: 0 16px 24px;
+  }
+  .brand {
+    font-size: 17px;
+  }
+  .header {
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+  .header button {
+    padding: 8px;
+  }
+  .profile,
+  .mappings {
+    grid-template-columns: 1fr;
+  }
+  .steps {
+    gap: 4px;
+  }
+  .steps button {
+    padding: 10px 4px;
+    font-size: 12px;
+  }
+  .shell h1 {
+    font-size: 25px;
+  }
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

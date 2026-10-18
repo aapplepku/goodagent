@@ -1,0 +1,23 @@
+name: Feature proposal
+description: Propose a focused improvement with explicit scope and safety boundaries.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and intended user
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope and alternatives
+      description: Separate simulator changes from future live-provider or hosted features.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and verification
+      description: Identify new data access, writes, approvals, tenant boundaries and tests.
+    validations:
+      required: true

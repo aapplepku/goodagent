@@ -1,0 +1,80 @@
+{
+  "fixture": "private-prelaunch-v1",
+  "seed": 42,
+  "virtualDays": 7,
+  "browser": "140.0.7339.186",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "timezone": "UTC",
+  "locale": "en-US",
+  "walkthroughSeconds": 104.417,
+  "observation": {
+    "current": "1282",
+    "target": "200",
+    "assessment": "achieved"
+  },
+  "sampledRunCount": 7,
+  "limitations": [
+    "Browser timing/UUIDs may vary; images are not byte-identical benchmarks.",
+    "Synthetic observations, not causal merchant lift.",
+    "Includes a 60-second quota wait and a separate tightened-policy fixture; excludes stack startup."
+  ],
+  "assets": [
+    {
+      "file": "goal-configuration.png",
+      "caption": "Finite-parser draft for 200 customers, 30 days, $10,000; seed 42. Fixed constraints are reviewed before activation.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sha256": "3b375e5d4a96554232a69b4b939041d755dab13051521204a2df6a03c776e709"
+    },
+    {
+      "file": "agent-trace.png",
+      "caption": "Persisted controller trace. Deterministic planning and estimates are distinct from permission, execution and measurement.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sha256": "d86fc11c5272d3966a154179b2b24739b6bab32eeaad4d7dd8e4a84f4b56b96a"
+    },
+    {
+      "file": "dashboard.png",
+      "caption": "Seed 42 acquisition goal after seven virtual days. Values are actual cumulative observations, not a forecast or causal lift.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sha256": "341fdad64ff610cf2e17f5aa608deb429cdc39a8f37f18514c3347be8c6e3747"
+    },
+    {
+      "file": "kpi-observations.png",
+      "caption": "Seven days of observed outcomes and matched synthetic baseline delta. The capture does not require positive improvement.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sha256": "95e1f55c4d273207b33f650f8afd2c9daa257c8274f54fc98aeac6191bcbfeaa"
+    },
+    {
+      "file": "hybrid-search-trace.png",
+      "caption": "Actual live-Qdrant hybrid query, hard filters and score components. No result or score is mocked.",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "sha256": "5fc91770414ebac8fa74541fbfa2d9295a6b75207c37477977eb9641527cbac1"
+    },
+    {
+      "file": "rejected-policy-action.png",
+      "caption": "Separate policy fixture: a real 10% discount proposal is denied under a tightened 5% maximum. This is not the default 15% policy.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sha256": "a441920e05c987a2a3c93b145fcd1c497f11a8c84cc9e930e21c917c140a9819"
+    }
+  ]
+}

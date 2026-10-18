@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "scope": "Simulator-only Compose configuration; not host packages or other deployments",
+  "reviewed_on": "2026-09-05",
+  "expires_on": "2026-10-05",
+  "rules": [
+    {
+      "name": "removed-perl-runtime",
+      "status": "not_affected",
+      "vulnerabilities": [
+        "CVE-2026-13221",
+        "CVE-2026-42496",
+        "CVE-2026-8376",
+        "CVE-2026-42497",
+        "CVE-2026-48962",
+        "CVE-2026-57432",
+        "CVE-2026-57433",
+        "CVE-2026-9538"
+      ],
+      "packages": { "perl-base": ["5.40.1-6"] },
+      "required_absent": ["/usr/bin/perl", "/usr/bin/perl5.40.1"],
+      "reason": "Perl interpreter executables are removed. The application contains no Perl embedding or invocation. Scanner source-package metadata is retained; this is component removal, not a claim that Perl 5.40.1 is patched.",
+      "references": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-13221",
+        "https://security-tracker.debian.org/tracker/CVE-2026-42496"
+      ]
+    },
+    {
+      "name": "removed-mount-and-namespace-tools",
+      "status": "not_affected",
+      "vulnerabilities": [
+        "CVE-2026-76642",
+        "CVE-2026-78408",
+        "CVE-2026-78409",
+        "CVE-2026-78410"
+      ],
+      "packages": {
+        "bsdutils": ["1:2.41.5-0+deb13u1"],
+        "libblkid1": ["2.41.5-0+deb13u1"],
+        "liblastlog2-2": ["2.41.5-0+deb13u1"],
+        "libmount1": ["2.41.5-0+deb13u1"],
+        "libsmartcols1": ["2.41.5-0+deb13u1"],
+        "libuuid1": ["2.41.5-0+deb13u1"],
+        "login": ["1:4.16.0-2+really2.41.5-0+deb13u1"],
+        "mount": ["2.41.5-0+deb13u1"],
+        "util-linux": ["2.41.5-0+deb13u1"]
+      },
+      "required_absent": [
+        "/usr/bin/mount",
+        "/usr/bin/umount",
+        "/usr/bin/nsenter",
+        "/usr/bin/unshare"
+      ],
+      "reason": "Affected command-line entrypoints are removed. Compose runs non-root, with all capabilities dropped, no-new-privileges and no setuid/setgid executables in runtime paths. The privileged mount/cgroup operations required by these advisories are unavailable in this deployment.",
+      "references": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-76642",
+        "https://github.com/util-linux/util-linux/security/advisories/GHSA-m25x-3hj9-m26f"
+      ]
+    },
+    {
+      "name": "removed-gnu-gzip",
+      "status": "not_affected",
+      "vulnerabilities": ["CVE-2026-41992"],
+      "packages": { "gzip": ["1.13-1"] },
+      "required_absent": ["/usr/bin/gzip"],
+      "reason": "The GNU gzip executable is removed. The affected multi-file LZW/LZH decoder is not Python's gzip/zlib library or Node's zlib, which the application uses.",
+      "references": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-41992"
+      ]
+    },
+    {
+      "name": "removed-infocmp",
+      "status": "not_affected",
+      "vulnerabilities": ["CVE-2025-69720"],
+      "packages": {
+        "ncurses-bin": ["6.5+20250216-2"],
+        "ncurses-base": ["6.5+20250216-2"],
+        "libtinfo6": ["6.5+20250216-2"],
+        "libncursesw6": ["6.5+20250216-2"]
+      },
+      "required_absent": ["/usr/bin/infocmp"],
+      "reason": "The advisory affects analyze_string in the infocmp command-line program, which is removed. Other ncurses binary packages share the scanner source-package association, not that entrypoint.",
+      "references": [
+        "https://security-tracker.debian.org/tracker/CVE-2025-69720"
+      ]
+    },
+    {
+      "name": "no-systemd-homed",
+      "status": "not_affected",
+      "vulnerabilities": ["CVE-2026-16742"],
+      "packages": {
+        "libsystemd0": ["257.13-1~deb13u1"],
+        "libudev1": ["257.13-1~deb13u1"]
+      },
+      "required_absent": [
+        "/usr/lib/systemd/systemd-homed",
+        "/usr/libexec/systemd/systemd-homed"
+      ],
+      "reason": "systemd-homed is absent and no homed-managed user/home service exists. The affected component is not libsystemd/libudev, although they share a Debian source package.",
+      "references": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-16742",
+        "https://github.com/systemd/systemd/security/advisories/GHSA-jm29-p7hh-vjhv"
+      ]
+    },
+    {
+      "name": "no-privileged-acl-caller",
+      "status": "not_affected",
+      "vulnerabilities": ["CVE-2026-54369"],
+      "packages": { "libacl1": ["2.3.2-2+b1"] },
+      "required_absent": [],
+      "reason": "The advisory requires a privileged pathname-based ACL caller operating on attacker-replaceable paths. Runtime UIDs are non-root, permitted/effective/bounding capabilities are zero, no-new-privileges is active, and setuid/setgid executables are absent. Application routes do not invoke ACL operations. This conclusion does not cover root/admin maintenance shells or a changed deployment.",
+      "references": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-54369",
+        "https://www.openwall.com/lists/oss-security/2026/06/29/1"
+      ]
+    },
+    {
+      "name": "sqlite-fts5-reachability",
+      "status": "not_affected",
+      "requires_storage_proof": true,
+      "vulnerabilities": ["CVE-2026-11822", "CVE-2026-11824"],
+      "packages": { "libsqlite3-0": ["3.46.1-7+deb13u1"] },
+      "required_absent": [],
+      "reason": "The vulnerable system SQLite library is present but its FTS5 malicious-database/MATCH path is not reachable in this simulator deployment. Python constructs PostgreSQL and AsyncQdrantRemote, verified inside each Python image with SQLite connections forbidden. All 40 real-service integration tests pass with SQLite forbidden in durability test processes. Node and Qdrant binaries do not link system SQLite; the Qdrant SBOM has no compiled Rust SQLite dependency. Application source has no SQLite imports, SQL/database-upload endpoint, native-plugin loading or arbitrary scripting. This is a deployment-specific reachability assessment, not a patched-library claim; adding any SQLite path requires a new review.",
+      "references": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-11822",
+        "https://security-tracker.debian.org/tracker/CVE-2026-11824"
+      ]
+    }
+  ]
+}

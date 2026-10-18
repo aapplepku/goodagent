@@ -1,0 +1,37 @@
+# Explicit learned-search installation; no model daemon or provider credentials.
+# Paths are relative to the first Compose file at the repository root.
+services:
+  api:
+    build:
+      args:
+        LEARNED_SEARCH: "1"
+    environment:
+      OPEN_COMMERCE_SEARCH_EMBEDDING_BACKEND: minilm
+      OPEN_COMMERCE_SEARCH_MODEL_DIRECTORY: /models/minilm
+      ORT_DISABLE_TELEMETRY: "1"
+      HF_HUB_OFFLINE: "1"
+      HF_HUB_DISABLE_TELEMETRY: "1"
+    volumes:
+      - type: bind
+        source: ./.opencommerce/merchandising/models/minilm
+        target: /models/minilm
+        read_only: true
+        bind:
+          create_host_path: false
+  worker:
+    build:
+      args:
+        LEARNED_SEARCH: "1"
+    environment:
+      OPEN_COMMERCE_SEARCH_EMBEDDING_BACKEND: minilm
+      OPEN_COMMERCE_SEARCH_MODEL_DIRECTORY: /models/minilm
+      ORT_DISABLE_TELEMETRY: "1"
+      HF_HUB_OFFLINE: "1"
+      HF_HUB_DISABLE_TELEMETRY: "1"
+    volumes:
+      - type: bind
+        source: ./.opencommerce/merchandising/models/minilm
+        target: /models/minilm
+        read_only: true
+        bind:
+          create_host_path: false

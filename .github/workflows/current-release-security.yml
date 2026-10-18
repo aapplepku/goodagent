@@ -1,0 +1,79 @@
+name: Current Release Security (No Publication)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: current-release-security
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Approved current security evidence
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 20
+    environment: alpha-security-review
+    steps:
+      - name: Require a fresh default-branch verification
+        env:
+          REF: ${{ github.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          test "$REF" = "refs/heads/$DEFAULT_BRANCH"
+          test "$ATTEMPT" = 1
+      - name: Check out trusted verification policy only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.8.15"
+          python-version: "3.12"
+          enable-cache: false
+      - name: Install trusted locked verifier dependencies
+        run: uv sync --frozen --all-packages --group dev
+      - name: Verify adopted pins and actual GitHub review
+        id: selected
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .venv/bin/python -m scripts.verify_current_release prepare --prepared "$RUNNER_TEMP/prepared-review.json"
+      - name: Download exact build evidence as data only
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          artifact-ids: ${{ steps.selected.outputs.build_artifact }}
+          run-id: ${{ steps.selected.outputs.build_run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/build-evidence
+          merge-multiple: true
+      - name: Download exact reviewed bundle as data only
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          artifact-ids: ${{ steps.selected.outputs.evidence_artifact }}
+          run-id: ${{ steps.selected.outputs.evidence_run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/review-evidence
+          merge-multiple: true
+      - name: Verify current source and image assessments
+        run: |
+          .venv/bin/python -m scripts.verify_current_release verify \
+            --prepared "$RUNNER_TEMP/prepared-review.json" \
+            --archive "$RUNNER_TEMP/review-evidence/release-evidence.tar" \
+            --build-artifact "$RUNNER_TEMP/build-evidence" \
+            > "$RUNNER_TEMP/security-result.json"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: current-security-result-${{ github.run_id }}
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/prepared-review.json
+            ${{ runner.temp }}/security-result.json

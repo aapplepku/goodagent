@@ -1,0 +1,354 @@
+{
+  "corrected_assertion_commit": "8939578ee5ed1e5bf9e93dbce4bac3a87f86f958",
+  "corrected_focused": {
+    "elapsed_minutes_rounded": 3.7,
+    "failed": 0,
+    "passed": 1
+  },
+  "first_suite": {
+    "elapsed_minutes_rounded": 7.3,
+    "failed": 6,
+    "passed": 1
+  },
+  "raw_location": "Original local Playwright outputs under .opencommerce/decisions-v2; not part of the portable Git archive",
+  "recovery_subset": {
+    "elapsed_minutes_rounded": 6.9,
+    "failed": 4,
+    "passed": 1
+  },
+  "remaining": "Three distinct workflows have passed across retained runs; four remain unverified after timeout/unavailable failures and one recovery attempt. No deadline was widened or protection relaxed. This is not a full-suite pass.",
+  "runs": [
+    {
+      "failed_traces": [
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/merchandising.spec.ts:39:48",
+              "message": "Error: expect(locator).toContainText(expected) failed"
+            }
+          ],
+          "failed_requests": [],
+          "test_directory": "merchandising-reviewed-no--3c13c-ving-and-recorded-economics-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/model-planning.spec.ts:41:7",
+              "message": "Error: expect(locator).toBeVisible() failed"
+            }
+          ],
+          "failed_requests": [],
+          "test_directory": "model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:39:30",
+              "message": "Error: expect(received).toBe(expected) // Object.is equality"
+            }
+          ],
+          "failed_requests": [
+            {
+              "elapsed_ms": 15748.204999999987,
+              "path": "/api/runtime/v1/goals",
+              "status": 503
+            }
+          ],
+          "test_directory": "simulator-first-excess-inv-d60ec-ations-with-accurate-labels-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:116:49",
+              "message": "Error: expect(locator).toHaveValue(expected) failed"
+            }
+          ],
+          "failed_requests": [
+            {
+              "elapsed_ms": 15837.889,
+              "path": "/api/runtime/v1/goals",
+              "status": 503
+            }
+          ],
+          "test_directory": "simulator-first-reset-reta-c076d-ill-switch-refuses-planning-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:251:5",
+              "message": "Error: expect(locator).toBeVisible() failed"
+            }
+          ],
+          "failed_requests": [
+            {
+              "elapsed_ms": 15354.905,
+              "path": "/api/runtime/v1/goals/fd056c6a-7943-52e6-9c9e-8df5d65ac4e9/progress",
+              "status": 503
+            }
+          ],
+          "test_directory": "simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:50:35",
+              "message": "Error: page.waitForResponse: Test timeout of 120000ms exceeded."
+            },
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:87:38",
+              "message": "Error: apiRequestContext.post: Target page, context or browser has been closed"
+            }
+          ],
+          "failed_requests": [
+            {
+              "elapsed_ms": 15417.553,
+              "path": "/api/runtime/v1/goals",
+              "status": 503
+            }
+          ],
+          "test_directory": "simulator-first-search-con-cb548-ations-with-accurate-labels-chromium"
+        }
+      ],
+      "files": [
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/.last-run.json",
+          "sha256": "a53fafb4af5ab52eccb1563a5097539513e87cb2f019cd098bb5ab8abbbc1434"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/merchandising-reviewed-no--3c13c-ving-and-recorded-economics-chromium/error-context.md",
+          "sha256": "4782ed7cfa92c29912dd8547acc3552be9384584eaf2bb9cbe447e8bcad16142"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/merchandising-reviewed-no--3c13c-ving-and-recorded-economics-chromium/test-failed-1.png",
+          "sha256": "0ce68315c1e63b583920ab9d6eac1227220050d1bb6c3f1a2d985f13bacef6a6"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/merchandising-reviewed-no--3c13c-ving-and-recorded-economics-chromium/trace.zip",
+          "sha256": "800977d99449a342ea23f134fa69c2370263c3716e7e6fe9c40607cc716d80f3"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium/error-context.md",
+          "sha256": "695a8494c8819a79bcfd6383fb41da2b09136b6815b4cb84603985e31d2620d3"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium/test-failed-1.png",
+          "sha256": "893736013fa419de63d17670a992fb9da2527e270c5021be8962adf84332b648"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium/trace.zip",
+          "sha256": "efd672774d1c80d3812ad4dc22f5d09d304545bf4f4d92a59acc33191898f67a"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-excess-inv-d60ec-ations-with-accurate-labels-chromium/test-failed-1.png",
+          "sha256": "27abb4affaed83ae85739b62b71e5e860d2e6ee7b4fa91c915f5a3c26227b944"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-excess-inv-d60ec-ations-with-accurate-labels-chromium/trace.zip",
+          "sha256": "c46bdbbdd2be64ffa414d818d241c293f14bc68b4afd20f4f76e2636eba31a50"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-production-79d22-sable-on-desktop-and-mobile-chromium/workspace-1440.png",
+          "sha256": "dbb508046778b1646faebd4570523eed00a48dec7a40d024eb33f9f6c1b47f27"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-production-79d22-sable-on-desktop-and-mobile-chromium/workspace-390.png",
+          "sha256": "ab50999ddf13b89b467e77454d97371602ea82f773b76400ed171d37fad77a67"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-production-79d22-sable-on-desktop-and-mobile-chromium/workspace-viewport-1440.png",
+          "sha256": "a82aa3c6ad38aa56ad22bc7aa6852f3894e268a90e8cae9dea5435fe191eb2c8"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-production-79d22-sable-on-desktop-and-mobile-chromium/workspace-viewport-390.png",
+          "sha256": "a677163d0d526dfd65e8881d30787ed2489982f4970e580dcd0c4ad4ca5dfa7b"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-reset-reta-c076d-ill-switch-refuses-planning-chromium/error-context.md",
+          "sha256": "6c4822932e2012a6943f80b84e1be6776683520287c7fb65095f645c3e856754"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-reset-reta-c076d-ill-switch-refuses-planning-chromium/test-failed-1.png",
+          "sha256": "ca16eea83050a3a7aa124bfd97ca55a86220475e1fcbd309361af7c857951a28"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-reset-reta-c076d-ill-switch-refuses-planning-chromium/trace.zip",
+          "sha256": "6187c9f393351577a7bdb0bb2b72d3ca8d02b4f37d102683906103798bfda4e6"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium/error-context.md",
+          "sha256": "e97c027d1e846c79637eaed70f191cb25465634be1d7785592956ede62bc4f70"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium/test-failed-1.png",
+          "sha256": "797f7c72e3ed07a2059a0d5b43d4e3e10837ea06e10e2f5175e51226b0663cb8"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium/trace.zip",
+          "sha256": "eae819682dc311b865b80d58b99af4c6948f0925550cb92e58ff5b7b86c67554"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/error-context.md",
+          "sha256": "906ea7e3bb8fd4c41697200dfd5ec1e0accefded2383e5a47d5e35b71ed6bd74"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/test-failed-1.png",
+          "sha256": "f75dfac52183c41b6a676507f6193c81c01ce5d1a33fd5f516627e26d4b90d3d"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-first/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/trace.zip",
+          "sha256": "4e9042ed44aea2f43269377c096c41e4eea39fa990b2f4306cb8bb73a7e1e04d"
+        }
+      ],
+      "run": "browser-first"
+    },
+    {
+      "failed_traces": [],
+      "files": [
+        {
+          "path": ".opencommerce/decisions-v2/browser-merchandising-corrected/results/.last-run.json",
+          "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-merchandising-corrected/results/merchandising-reviewed-no--3c13c-ving-and-recorded-economics-chromium/merchandising-1440.png",
+          "sha256": "8bfd8dc179f978805f2bf53ce8fddac97654aaeb5b12746c90555d1fdc2d3f1e"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-merchandising-corrected/results/merchandising-reviewed-no--3c13c-ving-and-recorded-economics-chromium/merchandising-390.png",
+          "sha256": "78dab171aa0b0be88aeeb4bedbf05d1b8792389a733c6e8aa9f3696575942500"
+        }
+      ],
+      "run": "browser-merchandising-corrected"
+    },
+    {
+      "failed_traces": [
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/model-planning.spec.ts:41:7",
+              "message": "Error: expect(locator).toBeVisible() failed"
+            }
+          ],
+          "failed_requests": [],
+          "test_directory": "model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:63:49",
+              "message": "Error: expect(locator).toHaveCount(expected) failed"
+            }
+          ],
+          "failed_requests": [
+            {
+              "elapsed_ms": 15223.32,
+              "path": "/api/runtime/v1/simulator/instances/b454c174-f756-5deb-b1f1-c9dd0bb1170b/compare-baseline",
+              "status": 503
+            },
+            {
+              "elapsed_ms": 15291.796,
+              "path": "/api/runtime/v1/catalog/inventory",
+              "status": 503
+            },
+            {
+              "elapsed_ms": 15299.489000000001,
+              "path": "/api/runtime/v1/catalog/products",
+              "status": 503
+            }
+          ],
+          "test_directory": "simulator-first-excess-inv-d60ec-ations-with-accurate-labels-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:251:5",
+              "message": "Error: expect(locator).toBeVisible() failed"
+            }
+          ],
+          "failed_requests": [
+            {
+              "elapsed_ms": 15118.028,
+              "path": "/api/runtime/v1/goals",
+              "status": 503
+            }
+          ],
+          "test_directory": "simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium"
+        },
+        {
+          "errors": [
+            {
+              "location": "at apps/web/e2e/simulator-first.spec.ts:85:49",
+              "message": "Error: expect(locator).toHaveCount(expected) failed"
+            }
+          ],
+          "failed_requests": [],
+          "test_directory": "simulator-first-search-con-cb548-ations-with-accurate-labels-chromium"
+        }
+      ],
+      "files": [
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/.last-run.json",
+          "sha256": "74fc7140ebb0a9f6ab05aa612d321d9de6f51b60e774d7575e6d8518ccd415da"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium/error-context.md",
+          "sha256": "6067ca7275c1221ef6c3c461217d73e81b72ef6b38114fb093179aca40cab927"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium/test-failed-1.png",
+          "sha256": "209adfa17badd076fb306841a183a8fb1f2737c72db51746a0dc2c4c29df2038"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/model-planning-reviewed-re-f19c1-ailability-never-falls-back-chromium/trace.zip",
+          "sha256": "7cc56b4aa314520d77523b81885ecd4caffb13646614dcfbd93d71a6994adb50"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-excess-inv-d60ec-ations-with-accurate-labels-chromium/error-context.md",
+          "sha256": "ea692fe3cd91f3a0ba451dc4256967ceba8a2fb6bd36a1117d15056759c20e01"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-excess-inv-d60ec-ations-with-accurate-labels-chromium/test-failed-1.png",
+          "sha256": "a459729ccaa86a43b8a928da540fbefbc2449d23d23449b37413081d94f07d96"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-excess-inv-d60ec-ations-with-accurate-labels-chromium/trace.zip",
+          "sha256": "799991e81ffd14745cf264ee38af63b7a134bb8baab27c67452cc684b932451c"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium/error-context.md",
+          "sha256": "7832f562d4218afa6682a05874c54d03916756ffed8b5d68ed2ee3f671474b57"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium/test-failed-1.png",
+          "sha256": "f6860aceaac0178f74685f3199d63de7ccf35111fe24dea391e637b692bf74b2"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-saved-goal-f2b34-and-reset-use-durable-state-chromium/trace.zip",
+          "sha256": "558f5c5b55f696afb7be977e88ae07cfb280cfd479e9819dd159d5336e0c0898"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/error-context.md",
+          "sha256": "a226addd23faa8627b992f6e10ab8cdaf0fae442189b32b606e1dd39c4b6f0b3"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/metrics-1440.png",
+          "sha256": "97601f5cc9f16f511fb2275de3c81ae003b9537e2bea3beacb58d515c35b3733"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/metrics-390.png",
+          "sha256": "d6203a5ee37b378c237bbaa1ea27e902c51bd3d8583369160c40af1541cf65d8"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/test-failed-1.png",
+          "sha256": "54a7e688cc413d19754fd141fd69228a1ee9f5ca14da8a0c4c63ba4871f98220"
+        },
+        {
+          "path": ".opencommerce/decisions-v2/browser-recovery/results/simulator-first-search-con-cb548-ations-with-accurate-labels-chromium/trace.zip",
+          "sha256": "36f9131eba260cf652727a617b6f8cd2883a2dd44f7a8606c51538c4dbd290ce"
+        }
+      ],
+      "run": "browser-recovery"
+    }
+  ],
+  "runtime_freeze": "e11c226f60b0d1895726ae20887a6044a4d4f948",
+  "scope": "Real isolated Compose browser workflows; no injected actions or real generative model; no runtime/UI change for the corrected assertion"
+}

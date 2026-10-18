@@ -1,0 +1,5255 @@
+{
+  "benchmark_version": "controller-v2-durable",
+  "complete": true,
+  "concurrency": 4,
+  "coverage": "smoke_only",
+  "elapsed_seconds": 19.137,
+  "environment": {
+    "asyncpg": "0.30.0",
+    "engine_version": "simulator.2",
+    "platform": "macOS-14.6-arm64-arm-64bit",
+    "postgresql": "16.15",
+    "python": "3.12.11",
+    "source_fingerprint": "sha256:b572ca9a813be8fa96119e1fcae05dc1c764bca9399fd5c0759459b1c9c01e1d",
+    "sqlalchemy": "2.0.38"
+  },
+  "failures": [],
+  "horizon_days": 3,
+  "method": {
+    "approvals": "synthetic owner/operator approves exact proposed hash; not autonomous",
+    "baseline": "same seed, horizon and total/daily spend caps; no controller actions",
+    "controller": "deployed durable controller and JobRunner; deterministic planner",
+    "delivery": "real worker nodes in-process; measurement delivery backoff accelerated",
+    "fixed_rule_baseline": "not separately implemented; no additional comparison claimed",
+    "hard_policy_violations": "dispatch, receipt, reconciliation and budget invariants",
+    "limitations": "synthetic economics; no merchant lift, calibration or causal claim",
+    "measurement": "measured breaches pause planning; no automatic unpause or rollback",
+    "outcome_guardrails": "observational CAC/margin breaches reported separately; not prevented by action gates",
+    "statistics": "population standard deviation; linearly interpolated percentiles; null CAC excluded with missing count",
+    "storage": "fresh migrated PostgreSQL database; never an in-memory repository"
+  },
+  "quality_evidence_hash": "sha256:54eaff0b46420b19af6f9af1b48c0f2fced533d52703c4cdc1a45438f8e8721c",
+  "rows": [
+    {
+      "actions": [],
+      "arm": "no_intervention",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 147,
+          "carts": 594,
+          "clicks": 1424,
+          "cogs_minor": 1830033,
+          "contribution_margin_rate": "0.4067",
+          "contribution_profit_minor": 1336904,
+          "conversion_rate": "0.1500",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246190,
+          "gross_revenue_minor": 3287277,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 170,
+          "orders": 321,
+          "search_attributed_purchases": 62,
+          "sessions": 2140,
+          "units_sold": 321,
+          "variable_fees_minor": 95340
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 615,
+          "clicks": 1492,
+          "cogs_minor": 2033449,
+          "contribution_margin_rate": "0.3993",
+          "contribution_profit_minor": 1437556,
+          "conversion_rate": "0.1717",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245826,
+          "gross_revenue_minor": 3600421,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 364,
+          "search_attributed_purchases": 71,
+          "sessions": 2120,
+          "units_sold": 364,
+          "variable_fees_minor": 104416
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 128,
+          "carts": 631,
+          "clicks": 1532,
+          "cogs_minor": 2001140,
+          "contribution_margin_rate": "0.4088",
+          "contribution_profit_minor": 1473088,
+          "conversion_rate": "0.1597",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245464,
+          "gross_revenue_minor": 3603739,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 194,
+          "orders": 362,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 362,
+          "variable_fees_minor": 104511
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "564",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246028",
+        "projected_value": "564",
+        "reason_codes": [],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "achieved"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246511",
+        "projected_value": "92.57142857142857142857142858",
+        "reason_codes": [
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "new_customers",
+      "objective_scope": "store",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "acquisition_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:e74529eedf6f042053dcb95087a2a59ce7c62d941f4bf59c7617b73d65066b25",
+      "target": "200",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 132,
+        "cogs_minor": 5864622,
+        "contribution_margin_rate": "0.4049",
+        "contribution_profit_minor": 4247548,
+        "conversion_rate": "0.1604",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10491437,
+        "new_customers": 564,
+        "orders": 1047,
+        "search_attributed_purchases": 194,
+        "sessions": 6527,
+        "units_sold": 1047,
+        "variable_fees_minor": 304267
+      },
+      "variant": "standard"
+    },
+    {
+      "actions": [
+        {
+          "action_id": "ba885522-81c0-5e89-adfd-fe4e618ca5d2",
+          "approved": true,
+          "estimated_cost_minor": 0,
+          "outcome": {
+            "guardrail_status": "clear",
+            "method": "observational_window_not_causal",
+            "metric_results": {
+              "ad_spend_minor": 39000,
+              "baseline_kind": "historical_prior",
+              "baseline_totals": {
+                "ad_spend_minor": 546000,
+                "cac_minor": 2527,
+                "cogs_minor": 1209179,
+                "contribution_margin_rate": "0.1532",
+                "contribution_profit_minor": 343014,
+                "conversion_rate": "0.0351",
+                "days": 7,
+                "discounts_minor": 78370,
+                "gross_revenue_minor": 2239223,
+                "new_customers": 216,
+                "orders": 355,
+                "search_attributed_purchases": 69,
+                "sessions": 10100,
+                "units_sold": 388,
+                "variable_fees_minor": 62660
+              },
+              "cac_minor": 79,
+              "cogs_minor": 5218509,
+              "contribution_margin_rate": "0.4016",
+              "contribution_profit_minor": 3709349,
+              "conversion_rate": "0.1643",
+              "days": 3,
+              "discounts_minor": 2546,
+              "gross_revenue_minor": 9237233,
+              "minimum_days": 2,
+              "minimum_sample": 500,
+              "new_customers": 492,
+              "orders": 945,
+              "reason_codes": [],
+              "review_required": false,
+              "rollback_recommended_for_review": false,
+              "search_attributed_purchases": 187,
+              "sessions": 5753,
+              "units_sold": 945,
+              "variable_fees_minor": 267829,
+              "window_end_at": "2026-09-04T00:00:00+00:00",
+              "window_start_at": "2026-09-01T00:00:00+00:00"
+            },
+            "sample_size": 5753
+          },
+          "policy_outcome": "require_approval",
+          "policy_reason_codes": [
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-01T00:00:00+00:00",
+          "status": "succeeded",
+          "type": "set_search_boost"
+        },
+        {
+          "action_id": "f48f882e-575e-5d56-a09c-810b21dcad6e",
+          "approved": true,
+          "estimated_cost_minor": 12000,
+          "outcome": {
+            "guardrail_status": "clear",
+            "method": "observational_window_not_causal",
+            "metric_results": {
+              "ad_spend_minor": 39000,
+              "baseline_kind": "historical_prior",
+              "baseline_totals": {
+                "ad_spend_minor": 546000,
+                "cac_minor": 2527,
+                "cogs_minor": 1209179,
+                "contribution_margin_rate": "0.1532",
+                "contribution_profit_minor": 343014,
+                "conversion_rate": "0.0351",
+                "days": 7,
+                "discounts_minor": 78370,
+                "gross_revenue_minor": 2239223,
+                "new_customers": 216,
+                "orders": 355,
+                "search_attributed_purchases": 69,
+                "sessions": 10100,
+                "units_sold": 388,
+                "variable_fees_minor": 62660
+              },
+              "cac_minor": 79,
+              "cogs_minor": 5218509,
+              "contribution_margin_rate": "0.4016",
+              "contribution_profit_minor": 3709349,
+              "conversion_rate": "0.1643",
+              "days": 3,
+              "discounts_minor": 2546,
+              "gross_revenue_minor": 9237233,
+              "minimum_days": 2,
+              "minimum_sample": 500,
+              "new_customers": 492,
+              "orders": 945,
+              "reason_codes": [],
+              "review_required": false,
+              "rollback_recommended_for_review": false,
+              "search_attributed_purchases": 187,
+              "sessions": 5753,
+              "units_sold": 945,
+              "variable_fees_minor": 267829,
+              "window_end_at": "2026-09-04T00:00:00+00:00",
+              "window_start_at": "2026-09-01T00:00:00+00:00"
+            },
+            "sample_size": 5753
+          },
+          "policy_outcome": "require_approval",
+          "policy_reason_codes": [
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-01T00:00:00+00:00",
+          "status": "succeeded",
+          "type": "create_discount"
+        },
+        {
+          "action_id": "e43ef191-c78d-5ac8-b165-4c21b03efc94",
+          "approved": true,
+          "estimated_cost_minor": 0,
+          "outcome": {
+            "guardrail_status": "clear",
+            "method": "observational_window_not_causal",
+            "metric_results": {
+              "ad_spend_minor": 26000,
+              "baseline_kind": "recent_runtime",
+              "baseline_totals": {
+                "ad_spend_minor": 13000,
+                "cac_minor": 87,
+                "cogs_minor": 1632807,
+                "contribution_margin_rate": "0.4055",
+                "contribution_profit_minor": 1179914,
+                "conversion_rate": "0.1567",
+                "days": 1,
+                "discounts_minor": 0,
+                "gross_revenue_minor": 2910127,
+                "new_customers": 149,
+                "orders": 295,
+                "search_attributed_purchases": 60,
+                "sessions": 1882,
+                "units_sold": 295,
+                "variable_fees_minor": 84406
+              },
+              "cac_minor": 75,
+              "cogs_minor": 3585702,
+              "contribution_margin_rate": "0.3998",
+              "contribution_profit_minor": 2529435,
+              "conversion_rate": "0.1679",
+              "days": 2,
+              "discounts_minor": 2546,
+              "gross_revenue_minor": 6327106,
+              "minimum_days": 2,
+              "minimum_sample": 500,
+              "new_customers": 343,
+              "orders": 650,
+              "reason_codes": [],
+              "review_required": false,
+              "rollback_recommended_for_review": false,
+              "search_attributed_purchases": 127,
+              "sessions": 3871,
+              "units_sold": 650,
+              "variable_fees_minor": 183423,
+              "window_end_at": "2026-09-04T00:00:00+00:00",
+              "window_start_at": "2026-09-02T00:00:00+00:00"
+            },
+            "sample_size": 3871
+          },
+          "policy_outcome": "require_approval",
+          "policy_reason_codes": [
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-02T00:00:00+00:00",
+          "status": "succeeded",
+          "type": "set_campaign_budget"
+        },
+        {
+          "action_id": "c53fa999-febc-55a7-9423-0dfcdedad693",
+          "approved": false,
+          "estimated_cost_minor": 0,
+          "outcome": null,
+          "policy_outcome": "deny",
+          "policy_reason_codes": [
+            "parallel_intervention_limit",
+            "cooldown_target",
+            "target_conflict",
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-03T00:00:00+00:00",
+          "status": "denied",
+          "type": "set_campaign_budget"
+        }
+      ],
+      "arm": "goal_conditioned_controller",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 12000,
+          "entries": {
+            "committed": 13000,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 12000,
+          "entries": {
+            "committed": 13000,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 9454,
+          "entries": {
+            "committed": 15546,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 958454,
+          "entries": {
+            "committed": 41546,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [
+        {
+          "action_count": 2,
+          "assessment": {
+            "current_value": "0",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "new_customers",
+            "physical_upper_bound": "246511",
+            "projected_value": "92.57142857142857142857142858",
+            "reason_codes": [
+              "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+            ],
+            "scope": "store",
+            "target_value": "200",
+            "trajectory": "at_risk"
+          },
+          "day": 0,
+          "status": "completed"
+        },
+        {
+          "action_count": 1,
+          "assessment": {
+            "current_value": "149",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "new_customers",
+            "physical_upper_bound": "246365",
+            "projected_value": "447.0",
+            "reason_codes": [],
+            "scope": "store",
+            "target_value": "200",
+            "trajectory": "on_track"
+          },
+          "day": 1,
+          "status": "completed"
+        },
+        {
+          "action_count": 1,
+          "assessment": {
+            "current_value": "322",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "new_customers",
+            "physical_upper_bound": "246218",
+            "projected_value": "483.0",
+            "reason_codes": [],
+            "scope": "store",
+            "target_value": "200",
+            "trajectory": "achieved"
+          },
+          "day": 2,
+          "status": "completed"
+        }
+      ],
+      "daily": [
+        {
+          "ad_spend_minor": 13000,
+          "cac_minor": 87,
+          "carts": 544,
+          "clicks": 1284,
+          "cogs_minor": 1632807,
+          "contribution_margin_rate": "0.4055",
+          "contribution_profit_minor": 1179914,
+          "conversion_rate": "0.1567",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246216,
+          "gross_revenue_minor": 2910127,
+          "impressions": 9410,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 149,
+          "orders": 295,
+          "search_attributed_purchases": 60,
+          "sessions": 1882,
+          "units_sold": 295,
+          "variable_fees_minor": 84406
+        },
+        {
+          "ad_spend_minor": 13000,
+          "cac_minor": 75,
+          "carts": 506,
+          "clicks": 1295,
+          "cogs_minor": 1737251,
+          "contribution_margin_rate": "0.4020",
+          "contribution_profit_minor": 1236439,
+          "conversion_rate": "0.1719",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245896,
+          "gross_revenue_minor": 3075902,
+          "impressions": 9310,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 173,
+          "orders": 320,
+          "search_attributed_purchases": 71,
+          "sessions": 1862,
+          "units_sold": 320,
+          "variable_fees_minor": 89212
+        },
+        {
+          "ad_spend_minor": 13000,
+          "cac_minor": 76,
+          "carts": 582,
+          "clicks": 1366,
+          "cogs_minor": 1848451,
+          "contribution_margin_rate": "0.3977",
+          "contribution_profit_minor": 1292996,
+          "conversion_rate": "0.1643",
+          "day_index": 2,
+          "discount_rate": "0.0008",
+          "discounts_minor": 2546,
+          "ending_inventory_units": 245566,
+          "gross_revenue_minor": 3251204,
+          "impressions": 10045,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 170,
+          "orders": 330,
+          "search_attributed_purchases": 56,
+          "sessions": 2009,
+          "units_sold": 330,
+          "variable_fees_minor": 94211
+        }
+      ],
+      "denied_proposals": 1,
+      "dispatch_checks": [
+        {
+          "action_id": "ba885522-81c0-5e89-adfd-fe4e618ca5d2",
+          "authoritative_facts": {
+            "min_relevance_score": "1",
+            "multiplier": "1.10",
+            "targets_low_stock": false
+          },
+          "budget_remaining_minor": 25000,
+          "day": 0,
+          "estimated_cost_minor": 0,
+          "policy_outcome": "require_approval",
+          "problems": [],
+          "result_status": "succeeded",
+          "rules": [
+            {
+              "code": "kill_switch",
+              "details": {},
+              "passed": true,
+              "reason": "tenant kill switch is disabled"
+            },
+            {
+              "code": "execution_boundary",
+              "details": {},
+              "passed": true,
+              "reason": "tenant, provider, autonomy and expiry boundaries hold"
+            },
+            {
+              "code": "action_allowlist",
+              "details": {
+                "action_type": "set_search_boost",
+                "allowed_by_goal": true,
+                "allowed_by_policy": true
+              },
+              "passed": true,
+              "reason": "action type is allowed"
+            },
+            {
+              "code": "idempotency_key",
+              "details": {},
+              "passed": true,
+              "reason": "compiled action has a deterministic idempotency key"
+            },
+            {
+              "code": "rollback_available",
+              "details": {},
+              "passed": true,
+              "reason": "rollback metadata is available"
+            },
+            {
+              "code": "discount_max_percentage",
+              "details": {},
+              "passed": true,
+              "reason": "not a discount creation"
+            },
+            {
+              "code": "known_cost_basis",
+              "details": {},
+              "passed": true,
+              "reason": "action does not require product cost basis"
+            },
+            {
+              "code": "contribution_margin_floor",
+              "details": {},
+              "passed": true,
+              "reason": "no projected margin constraint applies"
+            },
+            {
+              "code": "price_delta_limit",
+              "details": {},
+              "passed": true,
+              "reason": "not a price action"
+            },
+            {
+              "code": "budget_available",
+              "details": {
+                "currency": "USD",
+                "estimated_cost_minor": 0,
+                "remaining_minor": 25000
+              },
+              "passed": true,
+              "reason": "estimated cost fits remaining budget"
+            },
+            {
+              "code": "provider_capability",
+              "details": {
+                "required": "write_merchandising"
+              },
+              "passed": true,
+              "reason": "provider advertises required capability"
+            },
+            {
+              "code": "data_freshness",
+              "details": {},
+              "passed": true,
+              "reason": "required data is fresh"
+            },
+            {
+              "code": "inventory_guardrail",
+              "details": {},
+              "passed": true,
+              "reason": "action avoids prohibited inventory changes and low-stock targets"
+            },
+            {
+              "code": "action_volume_limit",
+              "details": {
+                "actions_in_run": 2,
+                "maximum": 5
+              },
+              "passed": true,
+              "reason": "action count is within policy"
+            },
+            {
+              "code": "parallel_intervention_limit",
+              "details": {
+                "active_interventions": 0,
+                "maximum": 3
+              },
+              "passed": true,
+              "reason": "goal has room for this intervention"
+            },
+            {
+              "code": "cooldown_target",
+              "details": {},
+              "passed": true,
+              "reason": "target is not in cooldown"
+            },
+            {
+              "code": "minimum_sample_size",
+              "details": {
+                "minimum": 500,
+                "mode": "approval_required",
+                "sample_size": 10100
+              },
+              "passed": true,
+              "reason": "manual approval mode does not require auto sample size"
+            },
+            {
+              "code": "confidence_floor",
+              "details": {
+                "confidence": "0.84",
+                "minimum": "0.75",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action confidence meets policy floor"
+            },
+            {
+              "code": "target_conflict",
+              "details": {},
+              "passed": true,
+              "reason": "no active target conflict"
+            },
+            {
+              "code": "search_relevance_floor",
+              "details": {
+                "min_relevance_score": "1",
+                "minimum": "0.55"
+              },
+              "passed": true,
+              "reason": "search boost satisfies relevance floor"
+            },
+            {
+              "code": "search_boost_multiplier",
+              "details": {
+                "maximum": "1.15",
+                "multiplier": "1.10"
+              },
+              "passed": true,
+              "reason": "search boost multiplier is within policy"
+            },
+            {
+              "code": "campaign_budget_delta",
+              "details": {},
+              "passed": true,
+              "reason": "not a campaign budget action"
+            },
+            {
+              "code": "approval_requirement",
+              "details": {
+                "action_type": "set_search_boost",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action requires human approval"
+            }
+          ]
+        },
+        {
+          "action_id": "f48f882e-575e-5d56-a09c-810b21dcad6e",
+          "authoritative_facts": {
+            "discount_percentage": "0.10",
+            "known_cost_basis": true,
+            "projected_margin_rate": "0.2533814247069431920649233544",
+            "targets_low_stock": false
+          },
+          "budget_remaining_minor": 25000,
+          "day": 0,
+          "estimated_cost_minor": 12000,
+          "policy_outcome": "require_approval",
+          "problems": [],
+          "result_status": "succeeded",
+          "rules": [
+            {
+              "code": "kill_switch",
+              "details": {},
+              "passed": true,
+              "reason": "tenant kill switch is disabled"
+            },
+            {
+              "code": "execution_boundary",
+              "details": {},
+              "passed": true,
+              "reason": "tenant, provider, autonomy and expiry boundaries hold"
+            },
+            {
+              "code": "action_allowlist",
+              "details": {
+                "action_type": "create_discount",
+                "allowed_by_goal": true,
+                "allowed_by_policy": true
+              },
+              "passed": true,
+              "reason": "action type is allowed"
+            },
+            {
+              "code": "idempotency_key",
+              "details": {},
+              "passed": true,
+              "reason": "compiled action has a deterministic idempotency key"
+            },
+            {
+              "code": "rollback_available",
+              "details": {},
+              "passed": true,
+              "reason": "rollback metadata is available"
+            },
+            {
+              "code": "discount_max_percentage",
+              "details": {
+                "discount_percentage": "0.10",
+                "maximum": "0.15"
+              },
+              "passed": true,
+              "reason": "discount is within percentage limit"
+            },
+            {
+              "code": "known_cost_basis",
+              "details": {},
+              "passed": true,
+              "reason": "product cost basis is known"
+            },
+            {
+              "code": "contribution_margin_floor",
+              "details": {
+                "minimum": "0.25",
+                "projected_margin_rate": "0.2533814247069431920649233544"
+              },
+              "passed": true,
+              "reason": "projected contribution margin is within policy"
+            },
+            {
+              "code": "price_delta_limit",
+              "details": {},
+              "passed": true,
+              "reason": "not a price action"
+            },
+            {
+              "code": "budget_available",
+              "details": {
+                "currency": "USD",
+                "estimated_cost_minor": 12000,
+                "remaining_minor": 25000
+              },
+              "passed": true,
+              "reason": "estimated cost fits remaining budget"
+            },
+            {
+              "code": "provider_capability",
+              "details": {
+                "required": "write_discounts"
+              },
+              "passed": true,
+              "reason": "provider advertises required capability"
+            },
+            {
+              "code": "data_freshness",
+              "details": {},
+              "passed": true,
+              "reason": "required data is fresh"
+            },
+            {
+              "code": "inventory_guardrail",
+              "details": {},
+              "passed": true,
+              "reason": "action avoids prohibited inventory changes and low-stock targets"
+            },
+            {
+              "code": "action_volume_limit",
+              "details": {
+                "actions_in_run": 2,
+                "maximum": 5
+              },
+              "passed": true,
+              "reason": "action count is within policy"
+            },
+            {
+              "code": "parallel_intervention_limit",
+              "details": {
+                "active_interventions": 1,
+                "maximum": 3
+              },
+              "passed": true,
+              "reason": "goal has room for this intervention"
+            },
+            {
+              "code": "cooldown_target",
+              "details": {},
+              "passed": true,
+              "reason": "target is not in cooldown"
+            },
+            {
+              "code": "minimum_sample_size",
+              "details": {
+                "minimum": 500,
+                "mode": "approval_required",
+                "sample_size": 10100
+              },
+              "passed": true,
+              "reason": "manual approval mode does not require auto sample size"
+            },
+            {
+              "code": "confidence_floor",
+              "details": {
+                "confidence": "0.81",
+                "minimum": "0.75",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action confidence meets policy floor"
+            },
+            {
+              "code": "target_conflict",
+              "details": {},
+              "passed": true,
+              "reason": "no active target conflict"
+            },
+            {
+              "code": "search_relevance_floor",
+              "details": {},
+              "passed": true,
+              "reason": "not a search boost"
+            },
+            {
+              "code": "search_boost_multiplier",
+              "details": {},
+              "passed": true,
+              "reason": "not a search boost"
+            },
+            {
+              "code": "campaign_budget_delta",
+              "details": {},
+              "passed": true,
+              "reason": "not a campaign budget action"
+            },
+            {
+              "code": "approval_requirement",
+              "details": {
+                "action_type": "create_discount",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action requires human approval"
+            }
+          ]
+        },
+        {
+          "action_id": "e43ef191-c78d-5ac8-b165-4c21b03efc94",
+          "authoritative_facts": {
+            "budget_change_rate": "0.2",
+            "current_budget_minor": 34000,
+            "new_budget_minor": 27200
+          },
+          "budget_remaining_minor": 25000,
+          "day": 1,
+          "estimated_cost_minor": 0,
+          "policy_outcome": "require_approval",
+          "problems": [],
+          "result_status": "succeeded",
+          "rules": [
+            {
+              "code": "kill_switch",
+              "details": {},
+              "passed": true,
+              "reason": "tenant kill switch is disabled"
+            },
+            {
+              "code": "execution_boundary",
+              "details": {},
+              "passed": true,
+              "reason": "tenant, provider, autonomy and expiry boundaries hold"
+            },
+            {
+              "code": "action_allowlist",
+              "details": {
+                "action_type": "set_campaign_budget",
+                "allowed_by_goal": true,
+                "allowed_by_policy": true
+              },
+              "passed": true,
+              "reason": "action type is allowed"
+            },
+            {
+              "code": "idempotency_key",
+              "details": {},
+              "passed": true,
+              "reason": "compiled action has a deterministic idempotency key"
+            },
+            {
+              "code": "rollback_available",
+              "details": {},
+              "passed": true,
+              "reason": "rollback metadata is available"
+            },
+            {
+              "code": "discount_max_percentage",
+              "details": {},
+              "passed": true,
+              "reason": "not a discount creation"
+            },
+            {
+              "code": "known_cost_basis",
+              "details": {},
+              "passed": true,
+              "reason": "action does not require product cost basis"
+            },
+            {
+              "code": "contribution_margin_floor",
+              "details": {},
+              "passed": true,
+              "reason": "no projected margin constraint applies"
+            },
+            {
+              "code": "price_delta_limit",
+              "details": {},
+              "passed": true,
+              "reason": "not a price action"
+            },
+            {
+              "code": "budget_available",
+              "details": {
+                "currency": "USD",
+                "estimated_cost_minor": 0,
+                "remaining_minor": 25000
+              },
+              "passed": true,
+              "reason": "estimated cost fits remaining budget"
+            },
+            {
+              "code": "provider_capability",
+              "details": {
+                "required": "write_campaign_budget"
+              },
+              "passed": true,
+              "reason": "provider advertises required capability"
+            },
+            {
+              "code": "data_freshness",
+              "details": {},
+              "passed": true,
+              "reason": "required data is fresh"
+            },
+            {
+              "code": "inventory_guardrail",
+              "details": {},
+              "passed": true,
+              "reason": "action avoids prohibited inventory changes and low-stock targets"
+            },
+            {
+              "code": "action_volume_limit",
+              "details": {
+                "actions_in_run": 1,
+                "maximum": 5
+              },
+              "passed": true,
+              "reason": "action count is within policy"
+            },
+            {
+              "code": "parallel_intervention_limit",
+              "details": {
+                "active_interventions": 2,
+                "maximum": 3
+              },
+              "passed": true,
+              "reason": "goal has room for this intervention"
+            },
+            {
+              "code": "cooldown_target",
+              "details": {},
+              "passed": true,
+              "reason": "target is not in cooldown"
+            },
+            {
+              "code": "minimum_sample_size",
+              "details": {
+                "minimum": 500,
+                "mode": "approval_required",
+                "sample_size": 10499
+              },
+              "passed": true,
+              "reason": "manual approval mode does not require auto sample size"
+            },
+            {
+              "code": "confidence_floor",
+              "details": {
+                "confidence": "0.78",
+                "minimum": "0.75",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action confidence meets policy floor"
+            },
+            {
+              "code": "target_conflict",
+              "details": {},
+              "passed": true,
+              "reason": "no active target conflict"
+            },
+            {
+              "code": "search_relevance_floor",
+              "details": {},
+              "passed": true,
+              "reason": "not a search boost"
+            },
+            {
+              "code": "search_boost_multiplier",
+              "details": {},
+              "passed": true,
+              "reason": "not a search boost"
+            },
+            {
+              "code": "campaign_budget_delta",
+              "details": {
+                "budget_change_rate": "0.2",
+                "maximum": "0.25"
+              },
+              "passed": true,
+              "reason": "campaign budget change is within policy"
+            },
+            {
+              "code": "approval_requirement",
+              "details": {
+                "action_type": "set_campaign_budget",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action requires human approval"
+            }
+          ]
+        }
+      ],
+      "executed_actions": 3,
+      "final_assessment": {
+        "current_value": "492",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246058",
+        "projected_value": "492",
+        "reason_codes": [],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "achieved"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246511",
+        "projected_value": "92.57142857142857142857142858",
+        "reason_codes": [
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "new_customers",
+      "objective_scope": "store",
+      "outcome_count": 3,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "acquisition_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:c949dec47166ed143b39bc677e156d6c336b6a06e8df66f6b838db4d54ac07ae",
+      "target": "200",
+      "totals": {
+        "ad_spend_minor": 39000,
+        "cac_minor": 79,
+        "cogs_minor": 5218509,
+        "contribution_margin_rate": "0.4016",
+        "contribution_profit_minor": 3709349,
+        "conversion_rate": "0.1643",
+        "days": 3,
+        "discounts_minor": 2546,
+        "gross_revenue_minor": 9237233,
+        "new_customers": 492,
+        "orders": 945,
+        "search_attributed_purchases": 187,
+        "sessions": 5753,
+        "units_sold": 945,
+        "variable_fees_minor": 267829
+      },
+      "variant": "standard"
+    },
+    {
+      "actions": [],
+      "arm": "no_intervention",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 147,
+          "carts": 594,
+          "clicks": 1424,
+          "cogs_minor": 1830033,
+          "contribution_margin_rate": "0.4067",
+          "contribution_profit_minor": 1336904,
+          "conversion_rate": "0.1500",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246190,
+          "gross_revenue_minor": 3287277,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 170,
+          "orders": 321,
+          "search_attributed_purchases": 62,
+          "sessions": 2140,
+          "units_sold": 321,
+          "variable_fees_minor": 95340
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 615,
+          "clicks": 1492,
+          "cogs_minor": 2033449,
+          "contribution_margin_rate": "0.3993",
+          "contribution_profit_minor": 1437556,
+          "conversion_rate": "0.1717",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245826,
+          "gross_revenue_minor": 3600421,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 364,
+          "search_attributed_purchases": 71,
+          "sessions": 2120,
+          "units_sold": 364,
+          "variable_fees_minor": 104416
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 128,
+          "carts": 631,
+          "clicks": 1532,
+          "cogs_minor": 2001140,
+          "contribution_margin_rate": "0.4088",
+          "contribution_profit_minor": 1473088,
+          "conversion_rate": "0.1597",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245464,
+          "gross_revenue_minor": 3603739,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 194,
+          "orders": 362,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 362,
+          "variable_fees_minor": 104511
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "564",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246028",
+        "projected_value": "564",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246511",
+        "projected_value": "92.57142857142857142857142858",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND",
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "new_customers",
+      "objective_scope": "store",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "acquisition_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:e74529eedf6f042053dcb95087a2a59ce7c62d941f4bf59c7617b73d65066b25",
+      "target": "246512",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 132,
+        "cogs_minor": 5864622,
+        "contribution_margin_rate": "0.4049",
+        "contribution_profit_minor": 4247548,
+        "conversion_rate": "0.1604",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10491437,
+        "new_customers": 564,
+        "orders": 1047,
+        "search_attributed_purchases": 194,
+        "sessions": 6527,
+        "units_sold": 1047,
+        "variable_fees_minor": 304267
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "actions": [],
+      "arm": "goal_conditioned_controller",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "0",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "new_customers",
+            "physical_upper_bound": "246511",
+            "projected_value": "92.57142857142857142857142858",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND",
+              "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+            ],
+            "scope": "store",
+            "target_value": "246512",
+            "trajectory": "at_risk"
+          },
+          "day": 0,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "170",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "new_customers",
+            "physical_upper_bound": "246360",
+            "projected_value": "510.0",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND"
+            ],
+            "scope": "store",
+            "target_value": "246512",
+            "trajectory": "at_risk"
+          },
+          "day": 1,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "370",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "new_customers",
+            "physical_upper_bound": "246196",
+            "projected_value": "555.0",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND"
+            ],
+            "scope": "store",
+            "target_value": "246512",
+            "trajectory": "at_risk"
+          },
+          "day": 2,
+          "status": "completed"
+        }
+      ],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 147,
+          "carts": 594,
+          "clicks": 1424,
+          "cogs_minor": 1830033,
+          "contribution_margin_rate": "0.4067",
+          "contribution_profit_minor": 1336904,
+          "conversion_rate": "0.1500",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246190,
+          "gross_revenue_minor": 3287277,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 170,
+          "orders": 321,
+          "search_attributed_purchases": 62,
+          "sessions": 2140,
+          "units_sold": 321,
+          "variable_fees_minor": 95340
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 615,
+          "clicks": 1492,
+          "cogs_minor": 2033449,
+          "contribution_margin_rate": "0.3993",
+          "contribution_profit_minor": 1437556,
+          "conversion_rate": "0.1717",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245826,
+          "gross_revenue_minor": 3600421,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 364,
+          "search_attributed_purchases": 71,
+          "sessions": 2120,
+          "units_sold": 364,
+          "variable_fees_minor": 104416
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 128,
+          "carts": 631,
+          "clicks": 1532,
+          "cogs_minor": 2001140,
+          "contribution_margin_rate": "0.4088",
+          "contribution_profit_minor": 1473088,
+          "conversion_rate": "0.1597",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245464,
+          "gross_revenue_minor": 3603739,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 194,
+          "orders": 362,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 362,
+          "variable_fees_minor": 104511
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "564",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246028",
+        "projected_value": "564",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "new_customers",
+        "physical_upper_bound": "246511",
+        "projected_value": "92.57142857142857142857142858",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND",
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "new_customers",
+      "objective_scope": "store",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "acquisition_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:e74529eedf6f042053dcb95087a2a59ce7c62d941f4bf59c7617b73d65066b25",
+      "target": "246512",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 132,
+        "cogs_minor": 5864622,
+        "contribution_margin_rate": "0.4049",
+        "contribution_profit_minor": 4247548,
+        "conversion_rate": "0.1604",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10491437,
+        "new_customers": 564,
+        "orders": 1047,
+        "search_attributed_purchases": 194,
+        "sessions": 6527,
+        "units_sold": 1047,
+        "variable_fees_minor": 304267
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "actions": [],
+      "arm": "no_intervention",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 150,
+          "carts": 601,
+          "clicks": 1427,
+          "cogs_minor": 1813527,
+          "contribution_margin_rate": "0.4056",
+          "contribution_profit_minor": 1318996,
+          "conversion_rate": "0.1477",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 286081,
+          "gross_revenue_minor": 3251831,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 166,
+          "orders": 316,
+          "search_attributed_purchases": 63,
+          "sessions": 2140,
+          "units_sold": 316,
+          "variable_fees_minor": 94308
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 614,
+          "clicks": 1491,
+          "cogs_minor": 2037076,
+          "contribution_margin_rate": "0.3985",
+          "contribution_profit_minor": 1435131,
+          "conversion_rate": "0.1712",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285718,
+          "gross_revenue_minor": 3601658,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 363,
+          "search_attributed_purchases": 72,
+          "sessions": 2120,
+          "units_sold": 363,
+          "variable_fees_minor": 104451
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 135,
+          "carts": 635,
+          "clicks": 1530,
+          "cogs_minor": 2002545,
+          "contribution_margin_rate": "0.4063",
+          "contribution_profit_minor": 1458749,
+          "conversion_rate": "0.1588",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285358,
+          "gross_revenue_minor": 3590418,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 184,
+          "orders": 360,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 360,
+          "variable_fees_minor": 104124
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "171",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "171",
+        "reason_codes": [],
+        "scope": "excess_inventory",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "74.02752921893136350690026182",
+        "reason_codes": [
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "excess_inventory",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "units_sold",
+      "objective_scope": "excess_inventory",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "excess_inventory_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:4ecb3b85d785a0d3127642b4369fa3bbec23b96f105c169b7b4c692d5b549ffd",
+      "target": "200",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 136,
+        "cogs_minor": 5853148,
+        "contribution_margin_rate": "0.4034",
+        "contribution_profit_minor": 4212876,
+        "conversion_rate": "0.1592",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10443907,
+        "new_customers": 550,
+        "orders": 1039,
+        "search_attributed_purchases": 196,
+        "sessions": 6527,
+        "units_sold": 1039,
+        "variable_fees_minor": 302883
+      },
+      "variant": "standard"
+    },
+    {
+      "actions": [
+        {
+          "action_id": "0e2db5a7-bd91-51e8-993a-bc7080e604a9",
+          "approved": true,
+          "estimated_cost_minor": 12000,
+          "outcome": {
+            "guardrail_status": "clear",
+            "method": "observational_window_not_causal",
+            "metric_results": {
+              "ad_spend_minor": 39000,
+              "baseline_kind": "historical_prior",
+              "baseline_totals": {
+                "ad_spend_minor": 546000,
+                "cac_minor": 2527,
+                "cogs_minor": 1209179,
+                "contribution_margin_rate": "0.1532",
+                "contribution_profit_minor": 343014,
+                "conversion_rate": "0.0351",
+                "days": 7,
+                "discounts_minor": 78370,
+                "gross_revenue_minor": 2239223,
+                "new_customers": 216,
+                "orders": 355,
+                "search_attributed_purchases": 69,
+                "sessions": 10100,
+                "units_sold": 388,
+                "variable_fees_minor": 62660
+              },
+              "cac_minor": 78,
+              "cogs_minor": 5015298,
+              "contribution_margin_rate": "0.4058",
+              "contribution_profit_minor": 3629594,
+              "conversion_rate": "0.1629",
+              "days": 3,
+              "discounts_minor": 0,
+              "gross_revenue_minor": 8943252,
+              "minimum_days": 2,
+              "minimum_sample": 500,
+              "new_customers": 499,
+              "orders": 937,
+              "reason_codes": [],
+              "review_required": false,
+              "rollback_recommended_for_review": false,
+              "search_attributed_purchases": 190,
+              "sessions": 5753,
+              "units_sold": 937,
+              "variable_fees_minor": 259360,
+              "window_end_at": "2026-09-04T00:00:00+00:00",
+              "window_start_at": "2026-09-01T00:00:00+00:00"
+            },
+            "sample_size": 5753
+          },
+          "policy_outcome": "require_approval",
+          "policy_reason_codes": [
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-01T00:00:00+00:00",
+          "status": "succeeded",
+          "type": "create_discount"
+        },
+        {
+          "action_id": "e508a3fb-5099-5ecb-9d4a-bdc317951510",
+          "approved": true,
+          "estimated_cost_minor": 0,
+          "outcome": {
+            "guardrail_status": "clear",
+            "method": "observational_window_not_causal",
+            "metric_results": {
+              "ad_spend_minor": 39000,
+              "baseline_kind": "historical_prior",
+              "baseline_totals": {
+                "ad_spend_minor": 546000,
+                "cac_minor": 2527,
+                "cogs_minor": 1209179,
+                "contribution_margin_rate": "0.1532",
+                "contribution_profit_minor": 343014,
+                "conversion_rate": "0.0351",
+                "days": 7,
+                "discounts_minor": 78370,
+                "gross_revenue_minor": 2239223,
+                "new_customers": 216,
+                "orders": 355,
+                "search_attributed_purchases": 69,
+                "sessions": 10100,
+                "units_sold": 388,
+                "variable_fees_minor": 62660
+              },
+              "cac_minor": 78,
+              "cogs_minor": 5015298,
+              "contribution_margin_rate": "0.4058",
+              "contribution_profit_minor": 3629594,
+              "conversion_rate": "0.1629",
+              "days": 3,
+              "discounts_minor": 0,
+              "gross_revenue_minor": 8943252,
+              "minimum_days": 2,
+              "minimum_sample": 500,
+              "new_customers": 499,
+              "orders": 937,
+              "reason_codes": [],
+              "review_required": false,
+              "rollback_recommended_for_review": false,
+              "search_attributed_purchases": 190,
+              "sessions": 5753,
+              "units_sold": 937,
+              "variable_fees_minor": 259360,
+              "window_end_at": "2026-09-04T00:00:00+00:00",
+              "window_start_at": "2026-09-01T00:00:00+00:00"
+            },
+            "sample_size": 5753
+          },
+          "policy_outcome": "require_approval",
+          "policy_reason_codes": [
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-01T00:00:00+00:00",
+          "status": "succeeded",
+          "type": "set_search_boost"
+        }
+      ],
+      "arm": "goal_conditioned_controller",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 12000,
+          "entries": {
+            "committed": 13000,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 12000,
+          "entries": {
+            "committed": 13000,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 12000,
+          "entries": {
+            "committed": 13000,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 961000,
+          "entries": {
+            "committed": 39000,
+            "released": 12000,
+            "reserved": 12000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [
+        {
+          "action_count": 2,
+          "assessment": {
+            "current_value": "0",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "units_sold",
+            "physical_upper_bound": "127499",
+            "projected_value": "74.02752921893136350690026182",
+            "reason_codes": [
+              "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+            ],
+            "scope": "excess_inventory",
+            "target_value": "200",
+            "trajectory": "at_risk"
+          },
+          "day": 0,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "77",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "units_sold",
+            "physical_upper_bound": "127499",
+            "projected_value": "231.0",
+            "reason_codes": [],
+            "scope": "excess_inventory",
+            "target_value": "200",
+            "trajectory": "on_track"
+          },
+          "day": 1,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "168",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "units_sold",
+            "physical_upper_bound": "127499",
+            "projected_value": "252.0",
+            "reason_codes": [],
+            "scope": "excess_inventory",
+            "target_value": "200",
+            "trajectory": "on_track"
+          },
+          "day": 2,
+          "status": "completed"
+        }
+      ],
+      "daily": [
+        {
+          "ad_spend_minor": 13000,
+          "cac_minor": 89,
+          "carts": 525,
+          "clicks": 1274,
+          "cogs_minor": 1569459,
+          "contribution_margin_rate": "0.4051",
+          "contribution_profit_minor": 1132986,
+          "conversion_rate": "0.1530",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 286109,
+          "gross_revenue_minor": 2796550,
+          "impressions": 9410,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 146,
+          "orders": 288,
+          "search_attributed_purchases": 64,
+          "sessions": 1882,
+          "units_sold": 288,
+          "variable_fees_minor": 81105
+        },
+        {
+          "ad_spend_minor": 13000,
+          "cac_minor": 75,
+          "carts": 526,
+          "clicks": 1308,
+          "cogs_minor": 1624224,
+          "contribution_margin_rate": "0.4115",
+          "contribution_profit_minor": 1203974,
+          "conversion_rate": "0.1697",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285793,
+          "gross_revenue_minor": 2926052,
+          "impressions": 9310,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 172,
+          "orders": 316,
+          "search_attributed_purchases": 69,
+          "sessions": 1862,
+          "units_sold": 316,
+          "variable_fees_minor": 84854
+        },
+        {
+          "ad_spend_minor": 13000,
+          "cac_minor": 71,
+          "carts": 584,
+          "clicks": 1369,
+          "cogs_minor": 1821615,
+          "contribution_margin_rate": "0.4014",
+          "contribution_profit_minor": 1292634,
+          "conversion_rate": "0.1658",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285460,
+          "gross_revenue_minor": 3220650,
+          "impressions": 10045,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 181,
+          "orders": 333,
+          "search_attributed_purchases": 57,
+          "sessions": 2009,
+          "units_sold": 333,
+          "variable_fees_minor": 93401
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [
+        {
+          "action_id": "0e2db5a7-bd91-51e8-993a-bc7080e604a9",
+          "authoritative_facts": {
+            "discount_percentage": "0.10",
+            "known_cost_basis": true,
+            "projected_margin_rate": "0.2923128792987188132164531355",
+            "targets_low_stock": false
+          },
+          "budget_remaining_minor": 25000,
+          "day": 0,
+          "estimated_cost_minor": 12000,
+          "policy_outcome": "require_approval",
+          "problems": [],
+          "result_status": "succeeded",
+          "rules": [
+            {
+              "code": "kill_switch",
+              "details": {},
+              "passed": true,
+              "reason": "tenant kill switch is disabled"
+            },
+            {
+              "code": "execution_boundary",
+              "details": {},
+              "passed": true,
+              "reason": "tenant, provider, autonomy and expiry boundaries hold"
+            },
+            {
+              "code": "action_allowlist",
+              "details": {
+                "action_type": "create_discount",
+                "allowed_by_goal": true,
+                "allowed_by_policy": true
+              },
+              "passed": true,
+              "reason": "action type is allowed"
+            },
+            {
+              "code": "idempotency_key",
+              "details": {},
+              "passed": true,
+              "reason": "compiled action has a deterministic idempotency key"
+            },
+            {
+              "code": "rollback_available",
+              "details": {},
+              "passed": true,
+              "reason": "rollback metadata is available"
+            },
+            {
+              "code": "discount_max_percentage",
+              "details": {
+                "discount_percentage": "0.10",
+                "maximum": "0.15"
+              },
+              "passed": true,
+              "reason": "discount is within percentage limit"
+            },
+            {
+              "code": "known_cost_basis",
+              "details": {},
+              "passed": true,
+              "reason": "product cost basis is known"
+            },
+            {
+              "code": "contribution_margin_floor",
+              "details": {
+                "minimum": "0.25",
+                "projected_margin_rate": "0.2923128792987188132164531355"
+              },
+              "passed": true,
+              "reason": "projected contribution margin is within policy"
+            },
+            {
+              "code": "price_delta_limit",
+              "details": {},
+              "passed": true,
+              "reason": "not a price action"
+            },
+            {
+              "code": "budget_available",
+              "details": {
+                "currency": "USD",
+                "estimated_cost_minor": 12000,
+                "remaining_minor": 25000
+              },
+              "passed": true,
+              "reason": "estimated cost fits remaining budget"
+            },
+            {
+              "code": "provider_capability",
+              "details": {
+                "required": "write_discounts"
+              },
+              "passed": true,
+              "reason": "provider advertises required capability"
+            },
+            {
+              "code": "data_freshness",
+              "details": {},
+              "passed": true,
+              "reason": "required data is fresh"
+            },
+            {
+              "code": "inventory_guardrail",
+              "details": {},
+              "passed": true,
+              "reason": "action avoids prohibited inventory changes and low-stock targets"
+            },
+            {
+              "code": "action_volume_limit",
+              "details": {
+                "actions_in_run": 2,
+                "maximum": 5
+              },
+              "passed": true,
+              "reason": "action count is within policy"
+            },
+            {
+              "code": "parallel_intervention_limit",
+              "details": {
+                "active_interventions": 0,
+                "maximum": 3
+              },
+              "passed": true,
+              "reason": "goal has room for this intervention"
+            },
+            {
+              "code": "cooldown_target",
+              "details": {},
+              "passed": true,
+              "reason": "target is not in cooldown"
+            },
+            {
+              "code": "minimum_sample_size",
+              "details": {
+                "minimum": 500,
+                "mode": "approval_required",
+                "sample_size": 10100
+              },
+              "passed": true,
+              "reason": "manual approval mode does not require auto sample size"
+            },
+            {
+              "code": "confidence_floor",
+              "details": {
+                "confidence": "0.77",
+                "minimum": "0.75",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action confidence meets policy floor"
+            },
+            {
+              "code": "target_conflict",
+              "details": {},
+              "passed": true,
+              "reason": "no active target conflict"
+            },
+            {
+              "code": "search_relevance_floor",
+              "details": {},
+              "passed": true,
+              "reason": "not a search boost"
+            },
+            {
+              "code": "search_boost_multiplier",
+              "details": {},
+              "passed": true,
+              "reason": "not a search boost"
+            },
+            {
+              "code": "campaign_budget_delta",
+              "details": {},
+              "passed": true,
+              "reason": "not a campaign budget action"
+            },
+            {
+              "code": "approval_requirement",
+              "details": {
+                "action_type": "create_discount",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action requires human approval"
+            }
+          ]
+        },
+        {
+          "action_id": "e508a3fb-5099-5ecb-9d4a-bdc317951510",
+          "authoritative_facts": {
+            "min_relevance_score": "1",
+            "multiplier": "1.10",
+            "targets_low_stock": false
+          },
+          "budget_remaining_minor": 13000,
+          "day": 0,
+          "estimated_cost_minor": 0,
+          "policy_outcome": "require_approval",
+          "problems": [],
+          "result_status": "succeeded",
+          "rules": [
+            {
+              "code": "kill_switch",
+              "details": {},
+              "passed": true,
+              "reason": "tenant kill switch is disabled"
+            },
+            {
+              "code": "execution_boundary",
+              "details": {},
+              "passed": true,
+              "reason": "tenant, provider, autonomy and expiry boundaries hold"
+            },
+            {
+              "code": "action_allowlist",
+              "details": {
+                "action_type": "set_search_boost",
+                "allowed_by_goal": true,
+                "allowed_by_policy": true
+              },
+              "passed": true,
+              "reason": "action type is allowed"
+            },
+            {
+              "code": "idempotency_key",
+              "details": {},
+              "passed": true,
+              "reason": "compiled action has a deterministic idempotency key"
+            },
+            {
+              "code": "rollback_available",
+              "details": {},
+              "passed": true,
+              "reason": "rollback metadata is available"
+            },
+            {
+              "code": "discount_max_percentage",
+              "details": {},
+              "passed": true,
+              "reason": "not a discount creation"
+            },
+            {
+              "code": "known_cost_basis",
+              "details": {},
+              "passed": true,
+              "reason": "action does not require product cost basis"
+            },
+            {
+              "code": "contribution_margin_floor",
+              "details": {},
+              "passed": true,
+              "reason": "no projected margin constraint applies"
+            },
+            {
+              "code": "price_delta_limit",
+              "details": {},
+              "passed": true,
+              "reason": "not a price action"
+            },
+            {
+              "code": "budget_available",
+              "details": {
+                "currency": "USD",
+                "estimated_cost_minor": 0,
+                "remaining_minor": 13000
+              },
+              "passed": true,
+              "reason": "estimated cost fits remaining budget"
+            },
+            {
+              "code": "provider_capability",
+              "details": {
+                "required": "write_merchandising"
+              },
+              "passed": true,
+              "reason": "provider advertises required capability"
+            },
+            {
+              "code": "data_freshness",
+              "details": {},
+              "passed": true,
+              "reason": "required data is fresh"
+            },
+            {
+              "code": "inventory_guardrail",
+              "details": {},
+              "passed": true,
+              "reason": "action avoids prohibited inventory changes and low-stock targets"
+            },
+            {
+              "code": "action_volume_limit",
+              "details": {
+                "actions_in_run": 2,
+                "maximum": 5
+              },
+              "passed": true,
+              "reason": "action count is within policy"
+            },
+            {
+              "code": "parallel_intervention_limit",
+              "details": {
+                "active_interventions": 1,
+                "maximum": 3
+              },
+              "passed": true,
+              "reason": "goal has room for this intervention"
+            },
+            {
+              "code": "cooldown_target",
+              "details": {},
+              "passed": true,
+              "reason": "target is not in cooldown"
+            },
+            {
+              "code": "minimum_sample_size",
+              "details": {
+                "minimum": 500,
+                "mode": "approval_required",
+                "sample_size": 10100
+              },
+              "passed": true,
+              "reason": "manual approval mode does not require auto sample size"
+            },
+            {
+              "code": "confidence_floor",
+              "details": {
+                "confidence": "0.84",
+                "minimum": "0.75",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action confidence meets policy floor"
+            },
+            {
+              "code": "target_conflict",
+              "details": {},
+              "passed": true,
+              "reason": "no active target conflict"
+            },
+            {
+              "code": "search_relevance_floor",
+              "details": {
+                "min_relevance_score": "1",
+                "minimum": "0.55"
+              },
+              "passed": true,
+              "reason": "search boost satisfies relevance floor"
+            },
+            {
+              "code": "search_boost_multiplier",
+              "details": {
+                "maximum": "1.15",
+                "multiplier": "1.10"
+              },
+              "passed": true,
+              "reason": "search boost multiplier is within policy"
+            },
+            {
+              "code": "campaign_budget_delta",
+              "details": {},
+              "passed": true,
+              "reason": "not a campaign budget action"
+            },
+            {
+              "code": "approval_requirement",
+              "details": {
+                "action_type": "set_search_boost",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action requires human approval"
+            }
+          ]
+        }
+      ],
+      "executed_actions": 2,
+      "final_assessment": {
+        "current_value": "256",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "256.0000000000000000000000000",
+        "reason_codes": [],
+        "scope": "excess_inventory",
+        "target_value": "200",
+        "trajectory": "achieved"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "74.02752921893136350690026182",
+        "reason_codes": [
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "excess_inventory",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "units_sold",
+      "objective_scope": "excess_inventory",
+      "outcome_count": 2,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "excess_inventory_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:03555b503cffb05013cfd3aa504bff6e82be203996820a1db90fd9bc84b53776",
+      "target": "200",
+      "totals": {
+        "ad_spend_minor": 39000,
+        "cac_minor": 78,
+        "cogs_minor": 5015298,
+        "contribution_margin_rate": "0.4058",
+        "contribution_profit_minor": 3629594,
+        "conversion_rate": "0.1629",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 8943252,
+        "new_customers": 499,
+        "orders": 937,
+        "search_attributed_purchases": 190,
+        "sessions": 5753,
+        "units_sold": 937,
+        "variable_fees_minor": 259360
+      },
+      "variant": "standard"
+    },
+    {
+      "actions": [],
+      "arm": "no_intervention",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 150,
+          "carts": 601,
+          "clicks": 1427,
+          "cogs_minor": 1813527,
+          "contribution_margin_rate": "0.4056",
+          "contribution_profit_minor": 1318996,
+          "conversion_rate": "0.1477",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 286081,
+          "gross_revenue_minor": 3251831,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 166,
+          "orders": 316,
+          "search_attributed_purchases": 63,
+          "sessions": 2140,
+          "units_sold": 316,
+          "variable_fees_minor": 94308
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 614,
+          "clicks": 1491,
+          "cogs_minor": 2037076,
+          "contribution_margin_rate": "0.3985",
+          "contribution_profit_minor": 1435131,
+          "conversion_rate": "0.1712",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285718,
+          "gross_revenue_minor": 3601658,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 363,
+          "search_attributed_purchases": 72,
+          "sessions": 2120,
+          "units_sold": 363,
+          "variable_fees_minor": 104451
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 135,
+          "carts": 635,
+          "clicks": 1530,
+          "cogs_minor": 2002545,
+          "contribution_margin_rate": "0.4063",
+          "contribution_profit_minor": 1458749,
+          "conversion_rate": "0.1588",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285358,
+          "gross_revenue_minor": 3590418,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 184,
+          "orders": 360,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 360,
+          "variable_fees_minor": 104124
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "171",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "171",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND"
+        ],
+        "scope": "excess_inventory",
+        "target_value": "127500",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "74.02752921893136350690026182",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND",
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "excess_inventory",
+        "target_value": "127500",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "units_sold",
+      "objective_scope": "excess_inventory",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "excess_inventory_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:4ecb3b85d785a0d3127642b4369fa3bbec23b96f105c169b7b4c692d5b549ffd",
+      "target": "127500",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 136,
+        "cogs_minor": 5853148,
+        "contribution_margin_rate": "0.4034",
+        "contribution_profit_minor": 4212876,
+        "conversion_rate": "0.1592",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10443907,
+        "new_customers": 550,
+        "orders": 1039,
+        "search_attributed_purchases": 196,
+        "sessions": 6527,
+        "units_sold": 1039,
+        "variable_fees_minor": 302883
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "actions": [],
+      "arm": "goal_conditioned_controller",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "0",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "units_sold",
+            "physical_upper_bound": "127499",
+            "projected_value": "74.02752921893136350690026182",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND",
+              "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+            ],
+            "scope": "excess_inventory",
+            "target_value": "127500",
+            "trajectory": "at_risk"
+          },
+          "day": 0,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "52",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "units_sold",
+            "physical_upper_bound": "127499",
+            "projected_value": "156.0",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND"
+            ],
+            "scope": "excess_inventory",
+            "target_value": "127500",
+            "trajectory": "at_risk"
+          },
+          "day": 1,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "110",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "units_sold",
+            "physical_upper_bound": "127499",
+            "projected_value": "165.0",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND"
+            ],
+            "scope": "excess_inventory",
+            "target_value": "127500",
+            "trajectory": "at_risk"
+          },
+          "day": 2,
+          "status": "completed"
+        }
+      ],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 150,
+          "carts": 601,
+          "clicks": 1427,
+          "cogs_minor": 1813527,
+          "contribution_margin_rate": "0.4056",
+          "contribution_profit_minor": 1318996,
+          "conversion_rate": "0.1477",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 286081,
+          "gross_revenue_minor": 3251831,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 166,
+          "orders": 316,
+          "search_attributed_purchases": 63,
+          "sessions": 2140,
+          "units_sold": 316,
+          "variable_fees_minor": 94308
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 614,
+          "clicks": 1491,
+          "cogs_minor": 2037076,
+          "contribution_margin_rate": "0.3985",
+          "contribution_profit_minor": 1435131,
+          "conversion_rate": "0.1712",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285718,
+          "gross_revenue_minor": 3601658,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 363,
+          "search_attributed_purchases": 72,
+          "sessions": 2120,
+          "units_sold": 363,
+          "variable_fees_minor": 104451
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 135,
+          "carts": 635,
+          "clicks": 1530,
+          "cogs_minor": 2002545,
+          "contribution_margin_rate": "0.4063",
+          "contribution_profit_minor": 1458749,
+          "conversion_rate": "0.1588",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 285358,
+          "gross_revenue_minor": 3590418,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 184,
+          "orders": 360,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 360,
+          "variable_fees_minor": 104124
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "171",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "171",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND"
+        ],
+        "scope": "excess_inventory",
+        "target_value": "127500",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "units_sold",
+        "physical_upper_bound": "127499",
+        "projected_value": "74.02752921893136350690026182",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND",
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "excess_inventory",
+        "target_value": "127500",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "units_sold",
+      "objective_scope": "excess_inventory",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "excess_inventory_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:4ecb3b85d785a0d3127642b4369fa3bbec23b96f105c169b7b4c692d5b549ffd",
+      "target": "127500",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 136,
+        "cogs_minor": 5853148,
+        "contribution_margin_rate": "0.4034",
+        "contribution_profit_minor": 4212876,
+        "conversion_rate": "0.1592",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10443907,
+        "new_customers": 550,
+        "orders": 1039,
+        "search_attributed_purchases": 196,
+        "sessions": 6527,
+        "units_sold": 1039,
+        "variable_fees_minor": 302883
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "actions": [],
+      "arm": "no_intervention",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 147,
+          "carts": 594,
+          "clicks": 1424,
+          "cogs_minor": 1830033,
+          "contribution_margin_rate": "0.4067",
+          "contribution_profit_minor": 1336904,
+          "conversion_rate": "0.1500",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246190,
+          "gross_revenue_minor": 3287277,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 170,
+          "orders": 321,
+          "search_attributed_purchases": 62,
+          "sessions": 2140,
+          "units_sold": 321,
+          "variable_fees_minor": 95340
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 615,
+          "clicks": 1492,
+          "cogs_minor": 2033449,
+          "contribution_margin_rate": "0.3993",
+          "contribution_profit_minor": 1437556,
+          "conversion_rate": "0.1717",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245826,
+          "gross_revenue_minor": 3600421,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 364,
+          "search_attributed_purchases": 71,
+          "sessions": 2120,
+          "units_sold": 364,
+          "variable_fees_minor": 104416
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 128,
+          "carts": 631,
+          "clicks": 1532,
+          "cogs_minor": 2001140,
+          "contribution_margin_rate": "0.4088",
+          "contribution_profit_minor": 1473088,
+          "conversion_rate": "0.1597",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245464,
+          "gross_revenue_minor": 3603739,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 194,
+          "orders": 362,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 362,
+          "variable_fees_minor": 104511
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "194",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "245658",
+        "projected_value": "194.0000000000000000000000000",
+        "reason_codes": [],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "246511",
+        "projected_value": "29.57142857142857142857142857",
+        "reason_codes": [
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "search_attributed_purchases",
+      "objective_scope": "store",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "search_conversion_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:1d6556e6b2b4704201566bfc7922e9b4e75268ce84b8f87a204ad8e88bbca110",
+      "target": "200",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 132,
+        "cogs_minor": 5864622,
+        "contribution_margin_rate": "0.4049",
+        "contribution_profit_minor": 4247548,
+        "conversion_rate": "0.1604",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10491437,
+        "new_customers": 564,
+        "orders": 1047,
+        "search_attributed_purchases": 194,
+        "sessions": 6527,
+        "units_sold": 1047,
+        "variable_fees_minor": 304267
+      },
+      "variant": "standard"
+    },
+    {
+      "actions": [
+        {
+          "action_id": "59f29e7f-77a2-5d48-bd25-7fac0fbe7829",
+          "approved": true,
+          "estimated_cost_minor": 0,
+          "outcome": {
+            "guardrail_status": "clear",
+            "method": "observational_window_not_causal",
+            "metric_results": {
+              "ad_spend_minor": 75000,
+              "baseline_kind": "historical_prior",
+              "baseline_totals": {
+                "ad_spend_minor": 546000,
+                "cac_minor": 2527,
+                "cogs_minor": 1209179,
+                "contribution_margin_rate": "0.1532",
+                "contribution_profit_minor": 343014,
+                "conversion_rate": "0.0351",
+                "days": 7,
+                "discounts_minor": 78370,
+                "gross_revenue_minor": 2239223,
+                "new_customers": 216,
+                "orders": 355,
+                "search_attributed_purchases": 69,
+                "sessions": 10100,
+                "units_sold": 388,
+                "variable_fees_minor": 62660
+              },
+              "cac_minor": 128,
+              "cogs_minor": 5995393,
+              "contribution_margin_rate": "0.3989",
+              "contribution_profit_minor": 4232282,
+              "conversion_rate": "0.1667",
+              "days": 3,
+              "discounts_minor": 0,
+              "gross_revenue_minor": 10610400,
+              "minimum_days": 2,
+              "minimum_sample": 500,
+              "new_customers": 583,
+              "orders": 1088,
+              "reason_codes": [],
+              "review_required": false,
+              "rollback_recommended_for_review": false,
+              "search_attributed_purchases": 185,
+              "sessions": 6527,
+              "units_sold": 1088,
+              "variable_fees_minor": 307725,
+              "window_end_at": "2026-09-04T00:00:00+00:00",
+              "window_start_at": "2026-09-01T00:00:00+00:00"
+            },
+            "sample_size": 6527
+          },
+          "policy_outcome": "require_approval",
+          "policy_reason_codes": [
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-01T00:00:00+00:00",
+          "status": "succeeded",
+          "type": "set_search_boost"
+        },
+        {
+          "action_id": "1ab4c783-53cd-58e8-bc32-2632a428d473",
+          "approved": false,
+          "estimated_cost_minor": 0,
+          "outcome": null,
+          "policy_outcome": "deny",
+          "policy_reason_codes": [
+            "cooldown_target",
+            "target_conflict",
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-02T00:00:00+00:00",
+          "status": "denied",
+          "type": "set_search_boost"
+        },
+        {
+          "action_id": "62a95796-5e3c-5adf-a0c5-16f1bd255849",
+          "approved": false,
+          "estimated_cost_minor": 0,
+          "outcome": null,
+          "policy_outcome": "deny",
+          "policy_reason_codes": [
+            "cooldown_target",
+            "target_conflict",
+            "approval_requirement"
+          ],
+          "proposed_at": "2026-09-03T00:00:00+00:00",
+          "status": "denied",
+          "type": "set_search_boost"
+        }
+      ],
+      "arm": "goal_conditioned_controller",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000,
+            "reserved": 0
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000,
+            "reserved": 0
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [
+        {
+          "action_count": 1,
+          "assessment": {
+            "current_value": "0",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "search_attributed_purchases",
+            "physical_upper_bound": "246511",
+            "projected_value": "29.57142857142857142857142857",
+            "reason_codes": [
+              "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+            ],
+            "scope": "store",
+            "target_value": "200",
+            "trajectory": "at_risk"
+          },
+          "day": 0,
+          "status": "completed"
+        },
+        {
+          "action_count": 1,
+          "assessment": {
+            "current_value": "60",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "search_attributed_purchases",
+            "physical_upper_bound": "246230",
+            "projected_value": "180.0",
+            "reason_codes": [],
+            "scope": "store",
+            "target_value": "200",
+            "trajectory": "at_risk"
+          },
+          "day": 1,
+          "status": "completed"
+        },
+        {
+          "action_count": 1,
+          "assessment": {
+            "current_value": "131",
+            "feasibility": "not_ruled_out",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "search_attributed_purchases",
+            "physical_upper_bound": "245931",
+            "projected_value": "196.50",
+            "reason_codes": [],
+            "scope": "store",
+            "target_value": "200",
+            "trajectory": "at_risk"
+          },
+          "day": 2,
+          "status": "completed"
+        }
+      ],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 139,
+          "carts": 614,
+          "clicks": 1455,
+          "cogs_minor": 1879576,
+          "contribution_margin_rate": "0.4038",
+          "contribution_profit_minor": 1356026,
+          "conversion_rate": "0.1593",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246170,
+          "gross_revenue_minor": 3357993,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 179,
+          "orders": 341,
+          "search_attributed_purchases": 60,
+          "sessions": 2140,
+          "units_sold": 341,
+          "variable_fees_minor": 97391
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 119,
+          "carts": 582,
+          "clicks": 1475,
+          "cogs_minor": 2002743,
+          "contribution_margin_rate": "0.3964",
+          "contribution_profit_minor": 1398706,
+          "conversion_rate": "0.1745",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245800,
+          "gross_revenue_minor": 3528798,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 209,
+          "orders": 370,
+          "search_attributed_purchases": 71,
+          "sessions": 2120,
+          "units_sold": 370,
+          "variable_fees_minor": 102349
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 128,
+          "carts": 648,
+          "clicks": 1555,
+          "cogs_minor": 2113074,
+          "contribution_margin_rate": "0.3968",
+          "contribution_profit_minor": 1477550,
+          "conversion_rate": "0.1663",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245423,
+          "gross_revenue_minor": 3723609,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 195,
+          "orders": 377,
+          "search_attributed_purchases": 54,
+          "sessions": 2267,
+          "units_sold": 377,
+          "variable_fees_minor": 107985
+        }
+      ],
+      "denied_proposals": 2,
+      "dispatch_checks": [
+        {
+          "action_id": "59f29e7f-77a2-5d48-bd25-7fac0fbe7829",
+          "authoritative_facts": {
+            "min_relevance_score": "1",
+            "multiplier": "1.10",
+            "targets_low_stock": false
+          },
+          "budget_remaining_minor": 25000,
+          "day": 0,
+          "estimated_cost_minor": 0,
+          "policy_outcome": "require_approval",
+          "problems": [],
+          "result_status": "succeeded",
+          "rules": [
+            {
+              "code": "kill_switch",
+              "details": {},
+              "passed": true,
+              "reason": "tenant kill switch is disabled"
+            },
+            {
+              "code": "execution_boundary",
+              "details": {},
+              "passed": true,
+              "reason": "tenant, provider, autonomy and expiry boundaries hold"
+            },
+            {
+              "code": "action_allowlist",
+              "details": {
+                "action_type": "set_search_boost",
+                "allowed_by_goal": true,
+                "allowed_by_policy": true
+              },
+              "passed": true,
+              "reason": "action type is allowed"
+            },
+            {
+              "code": "idempotency_key",
+              "details": {},
+              "passed": true,
+              "reason": "compiled action has a deterministic idempotency key"
+            },
+            {
+              "code": "rollback_available",
+              "details": {},
+              "passed": true,
+              "reason": "rollback metadata is available"
+            },
+            {
+              "code": "discount_max_percentage",
+              "details": {},
+              "passed": true,
+              "reason": "not a discount creation"
+            },
+            {
+              "code": "known_cost_basis",
+              "details": {},
+              "passed": true,
+              "reason": "action does not require product cost basis"
+            },
+            {
+              "code": "contribution_margin_floor",
+              "details": {},
+              "passed": true,
+              "reason": "no projected margin constraint applies"
+            },
+            {
+              "code": "price_delta_limit",
+              "details": {},
+              "passed": true,
+              "reason": "not a price action"
+            },
+            {
+              "code": "budget_available",
+              "details": {
+                "currency": "USD",
+                "estimated_cost_minor": 0,
+                "remaining_minor": 25000
+              },
+              "passed": true,
+              "reason": "estimated cost fits remaining budget"
+            },
+            {
+              "code": "provider_capability",
+              "details": {
+                "required": "write_merchandising"
+              },
+              "passed": true,
+              "reason": "provider advertises required capability"
+            },
+            {
+              "code": "data_freshness",
+              "details": {},
+              "passed": true,
+              "reason": "required data is fresh"
+            },
+            {
+              "code": "inventory_guardrail",
+              "details": {},
+              "passed": true,
+              "reason": "action avoids prohibited inventory changes and low-stock targets"
+            },
+            {
+              "code": "action_volume_limit",
+              "details": {
+                "actions_in_run": 1,
+                "maximum": 5
+              },
+              "passed": true,
+              "reason": "action count is within policy"
+            },
+            {
+              "code": "parallel_intervention_limit",
+              "details": {
+                "active_interventions": 0,
+                "maximum": 3
+              },
+              "passed": true,
+              "reason": "goal has room for this intervention"
+            },
+            {
+              "code": "cooldown_target",
+              "details": {},
+              "passed": true,
+              "reason": "target is not in cooldown"
+            },
+            {
+              "code": "minimum_sample_size",
+              "details": {
+                "minimum": 500,
+                "mode": "approval_required",
+                "sample_size": 10100
+              },
+              "passed": true,
+              "reason": "manual approval mode does not require auto sample size"
+            },
+            {
+              "code": "confidence_floor",
+              "details": {
+                "confidence": "0.84",
+                "minimum": "0.75",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action confidence meets policy floor"
+            },
+            {
+              "code": "target_conflict",
+              "details": {},
+              "passed": true,
+              "reason": "no active target conflict"
+            },
+            {
+              "code": "search_relevance_floor",
+              "details": {
+                "min_relevance_score": "1",
+                "minimum": "0.55"
+              },
+              "passed": true,
+              "reason": "search boost satisfies relevance floor"
+            },
+            {
+              "code": "search_boost_multiplier",
+              "details": {
+                "maximum": "1.15",
+                "multiplier": "1.10"
+              },
+              "passed": true,
+              "reason": "search boost multiplier is within policy"
+            },
+            {
+              "code": "campaign_budget_delta",
+              "details": {},
+              "passed": true,
+              "reason": "not a campaign budget action"
+            },
+            {
+              "code": "approval_requirement",
+              "details": {
+                "action_type": "set_search_boost",
+                "mode": "approval_required"
+              },
+              "passed": true,
+              "reason": "action requires human approval"
+            }
+          ]
+        }
+      ],
+      "executed_actions": 1,
+      "final_assessment": {
+        "current_value": "185",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "245608",
+        "projected_value": "185.0000000000000000000000000",
+        "reason_codes": [],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "not_ruled_out",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "246511",
+        "projected_value": "29.57142857142857142857142857",
+        "reason_codes": [
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "200",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "search_attributed_purchases",
+      "objective_scope": "store",
+      "outcome_count": 1,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "search_conversion_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:fa056ed2820e98cf2484341507504d619406267df17b0df0b1c8daa84adf61f7",
+      "target": "200",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 128,
+        "cogs_minor": 5995393,
+        "contribution_margin_rate": "0.3989",
+        "contribution_profit_minor": 4232282,
+        "conversion_rate": "0.1667",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10610400,
+        "new_customers": 583,
+        "orders": 1088,
+        "search_attributed_purchases": 185,
+        "sessions": 6527,
+        "units_sold": 1088,
+        "variable_fees_minor": 307725
+      },
+      "variant": "standard"
+    },
+    {
+      "actions": [],
+      "arm": "no_intervention",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 147,
+          "carts": 594,
+          "clicks": 1424,
+          "cogs_minor": 1830033,
+          "contribution_margin_rate": "0.4067",
+          "contribution_profit_minor": 1336904,
+          "conversion_rate": "0.1500",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246190,
+          "gross_revenue_minor": 3287277,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 170,
+          "orders": 321,
+          "search_attributed_purchases": 62,
+          "sessions": 2140,
+          "units_sold": 321,
+          "variable_fees_minor": 95340
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 615,
+          "clicks": 1492,
+          "cogs_minor": 2033449,
+          "contribution_margin_rate": "0.3993",
+          "contribution_profit_minor": 1437556,
+          "conversion_rate": "0.1717",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245826,
+          "gross_revenue_minor": 3600421,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 364,
+          "search_attributed_purchases": 71,
+          "sessions": 2120,
+          "units_sold": 364,
+          "variable_fees_minor": 104416
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 128,
+          "carts": 631,
+          "clicks": 1532,
+          "cogs_minor": 2001140,
+          "contribution_margin_rate": "0.4088",
+          "contribution_profit_minor": 1473088,
+          "conversion_rate": "0.1597",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245464,
+          "gross_revenue_minor": 3603739,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 194,
+          "orders": 362,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 362,
+          "variable_fees_minor": 104511
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "194",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "245658",
+        "projected_value": "194.0000000000000000000000000",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "246511",
+        "projected_value": "29.57142857142857142857142857",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND",
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "search_attributed_purchases",
+      "objective_scope": "store",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "search_conversion_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:1d6556e6b2b4704201566bfc7922e9b4e75268ce84b8f87a204ad8e88bbca110",
+      "target": "246512",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 132,
+        "cogs_minor": 5864622,
+        "contribution_margin_rate": "0.4049",
+        "contribution_profit_minor": 4247548,
+        "conversion_rate": "0.1604",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10491437,
+        "new_customers": 564,
+        "orders": 1047,
+        "search_attributed_purchases": 194,
+        "sessions": 6527,
+        "units_sold": 1047,
+        "variable_fees_minor": 304267
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "actions": [],
+      "arm": "goal_conditioned_controller",
+      "budget_accounts": [
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 25000,
+          "available_minor": 0,
+          "entries": {
+            "committed": 25000
+          },
+          "kind": "daily",
+          "start_at": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "allocated_minor": 1000000,
+          "available_minor": 925000,
+          "entries": {
+            "committed": 75000
+          },
+          "kind": "goal",
+          "start_at": "2026-09-01T00:00:00+00:00"
+        }
+      ],
+      "cancelled_actions": 0,
+      "cycles": [
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "0",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "search_attributed_purchases",
+            "physical_upper_bound": "246511",
+            "projected_value": "29.57142857142857142857142857",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND",
+              "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+            ],
+            "scope": "store",
+            "target_value": "246512",
+            "trajectory": "at_risk"
+          },
+          "day": 0,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "62",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "search_attributed_purchases",
+            "physical_upper_bound": "246252",
+            "projected_value": "186.0",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND"
+            ],
+            "scope": "store",
+            "target_value": "246512",
+            "trajectory": "at_risk"
+          },
+          "day": 1,
+          "status": "completed"
+        },
+        {
+          "action_count": 0,
+          "assessment": {
+            "current_value": "133",
+            "feasibility": "infeasible",
+            "forecast_method": "recent_rate_heuristic_not_calibrated",
+            "metric": "search_attributed_purchases",
+            "physical_upper_bound": "245959",
+            "projected_value": "199.50",
+            "reason_codes": [
+              "PHYSICAL_INVENTORY_BOUND"
+            ],
+            "scope": "store",
+            "target_value": "246512",
+            "trajectory": "at_risk"
+          },
+          "day": 2,
+          "status": "completed"
+        }
+      ],
+      "daily": [
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 147,
+          "carts": 594,
+          "clicks": 1424,
+          "cogs_minor": 1830033,
+          "contribution_margin_rate": "0.4067",
+          "contribution_profit_minor": 1336904,
+          "conversion_rate": "0.1500",
+          "day_index": 0,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 246190,
+          "gross_revenue_minor": 3287277,
+          "impressions": 10700,
+          "is_history": false,
+          "metric_date": "2026-09-01",
+          "new_customers": 170,
+          "orders": 321,
+          "search_attributed_purchases": 62,
+          "sessions": 2140,
+          "units_sold": 321,
+          "variable_fees_minor": 95340
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 125,
+          "carts": 615,
+          "clicks": 1492,
+          "cogs_minor": 2033449,
+          "contribution_margin_rate": "0.3993",
+          "contribution_profit_minor": 1437556,
+          "conversion_rate": "0.1717",
+          "day_index": 1,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245826,
+          "gross_revenue_minor": 3600421,
+          "impressions": 10600,
+          "is_history": false,
+          "metric_date": "2026-09-02",
+          "new_customers": 200,
+          "orders": 364,
+          "search_attributed_purchases": 71,
+          "sessions": 2120,
+          "units_sold": 364,
+          "variable_fees_minor": 104416
+        },
+        {
+          "ad_spend_minor": 25000,
+          "cac_minor": 128,
+          "carts": 631,
+          "clicks": 1532,
+          "cogs_minor": 2001140,
+          "contribution_margin_rate": "0.4088",
+          "contribution_profit_minor": 1473088,
+          "conversion_rate": "0.1597",
+          "day_index": 2,
+          "discount_rate": "0.0000",
+          "discounts_minor": 0,
+          "ending_inventory_units": 245464,
+          "gross_revenue_minor": 3603739,
+          "impressions": 11335,
+          "is_history": false,
+          "metric_date": "2026-09-03",
+          "new_customers": 194,
+          "orders": 362,
+          "search_attributed_purchases": 61,
+          "sessions": 2267,
+          "units_sold": 362,
+          "variable_fees_minor": 104511
+        }
+      ],
+      "denied_proposals": 0,
+      "dispatch_checks": [],
+      "executed_actions": 0,
+      "final_assessment": {
+        "current_value": "194",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "245658",
+        "projected_value": "194.0000000000000000000000000",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "final_goal_status": "completed",
+      "hard_violations": [],
+      "horizon_days": 3,
+      "initial_assessment": {
+        "current_value": "0",
+        "feasibility": "infeasible",
+        "forecast_method": "recent_rate_heuristic_not_calibrated",
+        "metric": "search_attributed_purchases",
+        "physical_upper_bound": "246511",
+        "projected_value": "29.57142857142857142857142857",
+        "reason_codes": [
+          "PHYSICAL_INVENTORY_BOUND",
+          "HISTORICAL_PRIOR_NOT_CURRENT_OUTCOME"
+        ],
+        "scope": "store",
+        "target_value": "246512",
+        "trajectory": "at_risk"
+      },
+      "objective_metric": "search_attributed_purchases",
+      "objective_scope": "store",
+      "outcome_count": 0,
+      "outcome_guardrail_breaches": 0,
+      "rollback_count": 0,
+      "scenario": "search_conversion_v1",
+      "scenario_version": "2026-09-04.1",
+      "seed": 42,
+      "state_hash": "sha256:1d6556e6b2b4704201566bfc7922e9b4e75268ce84b8f87a204ad8e88bbca110",
+      "target": "246512",
+      "totals": {
+        "ad_spend_minor": 75000,
+        "cac_minor": 132,
+        "cogs_minor": 5864622,
+        "contribution_margin_rate": "0.4049",
+        "contribution_profit_minor": 4247548,
+        "conversion_rate": "0.1604",
+        "days": 3,
+        "discounts_minor": 0,
+        "gross_revenue_minor": 10491437,
+        "new_customers": 564,
+        "orders": 1047,
+        "search_attributed_purchases": 194,
+        "sessions": 6527,
+        "units_sold": 1047,
+        "variable_fees_minor": 304267
+      },
+      "variant": "inventory_infeasible"
+    }
+  ],
+  "seeds": [
+    42
+  ],
+  "summary": [
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "goal_conditioned_controller",
+      "cac_minor": {
+        "mean": 132.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 132.0,
+        "p50": 132.0,
+        "p90": 132.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4049,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4049,
+        "p50": 0.4049,
+        "p90": 0.4049,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4247548.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4247548.0,
+        "p50": 4247548.0,
+        "p90": 4247548.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 1,
+      "infeasible_detected_initially": 1,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 564.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 564.0,
+        "p50": 564.0,
+        "p90": 564.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "acquisition_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "no_intervention",
+      "cac_minor": {
+        "mean": 132.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 132.0,
+        "p50": 132.0,
+        "p90": 132.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4049,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4049,
+        "p50": 0.4049,
+        "p90": 0.4049,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4247548.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4247548.0,
+        "p50": 4247548.0,
+        "p90": 4247548.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 1,
+      "infeasible_detected_initially": 1,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 564.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 564.0,
+        "p50": 564.0,
+        "p90": 564.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "acquisition_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "action_count": {
+        "mean": 3.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 3.0,
+        "p50": 3.0,
+        "p90": 3.0,
+        "stddev": 0.0
+      },
+      "arm": "goal_conditioned_controller",
+      "cac_minor": {
+        "mean": 79.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 79.0,
+        "p50": 79.0,
+        "p90": 79.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4016,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4016,
+        "p50": 0.4016,
+        "p90": 0.4016,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 3709349.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 3709349.0,
+        "p50": 3709349.0,
+        "p90": 3709349.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 0,
+      "infeasible_detected_initially": 0,
+      "objective_attained": 1,
+      "objective_outcome": {
+        "mean": 492.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 492.0,
+        "p50": 492.0,
+        "p90": 492.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "acquisition_v1",
+      "spend_minor": {
+        "mean": 41546.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 41546.0,
+        "p50": 41546.0,
+        "p90": 41546.0,
+        "stddev": 0.0
+      },
+      "variant": "standard"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "no_intervention",
+      "cac_minor": {
+        "mean": 132.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 132.0,
+        "p50": 132.0,
+        "p90": 132.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4049,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4049,
+        "p50": 0.4049,
+        "p90": 0.4049,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4247548.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4247548.0,
+        "p50": 4247548.0,
+        "p90": 4247548.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 0,
+      "infeasible_detected_initially": 0,
+      "objective_attained": 1,
+      "objective_outcome": {
+        "mean": 564.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 564.0,
+        "p50": 564.0,
+        "p90": 564.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "acquisition_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "standard"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "goal_conditioned_controller",
+      "cac_minor": {
+        "mean": 136.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 136.0,
+        "p50": 136.0,
+        "p90": 136.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4034,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4034,
+        "p50": 0.4034,
+        "p90": 0.4034,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4212876.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4212876.0,
+        "p50": 4212876.0,
+        "p90": 4212876.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 1,
+      "infeasible_detected_initially": 1,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 171.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 171.0,
+        "p50": 171.0,
+        "p90": 171.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "excess_inventory_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "no_intervention",
+      "cac_minor": {
+        "mean": 136.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 136.0,
+        "p50": 136.0,
+        "p90": 136.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4034,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4034,
+        "p50": 0.4034,
+        "p90": 0.4034,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4212876.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4212876.0,
+        "p50": 4212876.0,
+        "p90": 4212876.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 1,
+      "infeasible_detected_initially": 1,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 171.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 171.0,
+        "p50": 171.0,
+        "p90": 171.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "excess_inventory_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "action_count": {
+        "mean": 2.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 2.0,
+        "p50": 2.0,
+        "p90": 2.0,
+        "stddev": 0.0
+      },
+      "arm": "goal_conditioned_controller",
+      "cac_minor": {
+        "mean": 78.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 78.0,
+        "p50": 78.0,
+        "p90": 78.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4058,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4058,
+        "p50": 0.4058,
+        "p90": 0.4058,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 3629594.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 3629594.0,
+        "p50": 3629594.0,
+        "p90": 3629594.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 0,
+      "infeasible_detected_initially": 0,
+      "objective_attained": 1,
+      "objective_outcome": {
+        "mean": 256.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 256.0,
+        "p50": 256.0,
+        "p90": 256.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "excess_inventory_v1",
+      "spend_minor": {
+        "mean": 39000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 39000.0,
+        "p50": 39000.0,
+        "p90": 39000.0,
+        "stddev": 0.0
+      },
+      "variant": "standard"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "no_intervention",
+      "cac_minor": {
+        "mean": 136.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 136.0,
+        "p50": 136.0,
+        "p90": 136.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4034,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4034,
+        "p50": 0.4034,
+        "p90": 0.4034,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4212876.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4212876.0,
+        "p50": 4212876.0,
+        "p90": 4212876.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 0,
+      "infeasible_detected_initially": 0,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 171.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 171.0,
+        "p50": 171.0,
+        "p90": 171.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "excess_inventory_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "standard"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "goal_conditioned_controller",
+      "cac_minor": {
+        "mean": 132.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 132.0,
+        "p50": 132.0,
+        "p90": 132.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4049,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4049,
+        "p50": 0.4049,
+        "p90": 0.4049,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4247548.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4247548.0,
+        "p50": 4247548.0,
+        "p90": 4247548.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 1,
+      "infeasible_detected_initially": 1,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 194.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 194.0,
+        "p50": 194.0,
+        "p90": 194.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "search_conversion_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "no_intervention",
+      "cac_minor": {
+        "mean": 132.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 132.0,
+        "p50": 132.0,
+        "p90": 132.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4049,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4049,
+        "p50": 0.4049,
+        "p90": 0.4049,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4247548.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4247548.0,
+        "p50": 4247548.0,
+        "p90": 4247548.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 1,
+      "infeasible_detected_initially": 1,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 194.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 194.0,
+        "p50": 194.0,
+        "p90": 194.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "search_conversion_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "inventory_infeasible"
+    },
+    {
+      "action_count": {
+        "mean": 1.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 1.0,
+        "p50": 1.0,
+        "p90": 1.0,
+        "stddev": 0.0
+      },
+      "arm": "goal_conditioned_controller",
+      "cac_minor": {
+        "mean": 128.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 128.0,
+        "p50": 128.0,
+        "p90": 128.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.3989,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.3989,
+        "p50": 0.3989,
+        "p90": 0.3989,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4232282.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4232282.0,
+        "p50": 4232282.0,
+        "p90": 4232282.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 0,
+      "infeasible_detected_initially": 0,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 185.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 185.0,
+        "p50": 185.0,
+        "p90": 185.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "search_conversion_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "standard"
+    },
+    {
+      "action_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "arm": "no_intervention",
+      "cac_minor": {
+        "mean": 132.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 132.0,
+        "p50": 132.0,
+        "p90": 132.0,
+        "stddev": 0.0
+      },
+      "contribution_margin": {
+        "mean": 0.4049,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.4049,
+        "p50": 0.4049,
+        "p90": 0.4049,
+        "stddev": 0.0
+      },
+      "contribution_profit_minor": {
+        "mean": 4247548.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 4247548.0,
+        "p50": 4247548.0,
+        "p90": 4247548.0,
+        "stddev": 0.0
+      },
+      "hard_policy_violations": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "infeasible_detected_finally": 0,
+      "infeasible_detected_initially": 0,
+      "objective_attained": 0,
+      "objective_outcome": {
+        "mean": 194.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 194.0,
+        "p50": 194.0,
+        "p90": 194.0,
+        "stddev": 0.0
+      },
+      "outcome_guardrail_breaches": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "paused_goals": 0,
+      "rollback_count": {
+        "mean": 0.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "stddev": 0.0
+      },
+      "runs": 1,
+      "scenario": "search_conversion_v1",
+      "spend_minor": {
+        "mean": 75000.0,
+        "missing": 0,
+        "n": 1,
+        "p10": 75000.0,
+        "p50": 75000.0,
+        "p90": 75000.0,
+        "stddev": 0.0
+      },
+      "variant": "standard"
+    }
+  ],
+  "timings": [
+    {
+      "arm": "no_intervention",
+      "elapsed_seconds": 2.142,
+      "scenario": "acquisition_v1",
+      "seed": 42,
+      "variant": "standard"
+    },
+    {
+      "arm": "no_intervention",
+      "elapsed_seconds": 2.316,
+      "scenario": "acquisition_v1",
+      "seed": 42,
+      "variant": "inventory_infeasible"
+    },
+    {
+      "arm": "no_intervention",
+      "elapsed_seconds": 1.914,
+      "scenario": "excess_inventory_v1",
+      "seed": 42,
+      "variant": "standard"
+    },
+    {
+      "arm": "no_intervention",
+      "elapsed_seconds": 1.841,
+      "scenario": "excess_inventory_v1",
+      "seed": 42,
+      "variant": "inventory_infeasible"
+    },
+    {
+      "arm": "goal_conditioned_controller",
+      "elapsed_seconds": 6.38,
+      "scenario": "acquisition_v1",
+      "seed": 42,
+      "variant": "inventory_infeasible"
+    },
+    {
+      "arm": "no_intervention",
+      "elapsed_seconds": 1.462,
+      "scenario": "search_conversion_v1",
+      "seed": 42,
+      "variant": "standard"
+    },
+    {
+      "arm": "goal_conditioned_controller",
+      "elapsed_seconds": 4.999,
+      "scenario": "excess_inventory_v1",
+      "seed": 42,
+      "variant": "inventory_infeasible"
+    },
+    {
+      "arm": "no_intervention",
+      "elapsed_seconds": 1.703,
+      "scenario": "search_conversion_v1",
+      "seed": 42,
+      "variant": "inventory_infeasible"
+    },
+    {
+      "arm": "goal_conditioned_controller",
+      "elapsed_seconds": 13.971,
+      "scenario": "excess_inventory_v1",
+      "seed": 42,
+      "variant": "standard"
+    },
+    {
+      "arm": "goal_conditioned_controller",
+      "elapsed_seconds": 9.317,
+      "scenario": "search_conversion_v1",
+      "seed": 42,
+      "variant": "standard"
+    },
+    {
+      "arm": "goal_conditioned_controller",
+      "elapsed_seconds": 4.711,
+      "scenario": "search_conversion_v1",
+      "seed": 42,
+      "variant": "inventory_infeasible"
+    },
+    {
+      "arm": "goal_conditioned_controller",
+      "elapsed_seconds": 17.773,
+      "scenario": "acquisition_v1",
+      "seed": 42,
+      "variant": "standard"
+    }
+  ]
+}

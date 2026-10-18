@@ -1,0 +1,260 @@
+{
+  "archive_integrity_verified": true,
+  "attribution_complete": false,
+  "blocked_occurrences": 7,
+  "checked_at": "2026-10-18T20:49:47.443389+00:00",
+  "collections": [
+    {
+      "archive_sha256": "706c13de0660a0f7c2aa929eecc3267232a76e797b84662e5ec1763e25694ed8",
+      "collection": "security/third-party/qdrant-1.19.1",
+      "files": 1500,
+      "gaps": [
+        {
+          "decision": "blocked",
+          "license": "BSD-3-Clause",
+          "next_action": "Obtain an authentic version-applicable upstream notice with provenance, or separately review a distribution that does not include this component's source/binary.",
+          "package": "stumpalo@1.0.0",
+          "reason": "No reviewed, source-bound original copyright and full license notice; template or unreviewed text is not attribution",
+          "retained_files": [
+            "stumpalo@1.0.0/.cargo_vcs_info.json",
+            "stumpalo@1.0.0/BSD-3-Clause-standard-template.txt",
+            "stumpalo@1.0.0/Cargo.toml",
+            "stumpalo@1.0.0/Cargo.toml.orig",
+            "stumpalo@1.0.0/README.md",
+            "stumpalo@1.0.0/benches/comparison.rs",
+            "stumpalo@1.0.0/build.rs",
+            "stumpalo@1.0.0/src/arena.rs",
+            "stumpalo@1.0.0/src/arena/allocator_api.rs",
+            "stumpalo@1.0.0/src/arena_ref.rs",
+            "stumpalo@1.0.0/src/chunk.rs",
+            "stumpalo@1.0.0/src/errors.rs",
+            "stumpalo@1.0.0/src/lib.rs",
+            "stumpalo@1.0.0/src/limits.rs",
+            "stumpalo@1.0.0/src/pretty.rs",
+            "stumpalo@1.0.0/tests/compile_fail.rs",
+            "stumpalo@1.0.0/tests/integration_test.rs",
+            "stumpalo@1.0.0/tests/invalid_layout.rs",
+            "stumpalo@1.0.0/tests/oom.rs",
+            "stumpalo@1.0.0/tests/ui/01-drop-root-while-arena-ref-alive.rs",
+            "stumpalo@1.0.0/tests/ui/02-clear-while-ref-alive.rs",
+            "stumpalo@1.0.0/tests/ui/03-reset-while-ref-alive.rs",
+            "stumpalo@1.0.0/tests/ui/04-use-arena-while-ref-alive.rs",
+            "stumpalo@1.0.0/tests/ui/05-use-after-with-scope.rs",
+            "stumpalo@1.0.0/tests/ui/06-use-outer-arena-ref-inside-with-scope.rs",
+            "stumpalo@1.0.0/tests/ui/08-cant-drop-while-alloc-alive.rs",
+            "stumpalo@1.0.0/tests/ui/09-arena-with-scope-return-ref.rs",
+            "stumpalo@1.0.0/tests/ui/10-with-scope-return-ref.rs",
+            "stumpalo@1.0.0/tests/ui/11-arena-with-scope-use-after-scope.rs",
+            "stumpalo@1.0.0/tests/ui/13-use-after-with-scope-on-arena.rs"
+          ],
+          "sources": [
+            {
+              "sha256": "bf4a1e52ba589579bfea17e809d8845f5f216b76aac28c370a566b2a23f4ac09",
+              "url": "https://static.crates.io/crates/stumpalo/stumpalo-1.0.0.crate"
+            },
+            {
+              "sha256": "029c660a8939656fefa446be351d8724257d030d1e4f61e703efe08af782c260",
+              "url": "https://codeberg.org/414owen/stumpalo/archive/61924f9bf8cc1b47cec9d3605571e32e6d7a17eb.tar.gz"
+            },
+            {
+              "sha256": "5a93d5831e1297ab10fe643e1a631e83be392896da14ee2951285a79012df69d",
+              "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/BSD-3-Clause.txt"
+            }
+          ]
+        }
+      ],
+      "manifest_sha256": "24bd9700235506589f3ae721ba514cf26fc2ccdeaf0054bfc57bb0c0ac19b971",
+      "packages": 782
+    },
+    {
+      "archive_sha256": "997e5b6bb52de07542955106d2e634c1360bba6b0c073dae8782ed729444cb3e",
+      "collection": "security/third-party/sharp-libvips-1.3.3",
+      "files": 805,
+      "gaps": [
+        {
+          "decision": "blocked",
+          "license": "MIT",
+          "next_action": "Obtain an authentic version-applicable upstream notice with provenance, or separately review a distribution that does not include this component's source/binary.",
+          "package": "block@0.1.6",
+          "reason": "No reviewed, source-bound original copyright and full license notice; template or unreviewed text is not attribution",
+          "retained_files": [
+            "block@0.1.6/Cargo.toml",
+            "block@0.1.6/MIT-standard-template.txt",
+            "block@0.1.6/README.md",
+            "block@0.1.6/src/lib.rs",
+            "block@0.1.6/src/test_utils.rs"
+          ],
+          "sources": [
+            {
+              "sha256": "0d8c1fef690941d3e7788d328517591fecc684c084084702d6ff1641e993699a",
+              "url": "https://static.crates.io/crates/block/block-0.1.6.crate"
+            },
+            {
+              "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+              "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt"
+            }
+          ]
+        },
+        {
+          "decision": "blocked",
+          "license": "MIT",
+          "next_action": "Obtain an authentic version-applicable upstream notice with provenance, or separately review a distribution that does not include this component's source/binary.",
+          "package": "objc-foundation@0.1.1",
+          "reason": "No reviewed, source-bound original copyright and full license notice; template or unreviewed text is not attribution",
+          "retained_files": [
+            "objc-foundation@0.1.1/Cargo.toml",
+            "objc-foundation@0.1.1/MIT-standard-template.txt",
+            "objc-foundation@0.1.1/examples/custom_class.rs",
+            "objc-foundation@0.1.1/examples/example.rs",
+            "objc-foundation@0.1.1/src/array.rs",
+            "objc-foundation@0.1.1/src/data.rs",
+            "objc-foundation@0.1.1/src/dictionary.rs",
+            "objc-foundation@0.1.1/src/enumerator.rs",
+            "objc-foundation@0.1.1/src/lib.rs",
+            "objc-foundation@0.1.1/src/macros.rs",
+            "objc-foundation@0.1.1/src/object.rs",
+            "objc-foundation@0.1.1/src/string.rs",
+            "objc-foundation@0.1.1/src/value.rs"
+          ],
+          "sources": [
+            {
+              "sha256": "1add1b659e36c9607c7aab864a76c7a4c2760cd0cd2e120f3fb8b952c7e22bf9",
+              "url": "https://static.crates.io/crates/objc-foundation/objc-foundation-0.1.1.crate"
+            },
+            {
+              "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+              "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt"
+            }
+          ]
+        },
+        {
+          "decision": "blocked",
+          "license": "MIT",
+          "next_action": "Obtain an authentic version-applicable upstream notice with provenance, or separately review a distribution that does not include this component's source/binary.",
+          "package": "objc_id@0.1.1",
+          "reason": "No reviewed, source-bound original copyright and full license notice; template or unreviewed text is not attribution",
+          "retained_files": [
+            "objc_id@0.1.1/Cargo.toml",
+            "objc_id@0.1.1/Cargo.toml.orig",
+            "objc_id@0.1.1/MIT-standard-template.txt",
+            "objc_id@0.1.1/README.md",
+            "objc_id@0.1.1/src/id.rs",
+            "objc_id@0.1.1/src/lib.rs"
+          ],
+          "sources": [
+            {
+              "sha256": "c92d4ddb4bd7b50d730c215ff871754d0da6b2178849f8a2a2ab69712d0c073b",
+              "url": "https://static.crates.io/crates/objc_id/objc_id-0.1.1.crate"
+            },
+            {
+              "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+              "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt"
+            }
+          ]
+        }
+      ],
+      "manifest_sha256": "1d51e3c38c526a7a10b18fc7aa6f0b462e312b4e937533abaf08243e8165b7dd",
+      "packages": 387
+    },
+    {
+      "archive_sha256": "bc8c9e3bdbeb6f570447a2eb04a51754876862e05b8f2f480bcd550c9751e461",
+      "collection": "security/third-party/sharp-libvips-1.3.4",
+      "files": 825,
+      "gaps": [
+        {
+          "decision": "blocked",
+          "license": "MIT",
+          "next_action": "Obtain an authentic version-applicable upstream notice with provenance, or separately review a distribution that does not include this component's source/binary.",
+          "package": "block@0.1.6",
+          "reason": "No reviewed, source-bound original copyright and full license notice; template or unreviewed text is not attribution",
+          "retained_files": [
+            "block@0.1.6/Cargo.toml",
+            "block@0.1.6/MIT-standard-template.txt",
+            "block@0.1.6/README.md",
+            "block@0.1.6/src/lib.rs",
+            "block@0.1.6/src/test_utils.rs"
+          ],
+          "sources": [
+            {
+              "sha256": "0d8c1fef690941d3e7788d328517591fecc684c084084702d6ff1641e993699a",
+              "url": "https://static.crates.io/crates/block/block-0.1.6.crate"
+            },
+            {
+              "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+              "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt"
+            }
+          ]
+        },
+        {
+          "decision": "blocked",
+          "license": "MIT",
+          "next_action": "Obtain an authentic version-applicable upstream notice with provenance, or separately review a distribution that does not include this component's source/binary.",
+          "package": "objc-foundation@0.1.1",
+          "reason": "No reviewed, source-bound original copyright and full license notice; template or unreviewed text is not attribution",
+          "retained_files": [
+            "objc-foundation@0.1.1/Cargo.toml",
+            "objc-foundation@0.1.1/MIT-standard-template.txt",
+            "objc-foundation@0.1.1/examples/custom_class.rs",
+            "objc-foundation@0.1.1/examples/example.rs",
+            "objc-foundation@0.1.1/src/array.rs",
+            "objc-foundation@0.1.1/src/data.rs",
+            "objc-foundation@0.1.1/src/dictionary.rs",
+            "objc-foundation@0.1.1/src/enumerator.rs",
+            "objc-foundation@0.1.1/src/lib.rs",
+            "objc-foundation@0.1.1/src/macros.rs",
+            "objc-foundation@0.1.1/src/object.rs",
+            "objc-foundation@0.1.1/src/string.rs",
+            "objc-foundation@0.1.1/src/value.rs"
+          ],
+          "sources": [
+            {
+              "sha256": "1add1b659e36c9607c7aab864a76c7a4c2760cd0cd2e120f3fb8b952c7e22bf9",
+              "url": "https://static.crates.io/crates/objc-foundation/objc-foundation-0.1.1.crate"
+            },
+            {
+              "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+              "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt"
+            }
+          ]
+        },
+        {
+          "decision": "blocked",
+          "license": "MIT",
+          "next_action": "Obtain an authentic version-applicable upstream notice with provenance, or separately review a distribution that does not include this component's source/binary.",
+          "package": "objc_id@0.1.1",
+          "reason": "No reviewed, source-bound original copyright and full license notice; template or unreviewed text is not attribution",
+          "retained_files": [
+            "objc_id@0.1.1/Cargo.toml",
+            "objc_id@0.1.1/Cargo.toml.orig",
+            "objc_id@0.1.1/MIT-standard-template.txt",
+            "objc_id@0.1.1/README.md",
+            "objc_id@0.1.1/src/id.rs",
+            "objc_id@0.1.1/src/lib.rs"
+          ],
+          "sources": [
+            {
+              "sha256": "c92d4ddb4bd7b50d730c215ff871754d0da6b2178849f8a2a2ab69712d0c073b",
+              "url": "https://static.crates.io/crates/objc_id/objc_id-0.1.1.crate"
+            },
+            {
+              "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+              "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt"
+            }
+          ]
+        }
+      ],
+      "manifest_sha256": "924e9730cd6af1dbcaba18d5577ae0f6e1b93fad4d046b08e6c6412c6f741795",
+      "packages": 395
+    }
+  ],
+  "complete": false,
+  "limitations": "Not a complete dependency license audit, proof of rights, security qualification, or publication approval",
+  "schema_version": 1,
+  "scope": "Known omissions and MIT/BSD standard-template fallbacks in the three retained collections",
+  "unique_blocked_packages": [
+    "block@0.1.6",
+    "objc-foundation@0.1.1",
+    "objc_id@0.1.1",
+    "stumpalo@1.0.0"
+  ]
+}

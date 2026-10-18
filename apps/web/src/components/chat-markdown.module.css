@@ -1,0 +1,10 @@
+.content { min-width: 0; overflow-wrap: anywhere; white-space: normal; }
+.content p { margin: 0 0 0.65rem; white-space: normal; }
+.content ul, .content ol { margin: 0.6rem 0; padding-left: 1.5rem; }
+.content li { margin: 0.3rem 0; }
+.content li > p { margin: 0.2rem 0; }
+.content pre { max-width: 100%; overflow: auto; padding: 0.6rem; background: #f0f3f2; border-radius: 4px; }
+.content code { font-size: 0.9em; white-space: pre-wrap; }
+.content a { color: #067568; text-decoration: underline; }
+.content blockquote { margin: 0.6rem 0; padding-left: 0.8rem; border-left: 3px solid #a6c8be; }
+.content > :last-child { margin-bottom: 0; }

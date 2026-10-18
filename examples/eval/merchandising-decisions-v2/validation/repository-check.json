@@ -1,0 +1,26 @@
+{
+  "backend_contract_passed": 514,
+  "browser_included": false,
+  "check": "make check (pinned pnpm 10.17.1)",
+  "exit_code": 0,
+  "finished_at": "2026-09-07T04:15:53.559580+00:00",
+  "frontend_sdk_passed": 79,
+  "frozen_runtime_commit": "e11c226f60b0d1895726ae20887a6044a4d4f948",
+  "integration_passed": 77,
+  "integration_skipped": 1,
+  "output_sha256": "e1b828945d3e7c16feebdf76d0a95e1ea4da5ccd932660195522410859ca1625",
+  "post_start_changes": "Only reports/security-evidence commits and browser-test assertion; runtime/driver/protocol unchanged. Browser assertion strict typecheck/lint passed separately.",
+  "raw_output": ".opencommerce/decisions-v2/final-check/output.log",
+  "scope": "local macOS arm64 Python 3.12.11; isolated decisions-v2 Compose services; disposable integration database; no real model",
+  "skip_reason": "Opt-in live generative model remains disabled",
+  "started_at": "2026-09-07T03:53:56.267329+00:00",
+  "unchanged_references": [
+    "three simulator goldens",
+    "legacy search availability regression",
+    "12-case three-day controller smoke"
+  ],
+  "warnings": [
+    "Qdrant local-test payload-index/search-parameter warnings",
+    "ARQ Redis close deprecation"
+  ]
+}

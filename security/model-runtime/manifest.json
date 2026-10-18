@@ -1,0 +1,25 @@
+{
+  "binary_not_redistributed": true,
+  "files": [
+    {
+      "compressed_sha256": "01bfa1a3977501e8bfda0ea3dbdea812b7f92d042d010e66616d51e51c93a948",
+      "path": "ollama.scan.json.gz",
+      "uncompressed_sha256": "16dd23d56cfb8c3c8e7ac0259d876394c63247b2530aec4ad02b98cd0aa7a6a5"
+    },
+    {
+      "compressed_sha256": "5fccb6ed81a766153f197bbe77d1d03632ff08f0395540a88caa65a8863b4e2d",
+      "path": "ollama-arm64.scan.json.gz",
+      "uncompressed_sha256": "22f090ef122e7a69c444c9ec66d537004b9e7cd0222476928473be5e69c0c003"
+    },
+    {
+      "compressed_sha256": "ffb26debb53a2f6b4b16883af343036d9385e29d0f7ad6386c8edb2e1b6fd45a",
+      "path": "ollama.cdx.json.gz",
+      "uncompressed_sha256": "a37ca449416ff747c92484dfa85468e3e988ae9288d59d3f45b2982c71d6b482"
+    },
+    {
+      "path": "assessment.json",
+      "sha256": "3da0cc3130a230a47786614087c81a97bb525a3f4edc797d6c887720587084af"
+    }
+  ],
+  "qualified": false
+}

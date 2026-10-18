@@ -1,0 +1,38 @@
+name: Release Candidate Evidence (No Publication)
+
+on:
+  push:
+    branches: [release/v0.1.0-rc1]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  authorization:
+    name: Private RC and DCO
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 10
+    steps:
+      - name: Require private RC branch
+        env:
+          PRIVATE_REPOSITORY: ${{ github.event.repository.private }}
+          RC_REF: ${{ github.ref }}
+        run: |
+          test "$PRIVATE_REPOSITORY" = true
+          test "$RC_REF" = refs/heads/release/v0.1.0-rc1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate every RC contribution sign-off
+        env:
+          RC_BASE: e44eda8353e0d90184f7109473a12397ce0b5b0b
+        run: |
+          git merge-base --is-ancestor "$RC_BASE" HEAD
+          python3 -I scripts/check_dco.py --repository . --base "$RC_BASE" --head "$(git rev-parse HEAD)" --expected-author "Han Chen <hc414t@gmail.com>"
+  qualification:
+    needs: authorization
+    uses: ./.github/workflows/qualification.yml
+    with:
+      full-benchmark: true

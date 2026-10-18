@@ -1,0 +1,24 @@
+.panel { min-width: 0; margin: 1.2rem 0; border-top: 1px solid #dce3df; padding-top: 1rem; font-size: 13px; }
+.panel header { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.panel h3, .panel h4 { margin: 0; font-size: 15px; }
+.panel p { margin: 8px 0; line-height: 1.5; overflow-wrap: anywhere; }
+.panel label { display: grid; gap: 5px; margin: 10px 0; color: #3b4e45; }
+.panel input, .panel select { width: 100%; min-width: 0; font: inherit; padding: 8px; border: 1px solid #b7c4bd; border-radius: 4px; background: white; color: #14271e; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.panel button { display: inline-flex; gap: 6px; align-items: center; justify-content: center; background: white; color: #076f60; padding: 7px 9px; border: 1px solid #bfd0c8; border-radius: 4px; font: inherit; }
+.panel button:disabled { opacity: 0.5; cursor: not-allowed; }
+.panel button:focus-visible, .panel input:focus-visible, .panel select:focus-visible { outline: 2px solid #0b8b77; outline-offset: 2px; }
+.model { border-bottom: 1px solid #dce3df; padding: 14px 0; }
+.model header span { font-size: 11px; color: #5f6d66; }
+.model small { color: #66776e; }
+.panel summary { cursor: pointer; margin: 8px 0; }
+.panel dl { margin: 8px 0; }
+.panel dl > div { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px solid #edf0ed; }
+.panel dt, .panel dd { flex: 1; margin: 0; overflow-wrap: anywhere; }
+.panel code { font-size: 11px; overflow-wrap: anywhere; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+.review { margin-top: 12px; padding: 12px; border: 1px solid #b99538; border-radius: 4px; background: #fff9e7; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.comparison div { min-width: 0; }
+.comparison ol { padding-left: 18px; }
+.comparison li { overflow-wrap: anywhere; margin-bottom: 6px; }
