@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-18T21:46:03.041857+00:00",
+  "created_at": "2026-10-18T23:15:50.564393+00:00",
   "files": [
     {
       "bytes": 296,
@@ -51,6 +51,13 @@
       "source": ".github/ISSUE_TEMPLATE/feature_request.yml"
     },
     {
+      "bytes": 1573,
+      "mode": 420,
+      "path": ".github/actions/screen-diagnostics/action.yml",
+      "sha256": "e9269cdc86a0551eec6bdc276548b766133abde1bd706bc1d8156671e2e2207c",
+      "source": ".github/actions/screen-diagnostics/action.yml"
+    },
+    {
       "bytes": 1398,
       "mode": 420,
       "path": ".github/pull_request_template.md",
@@ -65,10 +72,10 @@
       "source": "infra/github/public-ci.yml"
     },
     {
-      "bytes": 8111,
+      "bytes": 8259,
       "mode": 420,
       "path": ".github/workflows/collect-release-evidence.yml",
-      "sha256": "db31995909737c87e922c427ea36f00fc0bd0249dc1a0d017a0649ef93d865c5",
+      "sha256": "7a9860335c2297749072030a5de7e4c5e7f647c2da3ce824164930ab8c61f4a7",
       "source": ".github/workflows/collect-release-evidence.yml"
     },
     {
@@ -86,10 +93,10 @@
       "source": ".github/workflows/dco.yml"
     },
     {
-      "bytes": 11266,
+      "bytes": 11938,
       "mode": 420,
       "path": ".github/workflows/qualification.yml",
-      "sha256": "e6afa8ac05061a4328b6596a72cb2205b23654e1a281a4c3fddb3c3cdb701e9d",
+      "sha256": "8661fbe01603030063391ed35447b5a2515647165a35400ad1040a1235e6b07f",
       "source": ".github/workflows/qualification.yml"
     },
     {
@@ -184,10 +191,10 @@
       "source": "README.md"
     },
     {
-      "bytes": 5858,
+      "bytes": 6110,
       "mode": 420,
       "path": "SECURITY.md",
-      "sha256": "7616e3345ecd0c06e68cdf588058d523dcfc00f0ac692ced0e1b34ff8954d8bf",
+      "sha256": "3e50dc1ea7435de717b1d73c3e9f65e1d671952d515103351911b528c64bbff6",
       "source": "SECURITY.md"
     },
     {
@@ -2158,10 +2165,10 @@
       "source": "docs/ALPHA_SCREENSHOTS.md"
     },
     {
-      "bytes": 39032,
+      "bytes": 40656,
       "mode": 420,
       "path": "docs/ALPHA_VALIDATION.md",
-      "sha256": "0fc4a502aaf77bbcd3a57c7d10bd365f88d6ac00a927cbebd2a7f22042369d7d",
+      "sha256": "dd1649177b410f36d4f4cae24cbd0413cf8b1539cb47b03231467b86c23a1b9c",
       "source": "docs/ALPHA_VALIDATION.md"
     },
     {
@@ -2382,17 +2389,17 @@
       "source": "docs/PRELAUNCH_SECURITY_REVIEW.md"
     },
     {
-      "bytes": 6227,
+      "bytes": 7383,
       "mode": 420,
       "path": "docs/PUBLIC_RELEASE_CHECKLIST.md",
-      "sha256": "2622cf1f6d8423447b3e5ca3a78cadf5949a092e700c3a5f8fc4860e2076eb57",
+      "sha256": "27935217720165cbabbfe9dc2ac13215b7af3c67052663975247334fed44a9a7",
       "source": "docs/PUBLIC_RELEASE_CHECKLIST.md"
     },
     {
-      "bytes": 9347,
+      "bytes": 9854,
       "mode": 420,
       "path": "docs/PUBLIC_SOURCE_EXPORT.md",
-      "sha256": "b0b651dce38293c5a1e00c5e07b2cf6ae0a826a74a0fd47b913f518ab22ba341",
+      "sha256": "60338dedaf6b09b01a2cd8ccc8711e8d0aa4cd9afd838c02363c61a051279db4",
       "source": "docs/PUBLIC_SOURCE_EXPORT.md"
     },
     {
@@ -8024,6 +8031,13 @@
       "source": "scripts/source_only_notices.py"
     },
     {
+      "bytes": 8908,
+      "mode": 420,
+      "path": "scripts/stage_ci_artifacts.py",
+      "sha256": "5466c2cc3f953bdbbf062ad717b5b48ebefec535fa73c375fcb62beb900f4381",
+      "source": "scripts/stage_ci_artifacts.py"
+    },
+    {
       "bytes": 16484,
       "mode": 420,
       "path": "scripts/stage_release_upload.py",
@@ -11951,6 +11965,13 @@
       "source": "tests/contract/test_catalog_demo_capture.py"
     },
     {
+      "bytes": 7915,
+      "mode": 420,
+      "path": "tests/contract/test_ci_artifact_privacy.py",
+      "sha256": "4da78b8a6d9d2580eea4d8dab83803b4a737cf664e906ddeb59ed88e307b9b0f",
+      "source": "tests/contract/test_ci_artifact_privacy.py"
+    },
+    {
       "bytes": 574,
       "mode": 420,
       "path": "tests/contract/test_cli_boundaries.py",
@@ -11965,10 +11986,10 @@
       "source": "tests/contract/test_collect_release_evidence.py"
     },
     {
-      "bytes": 6849,
+      "bytes": 7041,
       "mode": 420,
       "path": "tests/contract/test_collection_workflow.py",
-      "sha256": "5a431d0ec76373a9d7c7bf29e5117a759f39d511dbc4bfde5840003b982c1e3f",
+      "sha256": "2bdb669e07c0360c15b3dc8fb3230df9242f03dda3b0cbac36b922f865ccea4c",
       "source": "tests/contract/test_collection_workflow.py"
     },
     {
@@ -12035,10 +12056,10 @@
       "source": "tests/contract/test_frozen_checkout.py"
     },
     {
-      "bytes": 6646,
+      "bytes": 6820,
       "mode": 420,
       "path": "tests/contract/test_hosted_browser_evidence.py",
-      "sha256": "d0f38d94d77b703208058bb8fa6ff5a8a85c491b96bdefe8903e7579db665bb2",
+      "sha256": "f5b8bc39942cfc43d54b6af2ee03a3c61ee494ac9f87f69c1707532aeec0270e",
       "source": "tests/contract/test_hosted_browser_evidence.py"
     },
     {
@@ -12175,10 +12196,10 @@
       "source": "tests/contract/test_public_export.py"
     },
     {
-      "bytes": 10413,
+      "bytes": 10717,
       "mode": 420,
       "path": "tests/contract/test_qualification_workflow.py",
-      "sha256": "881d52ddbcd70228f38d7e0c19eb0859eddd81ed7373d2a5e4cb38ac6a333ec0",
+      "sha256": "eba7867dff8b7a1cfaab1e41f53e0b1d106f4bbb8a86f1a3edcfcbdbdadbf141",
       "source": "tests/contract/test_qualification_workflow.py"
     },
     {
@@ -12252,10 +12273,10 @@
       "source": "tests/contract/test_self_hosted_backup.py"
     },
     {
-      "bytes": 31144,
+      "bytes": 31457,
       "mode": 420,
       "path": "tests/contract/test_self_hosted_compose.py",
-      "sha256": "e57683c8f42b46b32c33b0ee18f96306843b9e666131638222c24c9a08d457ee",
+      "sha256": "b9849c715f9967b0d15f33420b0512c7c29bbd8a73e0b7faec878ec1b5f088c9",
       "source": "tests/contract/test_self_hosted_compose.py"
     },
     {
@@ -12815,5 +12836,5 @@
   "provenance": "Current working source, including uncommitted implementation; explicit hash-bound source-only notice derivatives; no Git history copied",
   "purpose": "Private alpha candidate; not qualified or approved for publication",
   "schema_version": 1,
-  "source_tree_sha256": "9d719ba45a8b3fa49dae0ab138fc5ff4d67768f61ef161e5ec0c08058ea54189"
+  "source_tree_sha256": "8af09bf0b628ad5ea3620da5223f34de1078181035fe563229c1600600cf1526"
 }

@@ -6,6 +6,31 @@ summary; private review transcripts, credentials and account data are not includ
 
 ## Current Reading Guide
 
+### CI Diagnostic Privacy Hardening
+
+The October 18 run ending at 23:14 UTC passed lint, type checking, generated
+OpenAPI/client freshness, **4,113 Python cases, 245 integration cases, 608
+frontend/SDK cases and both browser journeys**. One Python case and 11 opt-in
+integration cases were skipped. `make test` remains nonzero for the same four
+qualification gates: runtime dependency attribution, expired build assessments,
+current-deployment evidence mismatch and expired optional-runtime assessments.
+No gate was waived. All 1,833 selected records stayed unchanged during the run,
+with source tree `93a7d107d9de7bbe6202b66d0c84064ec822a0a9732e47c0f7054af623315fa3`.
+
+Scoped independent review covered diagnostic staging, upload conditions, bounded
+gzip decoding and receipt verification. Actual cached, network-disabled secret
+scanner fixtures accepted clean diagnostics and the narrowly allowed public GPG
+fingerprint, while rejecting synthetic secrets in image and compressed reports.
+Metadata-bearing, concatenated, malformed and oversized gzip input is rejected;
+binary browser traces/media require separate review. This is not a current
+vulnerability collection, PII guarantee, hosted run or security qualification.
+
+The initial development attempt exposed test-only typing and stale upload-path
+assertions; its failures remain retained and are not counted as the stable result.
+This reading-guide update follows stable validation and changes documentation
+only. The final exported tree must receive fresh hash/content/link review; the
+earlier run is not silently relabeled as a rerun of later documentation bytes.
+
 ### Source-Only Packaging Validation
 
 The run ending October 18 at 21:44 UTC passed lint, type checking, OpenAPI/client

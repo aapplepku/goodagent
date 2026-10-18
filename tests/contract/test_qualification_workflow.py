@@ -24,8 +24,9 @@ def test_full_workflow_requires_all_shards_and_full_reproduction() -> None:
     step = next(s for s in shards["steps"] if "controller-shards.py run" in s.get("run", ""))
     assert step["timeout-minutes"] < shards["timeout-minutes"] < 360
     upload = next(s for s in shards["steps"] if "upload-artifact@" in s.get("uses", ""))
-    assert upload["if"] == "always()"
-    assert ".opencommerce/controller-*" in upload["with"]["path"]
+    assert "always()" in upload["if"]
+    assert "steps.artifact_privacy.outcome == 'success'" in upload["if"]
+    assert upload["with"]["path"] == ".opencommerce/ci-upload/shard/upload/"
     complete = jobs["controller-complete"]
     assert complete["needs"] == "controller-shards"
     assert "always()" in complete["if"]
@@ -33,7 +34,7 @@ def test_full_workflow_requires_all_shards_and_full_reproduction() -> None:
     assert any("controller-shards.py assemble" in s.get("run", "") for s in complete["steps"])
 
 
-def test_security_runs_after_test_failure_and_all_raw_evidence_is_uploaded() -> None:
+def test_security_runs_after_failure_and_raw_upload_requires_privacy_and_provenance() -> None:
     workflow = yaml.safe_load(Path(".github/workflows/qualification.yml").read_text())
     job = workflow["jobs"]["verify"]
     assert job["runs-on"] == "ubuntu-24.04-arm"
@@ -48,19 +49,16 @@ def test_security_runs_after_test_failure_and_all_raw_evidence_is_uploaded() -> 
         assert "!cancelled()" in step["if"]
         assert not step.get("continue-on-error")
     upload = next(s for s in steps if s.get("uses", "").startswith("actions/upload-artifact@"))
-    assert upload["if"] == "always()"
+    assert "always()" in upload["if"]
+    assert "steps.provenance.outcome == 'success'" in upload["if"]
+    assert "steps.artifact_privacy.outcome == 'success'" in upload["if"]
     assert upload["with"]["include-hidden-files"]
-    for path in (
-        "source-scans/*.json",
-        "source-scans/*.log",
-        "source-scans/*-version.stdout",
-        "source-scans/*-version.stderr",
-        "source-scans/python-requirements.txt",
-        "security-scans/final/*.json",
-        "ci-evidence/",
-        "controller-smoke*",
-    ):
-        assert path in upload["with"]["path"]
+    assert upload["with"]["path"] == ".opencommerce/ci-upload/qualification/upload/"
+    privacy = next(s for s in steps if s.get("id") == "artifact_privacy")
+    assert "always()" in privacy["if"]
+    assert "steps.provenance.outcome == 'success'" in privacy["if"]
+    assert privacy["uses"] == "./.github/actions/screen-diagnostics"
+    assert privacy["with"] == {"profile": "qualification", "commit": "${{ github.sha }}"}
 
 
 def test_private_rc_requires_private_branch_and_dco_before_qualification() -> None:

@@ -28,19 +28,22 @@ def recorder(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
     return module
 
 
-def test_both_uploaded_browser_trees_are_recursively_hashed(recorder: dict[str, Any]) -> None:
+def test_browser_trees_are_hashed_but_only_screened_diagnostics_are_uploaded(
+    recorder: dict[str, Any],
+) -> None:
     workflow = yaml.safe_load((ROOT / ".github/workflows/qualification.yml").read_text())
     upload = next(
         step
         for step in workflow["jobs"]["verify"]["steps"]
         if "upload-artifact@" in step.get("uses", "")
     )
-    assert upload["if"] == "always()"
+    assert "always()" in upload["if"]
+    assert "steps.artifact_privacy.outcome == 'success'" in upload["if"]
     assert upload["with"]["include-hidden-files"] is True
     uploaded = upload["with"]["path"].splitlines()
     fixtures = {}
     for app in ("web", "shopper"):
-        assert f"apps/{app}/test-results/" in uploaded
+        assert f"apps/{app}/test-results/" not in uploaded
         for relative in (
             "failure/nested/trace.zip",
             "failure/screenshot.png",
@@ -60,6 +63,7 @@ def test_both_uploaded_browser_trees_are_recursively_hashed(recorder: dict[str, 
     result = json.loads(Path(".opencommerce/ci-evidence/provenance.json").read_bytes())
     assert {row["path"]: row for row in result["files"]} == fixtures
     assert result["commit_matches"] is True
+    assert uploaded == [".opencommerce/ci-upload/qualification/upload/"]
 
 
 def test_early_failure_without_browser_directories_still_records(recorder: dict[str, Any]) -> None:

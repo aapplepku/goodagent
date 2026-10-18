@@ -100,9 +100,15 @@ ignore the suffix even if it is present in the stored commit. Ordinary Markdown
 horizontal rules are allowed. This checker never rewrites a commit. The original
 private CI and its historical baseline protections are unchanged.
 Pushes, pull requests and manual runs invoke qualification, whose artifact-upload
-steps run even after failures and retain selected evidence for 30 days. That evidence
-includes service/provenance logs, scan reports, benchmark results and browser test
-outputs. Read-only repository permissions do not prevent Actions artifact uploads.
+steps can run after test/security failures, but uploads require successful provenance
+and privacy checks. An exclusive hash-bound staging tree is screened with the pinned
+offline secret scanner, including bounded expansion of gzip reports, and rechecked
+before upload. Selected diagnostic artifacts are retained for 30 days. They include
+service/provenance logs, raw scan reports, benchmark results and the filtered Compose
+browser receipt. Binary browser traces, screenshots and recordings require separate
+review and are not automatically uploaded. A privacy failure withholds diagnostics;
+retain originals privately before removing the runner, and do not call that run a
+complete evidence collection. Read-only permissions do not prevent artifact uploads.
 Review the selected paths and generated contents before enabling these hosted runs;
 use only disposable synthetic fixtures and no model or store credentials. A local
 commit runs no hosted job. These workflows do not deploy, change visibility, create

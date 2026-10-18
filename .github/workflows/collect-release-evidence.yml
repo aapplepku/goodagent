@@ -106,6 +106,7 @@ jobs:
           EXPECTED_COMMIT: ${{ github.sha }}
         run: .venv/bin/python -m scripts.check_frozen_checkout --commit "$EXPECTED_COMMIT" > .opencommerce/ci-evidence/checkout-after.json
       - name: Record actual stage outcomes and exact evidence hashes
+        id: provenance
         if: always()
         env:
           EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -119,21 +120,22 @@ jobs:
       - name: Prepare the exact screened artifact tree
         id: upload_ready
         run: .venv/bin/python -m scripts.stage_release_upload finalize
+      - name: Screen source diagnostics and failure provenance
+        id: diagnostics_privacy
+        if: ${{ always() && steps.provenance.outcome == 'success' }}
+        uses: ./.github/actions/screen-diagnostics
+        with:
+          profile: diagnostics
+          commit: ${{ github.sha }}
       - name: Retain redacted source reports and failure provenance
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: always()
+        if: ${{ always() && steps.provenance.outcome == 'success' && steps.diagnostics_privacy.outcome == 'success' }}
         with:
           name: collection-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
           include-hidden-files: true
           retention-days: 30
           if-no-files-found: error
-          path: |
-            .opencommerce/ci-evidence/*.json
-            .opencommerce/source-scans/*.json
-            .opencommerce/source-scans/*.log
-            .opencommerce/source-scans/*-version.stdout
-            .opencommerce/source-scans/*-version.stderr
-            .opencommerce/source-scans/python-requirements.txt
+          path: .opencommerce/ci-upload/diagnostics/upload/
       - name: Retain secret-checked image reports even on incomplete collection
         id: image_upload_check
         if: ${{ always() && steps.image_privacy.outcome == 'success' }}

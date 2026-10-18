@@ -704,7 +704,15 @@ def test_workflow_preserves_native_journey_and_runs_fixture_after_successful_bui
     assert any("make test-e2e" in step.get("run", "") for step in steps)
     assert any("make test-fault" in step.get("run", "") for step in steps)
     upload = next(step for step in steps if "upload-artifact@" in step.get("uses", ""))
-    assert "apps/web/test-results/" in upload["with"]["path"]
+    assert upload["with"]["path"] == ".opencommerce/ci-upload/qualification/upload/"
+    from scripts.stage_ci_artifacts import selected
+
+    assert selected(
+        "apps/web/test-results/self-hosted-compose/fixture/receipt.json", "qualification"
+    )
+    assert not selected(
+        "apps/web/test-results/self-hosted-compose/fixture/browser.png", "qualification"
+    )
 
 
 def test_workflow_installs_chromium_after_check_failure_before_browser_journeys() -> None:

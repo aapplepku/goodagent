@@ -36,6 +36,24 @@ Follow [source export instructions](PUBLIC_SOURCE_EXPORT.md). The current
 gates; it is not a certificate for later edits. The proposed public project name is
 GoodAgent, but name selection is not trademark clearance.
 
+### Diagnostic Artifact Boundary
+
+Qualification and collection diagnostics are copied from hash-bound provenance
+into an exclusive staging tree. A pinned, network-disabled secret scan examines
+the exact text, including bounded decompression of metadata-free, single-member
+gzip reports (the format our benchmark writers produce); a second check
+rejects changed bytes or additional members before upload. Privacy and provenance
+failures block the diagnostic upload even when retention would be useful. Ordinary
+test/security failures do not bypass this boundary or become passing results.
+
+Raw reports stay unchanged in the generating checkout. If privacy screening fails,
+they must be retained in a controlled private environment for investigation before
+that environment is removed; a hosted runner alone is not durable retention.
+Do not treat such a run as a complete acquisition. Browser traces, screenshots and
+recordings are excluded from automatic diagnostic artifacts and need separate
+content review. Secret scanning is not a general PII detector or a vulnerability
+approval. Existing source/image acquisition and applicability gates still apply.
+
 ## After Exact-Candidate Approval
 
 - [ ] Change visibility only for the approved separate repository; keep the

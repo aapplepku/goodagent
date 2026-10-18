@@ -34,6 +34,8 @@ def test_collection_is_manual_read_only_and_fresh_default_branch() -> None:
     assert all(not s.get("continue-on-error") for s in steps)
     for step in steps:
         if "uses" in step:
+            if step["uses"] == "./.github/actions/screen-diagnostics":
+                continue
             assert len(step["uses"].split("@")[1]) == 40
     assert "secrets." not in WORKFLOW.read_text()
     assert "security/current-release-approval.json" not in WORKFLOW.read_text()
@@ -69,7 +71,10 @@ def test_uploads_are_bounded_and_sensitive_payloads_require_clean_checks() -> No
         assert upload["with"]["retention-days"] == 30
         for path in upload["with"]["path"].splitlines():
             assert path.startswith(".opencommerce/")
-            assert not path.endswith("/") or path == ".opencommerce/release-upload/"
+            assert not path.endswith("/") or path in {
+                ".opencommerce/release-upload/",
+                ".opencommerce/ci-upload/diagnostics/upload/",
+            }
             assert path not in {".opencommerce/**", ".opencommerce/ci-evidence/*"}
         assert "source-scans/source/" not in upload["with"]["path"]
     source_archive = next(

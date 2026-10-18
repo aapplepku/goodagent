@@ -46,10 +46,13 @@ application differs substantially from the frozen RC.
 
 Only after separate owner authorization to publish, the administrator must:
 
-- Enable GitHub Private Vulnerability Reporting immediately before or immediately
-  after making the repository public.
+- Request separate owner approval to enable GitHub Private Vulnerability Reporting.
+  Publication approval alone does not authorize that setting. Until it is approved
+  and verified, use the email reporting fallback above and explicitly record PVR
+  as unavailable rather than advertise an unverified reporting workflow.
 - Confirm administrators are subscribed to repository security-alert notifications.
-- Verify the **Report a vulnerability** workflow is visible from a non-admin account.
+- If PVR is separately approved, verify the **Report a vulnerability** workflow is
+  visible from a non-admin account after enabling it.
 
 These are launch-time checks, not completed settings in this local checkout.
 The email fallback remains available. See [GitHub's configuration guide](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository).

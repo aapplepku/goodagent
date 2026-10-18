@@ -103,6 +103,7 @@ jobs:
           docker compose ps --all --format json > .opencommerce/ci-evidence/compose-status.json
           docker compose logs --no-color > .opencommerce/ci-evidence/compose.log
       - name: Record exact commit, environment and artifact hashes
+        id: provenance
         if: always()
         env:
           EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -111,32 +112,21 @@ jobs:
           EVIDENCE_RUNNER_OS: ${{ runner.os }}
           EVIDENCE_RUNNER_ARCH: ${{ runner.arch }}
         run: python3 scripts/record-hosted-evidence.py
+      - name: Screen qualification diagnostics before upload
+        id: artifact_privacy
+        if: ${{ always() && steps.provenance.outcome == 'success' }}
+        uses: ./.github/actions/screen-diagnostics
+        with:
+          profile: qualification
+          commit: ${{ github.sha }}
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: always()
+        if: ${{ always() && steps.provenance.outcome == 'success' && steps.artifact_privacy.outcome == 'success' }}
         with:
           name: simulator-qualification-${{ github.run_id }}-${{ github.run_attempt }}
           include-hidden-files: true
           retention-days: 30
           if-no-files-found: error
-          path: |
-            .opencommerce/ci-evidence/
-            .opencommerce/runtime-image-proof.json
-            .opencommerce/package-legal-proof.json
-            .opencommerce/image-legal-proof.json
-            .opencommerce/source-scans/*.json
-            .opencommerce/source-scans/*.log
-            .opencommerce/source-scans/*-version.stdout
-            .opencommerce/source-scans/*-version.stderr
-            .opencommerce/source-scans/python-requirements.txt
-            .opencommerce/security-scans/final/*.json
-            security/image-assessments.json
-            security/reviewed-image-findings.json
-            .opencommerce/controller-reproduction.json.gz
-            .opencommerce/controller-primary.json.gz
-            .opencommerce/controller-smoke*
-            examples/eval/results/
-            apps/web/test-results/
-            apps/shopper/test-results/
+          path: .opencommerce/ci-upload/qualification/upload/
       - name: Remove this runner's disposable Compose volumes
         if: always()
         run: docker compose down --volumes
@@ -178,6 +168,7 @@ jobs:
           SHARD: ${{ matrix.shard }}
         run: .venv/bin/python scripts/controller-shards.py run --shard "$SHARD"
       - name: Preserve exact-SHA shard provenance including partial journals
+        id: provenance
         if: always()
         env:
           EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -186,16 +177,21 @@ jobs:
           EVIDENCE_RUNNER_OS: ${{ runner.os }}
           EVIDENCE_RUNNER_ARCH: ${{ runner.arch }}
         run: python3 scripts/record-hosted-evidence.py
+      - name: Screen shard diagnostics before upload
+        id: artifact_privacy
+        if: ${{ always() && steps.provenance.outcome == 'success' }}
+        uses: ./.github/actions/screen-diagnostics
+        with:
+          profile: shard
+          commit: ${{ github.sha }}
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: always()
+        if: ${{ always() && steps.provenance.outcome == 'success' && steps.artifact_privacy.outcome == 'success' }}
         with:
           name: controller-shard-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.shard }}
           include-hidden-files: true
           retention-days: 30
           if-no-files-found: error
-          path: |
-            .opencommerce/controller-*
-            .opencommerce/ci-evidence/
+          path: .opencommerce/ci-upload/shard/upload/
       - name: Remove disposable benchmark infrastructure
         if: always()
         run: docker compose down --volumes
@@ -229,14 +225,28 @@ jobs:
         env:
           RC_SHA: ${{ github.sha }}
         run: .venv/bin/python scripts/controller-shards.py assemble --directory .opencommerce/controller-shards --expected-sha "$RC_SHA"
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - name: Record assembled evidence provenance
+        id: provenance
         if: always()
+        env:
+          EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EVIDENCE_COMMIT: ${{ github.sha }}
+          EVIDENCE_RUN_ATTEMPT: ${{ github.run_attempt }}
+          EVIDENCE_RUNNER_OS: ${{ runner.os }}
+          EVIDENCE_RUNNER_ARCH: ${{ runner.arch }}
+        run: python3 scripts/record-hosted-evidence.py
+      - name: Screen assembled diagnostics before upload
+        id: artifact_privacy
+        if: ${{ always() && steps.provenance.outcome == 'success' }}
+        uses: ./.github/actions/screen-diagnostics
+        with:
+          profile: complete
+          commit: ${{ github.sha }}
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: ${{ always() && steps.provenance.outcome == 'success' && steps.artifact_privacy.outcome == 'success' }}
         with:
           name: controller-complete-${{ github.run_id }}-${{ github.run_attempt }}
           include-hidden-files: true
           retention-days: 30
           if-no-files-found: error
-          path: |
-            .opencommerce/controller-primary.json.gz
-            .opencommerce/controller-reproduction.json.gz
-            .opencommerce/controller-assembly.json
+          path: .opencommerce/ci-upload/complete/upload/

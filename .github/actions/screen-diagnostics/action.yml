@@ -1,0 +1,38 @@
+name: Screen diagnostic artifacts
+description: Stage exact text diagnostics, check secrets offline, and verify unchanged bytes
+inputs:
+  profile:
+    description: Fixed diagnostic selection profile
+    required: true
+  commit:
+    description: Expected workflow commit
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Stage hash-bound diagnostics and expanded compressed text
+      id: prepare
+      shell: bash
+      env:
+        PROFILE: ${{ inputs.profile }}
+        EVIDENCE_COMMIT: ${{ inputs.commit }}
+      run: .venv/bin/python -m scripts.stage_ci_artifacts prepare "$PROFILE"
+    - name: Screen the exact staged diagnostic text
+      shell: bash
+      env:
+        PROFILE: ${{ inputs.profile }}
+      run: |
+        docker run --rm --network none --cap-drop ALL --security-opt no-new-privileges \
+          --user "$(id -u):$(id -g)" \
+          -v "$PWD/.opencommerce/ci-upload/$PROFILE/screen:/data:ro" \
+          -v "$PWD/.gitleaks.toml:/config/.gitleaks.toml:ro" \
+          ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f \
+          dir /data --config /config/.gitleaks.toml --redact=100 --no-banner \
+          --ignore-gitleaks-allow --max-target-megabytes=32
+    - name: Reject any change after secret screening
+      shell: bash
+      env:
+        PROFILE: ${{ inputs.profile }}
+        EVIDENCE_COMMIT: ${{ inputs.commit }}
+        EVIDENCE_RECEIPT_SHA256: ${{ steps.prepare.outputs.receipt_sha256 }}
+      run: .venv/bin/python -m scripts.stage_ci_artifacts verify "$PROFILE"
