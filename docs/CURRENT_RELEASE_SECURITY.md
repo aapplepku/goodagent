@@ -65,15 +65,30 @@ and [immutable artifact metadata](https://docs.github.com/en/rest/actions/artifa
 
 ## Evidence And Approval
 
-### Acquiring The Initial Candidate
+### Acquiring A Candidate
 
 `collect-release-evidence.yml` is a separate, manual **acquisition-only** workflow.
 It accepts no candidate URL or arbitrary commands. Run it on the default branch of
 the reviewed private export repository, after its initial source snapshot has been
 committed. It intentionally refuses the original dirty development checkout,
-shallow history, additional history, and files/modes that differ from the committed
-`SOURCE_SNAPSHOT.json`. This initial-export path is not a general release workflow
-for later multi-commit development history.
+shallow or unrelated history, and files/modes that differ from the committed
+`SOURCE_SNAPSHOT.json`. It does not accept arbitrary existing repository history.
+
+An explicit follow-up mode now accepts a clean, bounded linear descendant of the
+audited history-free root `949910304aa5e978826df034e65b1de579d9e330`. The root is a
+literal pin in trusted default-branch workflow policy, not a dispatch input or a
+value read from an unreviewed evidence bundle. It must be the actual parentless
+root; unrelated refs, merges, shallow history, external Git storage and more than
+256 commits are rejected. All raw commit objects and current manifest/blob/mode
+bindings are checked. DCO is checked for every commit including that root. This
+does not inspect intermediate commits for personal data or approve future source
+changes; prior review and complete history secret scanning remain necessary.
+The default standalone verifier still permits only a one-commit export unless a
+separately trusted `--export-root` is explicitly supplied. Source and image
+receipts bind the same complete history selection. This removes a reproduced
+local two-commit acquisition failure, not the remaining security findings or the
+need for an actual hosted run. The workflow change remains local until separately
+reviewed and adopted; no hosted compatibility or approval is inferred.
 
 The workflow installs locked tools, binds the checkout before and after work,
 collects source scans, and builds and scans all eight Compose service images. It

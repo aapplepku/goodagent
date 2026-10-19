@@ -6,8 +6,9 @@ Use separate owner and guest browser sessions throughout this single story.
 ## Start
 
 Follow [instance setup](SELF_SERVICE_SETUP.md) for a fresh install. For an existing
-Docker-first installation, rerun `make setup` with its existing configuration and
-use the printed URLs. Use `make dev-local` only for an already-configured native
+Docker-first installation using the root `.env`, rerun `make setup` and use the
+printed URLs. For a custom environment file, rerun the setup helper with the same
+`--env-file` option instead. Use `make dev-local` only for an already-configured native
 development installation with its host dependencies installed. Do not overwrite
 the existing ignored environment or reset the existing store. Readiness distinguishes
 dependencies from model configuration; a configured key is not a connection test.
@@ -25,13 +26,19 @@ the store does not make a model request to check it.
    needed. Confirm products and wait for verified indexing. Never share automatically.
 3. In the workspace, ask the agent to inspect the active catalog and test drinking
    glass searches. Ask it to explain an observed limitation, not promise sales lift.
-4. Open a private shopper preview. Try the tasks below and check actual products.
+4. Choose **Open shopper preview**, which opens directly in chat. In Basic mode,
+   send a literal product name in its chat; with a model, try the tasks below.
+   Check actual products. Browsing alone does not complete **Shopper search tested**;
+   **AI connection verified** is optional for enabling the store link.
 5. Review images, acknowledge demo checkout and explicitly enable this catalog's
    store link. Open it in a separate fresh browser context as a guest.
 6. Browse, ask a question, inspect variants and explicitly add to cart. Account
-   creation remains optional. Review checkout and select a local test outcome.
-7. Reload and open Demo Orders. Interrupted confirmations instead show checking
-   and a status action; never approve another payment to guess the outcome.
+   creation remains optional. Choose **Review checkout**, then
+   **Approve test payment** to create a demo order. **Test decline** demonstrates a
+   failed payment without creating an order.
+7. After a successful test payment, reload and open **Demo orders**. Interrupted
+   confirmations show **Checking your checkout** and **Check status**; use that
+   status action before attempting another payment.
 
 Loopback store links work on this computer only. This is not permission to expose
 the installation publicly. No account, credential or real shopper data goes to QA.

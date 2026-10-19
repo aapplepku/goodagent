@@ -34,6 +34,70 @@ const published: CatalogBrowseResponse = {
 };
 
 describe("CatalogBrowser", () => {
+  it("does not reset an unchanged product image while typing in filters", async () => {
+    const client = { shopperCatalog: vi.fn(async () => published) };
+    const view = render(<CatalogBrowser client={client} pendingProduct={null} onAdd={vi.fn()} onAsk={vi.fn()} />);
+    const image = await screen.findByRole("img", { name: "Amazon Coffee" });
+    const assignment = vi.spyOn(HTMLImageElement.prototype, "src", "set");
+    try {
+      fireEvent.change(screen.getByLabelText("Find catalog products"), { target: { value: "coffee" } });
+      expect(screen.getByRole("img", { name: "Amazon Coffee" })).toBe(image);
+      expect(assignment).not.toHaveBeenCalled();
+    } finally {
+      assignment.mockRestore();
+      view.unmount();
+    }
+  });
+
+  it("shows a replacement image after the previous source failed", async () => {
+    const replacement = { ...published, items: [{ ...published.items[0], image_url: "/abo-images/replacement.jpg" }] };
+    const client = { shopperCatalog: vi.fn().mockResolvedValueOnce(published).mockResolvedValue(replacement) };
+    render(<CatalogBrowser client={client} pendingProduct={null} onAdd={vi.fn()} onAsk={vi.fn()} />);
+    const original = await screen.findByRole("img", { name: "Amazon Coffee" });
+    fireEvent.error(original);
+    expect(screen.queryByRole("img", { name: "Amazon Coffee" })).not.toBeInTheDocument();
+    expect(screen.getByText("Image unavailable")).toBeVisible();
+    fireEvent.click(screen.getByLabelText("Refresh catalog"));
+    const next = await screen.findByRole("img", { name: "Amazon Coffee" });
+    expect((next as HTMLImageElement).src).toBe(new URL("/abo-images/replacement.jpg", window.location.href).href);
+    fireEvent.error(original);
+    expect(screen.getByRole("img", { name: "Amazon Coffee" })).toBe(next);
+  });
+
+  it("does not retry a failed image or reset its surviving sibling on polling", async () => {
+    vi.useFakeTimers();
+    try {
+      const data = { ...published, total: 2, items: [published.items[0], { ...published.items[0], product_id: "tea", title: "Tea", image_url: "/abo-images/tea.jpg" }] };
+      const client = { shopperCatalog: vi.fn(async () => ({ ...data })) };
+      const view = render(<CatalogBrowser client={client} pendingProduct={null} onAdd={vi.fn()} onAsk={vi.fn()} />);
+      await act(async () => undefined);
+      const failed = screen.getByRole("img", { name: "Amazon Coffee" });
+      const survivor = screen.getByRole("img", { name: "Tea" });
+      const assignment = vi.spyOn(HTMLImageElement.prototype, "src", "set");
+      try {
+        fireEvent.error(failed);
+        await act(async () => vi.advanceTimersByTimeAsync(30000));
+        expect(client.shopperCatalog).toHaveBeenCalledTimes(2);
+        expect(screen.queryByRole("img", { name: "Amazon Coffee" })).not.toBeInTheDocument();
+        expect(screen.getByRole("img", { name: "Tea" })).toBe(survivor);
+        expect(assignment).not.toHaveBeenCalled();
+      } finally { assignment.mockRestore(); view.unmount(); }
+    } finally { vi.useRealTimers(); }
+  });
+
+  it("keeps a loaded image stable across an explicit same-source refresh", async () => {
+    const client = { shopperCatalog: vi.fn(async () => ({ ...published })) };
+    const view = render(<CatalogBrowser client={client} pendingProduct={null} onAdd={vi.fn()} onAsk={vi.fn()} />);
+    const image = await screen.findByRole("img", { name: "Amazon Coffee" });
+    const assignment = vi.spyOn(HTMLImageElement.prototype, "src", "set");
+    try {
+      fireEvent.click(screen.getByLabelText("Refresh catalog"));
+      await waitFor(() => expect(client.shopperCatalog).toHaveBeenCalledTimes(2));
+      expect(screen.getByRole("img", { name: "Amazon Coffee" })).toBe(image);
+      expect(assignment).not.toHaveBeenCalled();
+    } finally { assignment.mockRestore(); view.unmount(); }
+  });
+
   it.each([0, 1, 2])("uses the matching product noun for %s catalog entries", async (count) => {
     const data = { ...published, catalog: { ...published.catalog!, product_count: count }, total: count };
     const client = { shopperCatalog: vi.fn(async () => data) };

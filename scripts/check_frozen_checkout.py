@@ -1,4 +1,4 @@
-"""Bind a clean, single-root-commit export checkout; never approve its findings."""
+"""Bind a clean export, optionally descended from a separately trusted root pin."""
 
 from __future__ import annotations
 
@@ -28,6 +28,7 @@ from scripts.check_release_assessments import (
 SNAPSHOT = "SOURCE_SNAPSHOT.json"
 GIT_TIMEOUT = 30
 MAX_GIT_BYTES = 8 * 1024 * 1024
+MAX_EXPORT_COMMITS = 256
 GIT_ENV = {
     "PATH": os.defpath,
     "LC_ALL": "C",
@@ -105,38 +106,83 @@ def _entries(raw: bytes, *, index: bool) -> dict[str, tuple[int, str]]:
     return entries
 
 
-def _state(root: Path, expected: str) -> dict[str, tuple[int, str]]:
+def _history(root: Path, expected: str, expected_root: str | None) -> dict[str, Any] | None:
+    rows = _git(root, "rev-list", "--all", "--parents", "HEAD").splitlines()
+    require(len(rows) <= MAX_EXPORT_COMMITS, "export_history_budget")
+    if expected_root is None:
+        require(rows == [expected.encode()], "export_history")
+    members: dict[str, list[str]] = {}
+    for row in rows:
+        fields = row.decode("ascii").split(" ")
+        require(
+            len(fields) in {1, 2}
+            and all(re.fullmatch(r"[0-9a-f]{40}", field) for field in fields)
+            and fields[0] not in members,
+            "export_history",
+        )
+        members[fields[0]] = fields[1:]
+    chain = []
+    current = expected
+    while True:
+        require(current in members and current not in chain, "export_history")
+        chain.append(current)
+        parents = members[current]
+        commit = _git(root, "cat-file", "commit", current)
+        require(_blob_id(commit, "commit") == current, "commit_object")
+        headers = commit.split(b"\n\n", 1)[0].splitlines()
+        require(
+            [line for line in headers if line.startswith(b"parent ")]
+            == [f"parent {parent}".encode() for parent in parents],
+            "export_history",
+        )
+        if not parents:
+            break
+        current = parents[0]
+    require(current == (expected_root or expected) and len(chain) == len(members), "export_history")
+    if expected_root is None:
+        return None
+    return {
+        "policy": "pinned-linear-export-v1",
+        "root_commit": expected_root,
+        "commits": list(reversed(chain)),
+    }
+
+
+def _state(
+    root: Path, expected: str, expected_root: str | None
+) -> tuple[dict[str, tuple[int, str]], dict[str, Any] | None]:
     require(_git(root, "rev-parse", "--is-shallow-repository") == b"false\n", "shallow_repository")
     require(
         _git(root, "rev-parse", "--verify", "HEAD") == (expected + "\n").encode(), "head_mismatch"
     )
-    require(
-        _git(root, "rev-list", "--all", "--parents", "HEAD") == (expected + "\n").encode(),
-        "export_history",
-    )
-    commit = _git(root, "cat-file", "commit", expected)
-    require(_blob_id(commit, "commit") == expected, "commit_object")
-    require(
-        not any(line.startswith(b"parent ") for line in commit.split(b"\n\n", 1)[0].splitlines()),
-        "export_history",
-    )
+    history = _history(root, expected, expected_root)
     tree = _entries(_git(root, "ls-tree", "-rz", "--full-tree", "HEAD"), index=False)
     index = _entries(_git(root, "ls-files", "--stage", "-z"), index=True)
     require(tree == index, "staged_changes")
     require(not _git(root, "ls-files", "--others", "--exclude-standard", "-z"), "untracked_files")
-    return tree
+    return tree, history
 
 
 def _blob_id(raw: bytes, kind: str = "blob") -> str:
     return hashlib.sha1(f"{kind} {len(raw)}\0".encode() + raw, usedforsecurity=False).hexdigest()
 
 
-def verify_checkout(root: Path, expected_commit: str) -> dict[str, Any]:
+def verify_checkout(
+    root: Path, expected_commit: str, *, expected_root: str | None = None
+) -> dict[str, Any]:
     """Return source bindings only; ignored build outputs are not export members."""
     require(
         isinstance(expected_commit, str)
         and re.fullmatch(r"[0-9a-f]{40}", expected_commit) is not None,
         "commit_pin",
+    )
+    require(
+        expected_root is None
+        or (
+            isinstance(expected_root, str)
+            and re.fullmatch(r"[0-9a-f]{40}", expected_root) is not None
+        ),
+        "export_root_pin",
     )
     root = root.absolute()
     reader = BundleReader(root)
@@ -173,7 +219,7 @@ def verify_checkout(root: Path, expected_commit: str) -> dict[str, Any]:
                 and key != b"core.worktree",
                 "git_configuration",
             )
-        before = _state(root, expected_commit)
+        before, history = _state(root, expected_commit, expected_root)
         raw, snapshot_mode = reader.read(SNAPSHOT)
         snapshot = SourceSnapshot.model_validate(strict_json(raw))
         records = [entry.model_dump() for entry in snapshot.files]
@@ -190,7 +236,7 @@ def verify_checkout(root: Path, expected_commit: str) -> dict[str, Any]:
             )
             require(before[entry.path] == (mode, _blob_id(content)), "git_blob_binding")
         require(before[SNAPSHOT] == (snapshot_mode, _blob_id(raw)), "snapshot_git_binding")
-        require(_state(root, expected_commit) == before, "git_changed")
+        require(_state(root, expected_commit, expected_root) == (before, history), "git_changed")
         reader.recheck()
         require(reader.source_tree_paths(".git") == git_members, "git_metadata_changed")
         with_root = BundleReader(root)
@@ -202,12 +248,15 @@ def verify_checkout(root: Path, expected_commit: str) -> dict[str, Any]:
             )
         finally:
             with_root.close()
-        return {
+        result = {
             "source_tree_sha256": snapshot.source_tree_sha256,
             "commit_sha": expected_commit,
             "snapshot": FileRef(path=SNAPSHOT, sha256=digest(raw), size=len(raw)).model_dump(),
             "files_count": len(paths),
         }
+        if history is not None:
+            result["history"] = history
+        return result
     finally:
         reader.close()
 
@@ -217,8 +266,16 @@ def main() -> int:
         parser = SafeParser(description=__doc__)
         parser.add_argument("--root", type=Path, default=Path.cwd())
         parser.add_argument("--commit", required=True)
+        parser.add_argument("--export-root", help="Separately trusted original export commit pin")
         args = parser.parse_args()
-        print(json.dumps({"valid": True, **verify_checkout(args.root, args.commit)}))
+        print(
+            json.dumps(
+                {
+                    "valid": True,
+                    **verify_checkout(args.root, args.commit, expected_root=args.export_root),
+                }
+            )
+        )
         return 0
     except (ValueError, OSError, KeyError, TypeError, subprocess.SubprocessError):
         print(json.dumps({"valid": False, "error": "invalid_checkout"}))

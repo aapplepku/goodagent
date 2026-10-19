@@ -106,6 +106,90 @@ def test_exact_export_returns_bound_snapshot_and_ignores_build_outputs(exported:
     )
 
 
+def followup(exported: Export) -> tuple[str, str]:
+    root_commit = exported.head
+    name = "app/[slug]/page.ts"
+    raw = b"// reviewed synthetic follow-up\n"
+    (exported.root / name).write_bytes(raw)
+    record = next(row for row in exported.snapshot["files"] if row["path"] == name)
+    record.update(sha256=digest(raw), bytes=len(raw))
+    exported.save()
+    exported.commit()
+    return root_commit, exported.head
+
+
+def test_followup_requires_explicit_exact_export_root(exported: Export) -> None:
+    root_commit, head = followup(exported)
+    with pytest.raises(GateError, match="export_history"):
+        gate.verify_checkout(exported.root, head)
+    result = gate.verify_checkout(exported.root, head, expected_root=root_commit)
+    assert result["commit_sha"] == head
+    assert result["source_tree_sha256"] == exported.snapshot["source_tree_sha256"]
+    assert result["history"] == {
+        "root_commit": root_commit,
+        "commits": [root_commit, head],
+        "policy": "pinned-linear-export-v1",
+    }
+
+
+@pytest.mark.parametrize("pin", ["", "HEAD", "f" * 40, "A" * 40, "--help"])
+def test_followup_rejects_invalid_or_unrelated_root(exported: Export, pin: str) -> None:
+    _, head = followup(exported)
+    with pytest.raises(GateError):
+        gate.verify_checkout(exported.root, head, expected_root=pin)
+
+
+def test_tip_cannot_masquerade_as_original_export_root(exported: Export) -> None:
+    _, head = followup(exported)
+    with pytest.raises(GateError, match="export_history"):
+        gate.verify_checkout(exported.root, head, expected_root=head)
+
+
+def test_followup_rejects_unrelated_refs_and_merged_history(exported: Export) -> None:
+    root_commit, head = followup(exported)
+    exported.git("checkout", "--orphan", "private-unrelated")
+    exported.git("commit", "--allow-empty", "-m", "Unrelated synthetic history")
+    exported.git("checkout", "fixture")
+    with pytest.raises(GateError, match="export_history"):
+        gate.verify_checkout(exported.root, head, expected_root=root_commit)
+    exported.git("branch", "-D", "private-unrelated")
+    exported.git("checkout", "-b", "side", root_commit)
+    exported.git("commit", "--allow-empty", "-m", "Side branch")
+    exported.git("checkout", "fixture")
+    exported.git("merge", "--no-ff", "side", "-m", "Synthetic merge")
+    with pytest.raises(GateError, match="export_history"):
+        gate.verify_checkout(
+            exported.root, exported.git("rev-parse", "HEAD"), expected_root=root_commit
+        )
+
+
+def test_followup_history_has_explicit_commit_budget(
+    exported: Export, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    root_commit, head = followup(exported)
+    monkeypatch.setattr(gate, "MAX_EXPORT_COMMITS", 1)
+    with pytest.raises(GateError, match="export_history_budget"):
+        gate.verify_checkout(exported.root, head, expected_root=root_commit)
+
+
+@pytest.mark.parametrize("change", ["modified", "snapshot", "mode", "staged", "untracked"])
+def test_followup_keeps_all_current_source_binding_guards(exported: Export, change: str) -> None:
+    root_commit, head = followup(exported)
+    if change == "modified":
+        (exported.root / "run.sh").write_bytes(b"dirty current source")
+    elif change == "snapshot":
+        exported.snapshot["purpose"] = "uncommitted manifest"
+        exported.save()
+    elif change == "mode":
+        (exported.root / "run.sh").chmod(0o644)
+    else:
+        (exported.root / "unexpected.txt").write_bytes(b"unreviewed")
+        if change == "staged":
+            exported.git("add", "unexpected.txt")
+    with pytest.raises((GateError, OSError)):
+        gate.verify_checkout(exported.root, head, expected_root=root_commit)
+
+
 def test_exact_braces_patch_path_is_bound_to_committed_bytes(exported: Export) -> None:
     name = "infra/patches/braces@3.0.3.patch"
     path = exported.root / name

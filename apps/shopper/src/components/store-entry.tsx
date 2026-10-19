@@ -95,7 +95,7 @@ export function StoreEntry({ slug }: { slug: string }) {
   return <>
     <Suspense fallback={null}><PreviewNavigation onNavigate={consumePreview} /></Suspense>
     {ready ? <ShopperTransportContext.Provider value={ready.transport}>
-      <ShopperApp store={ready.store} initialView="catalog" />
+      <ShopperApp store={ready.store} initialView={ready.store.preview ? "chat" : "catalog"} />
     </ShopperTransportContext.Provider> : (
       <main className="store-opening" aria-labelledby="store-opening-title">
         <Store className="store-opening-icon" size={32} aria-hidden="true" />

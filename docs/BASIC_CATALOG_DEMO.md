@@ -105,6 +105,6 @@ Source inventory SHA-256 for the take:
 `4b21adf87184e51bc892e75825a2d99a2553d179d21e16280631248f8b5eeb22`
 (1,821 selected files). Private evidence retains video/caption hashes, raw failed
 takes and independent review. The source inventory is not a published Git commit.
-See [validation status](ALPHA_VALIDATION.md) for passing app checks and the three
-remaining historical security gate failures. Real-model recordings, release
+See [validation status](ALPHA_VALIDATION.md) for current app checks and the four
+remaining security/attribution gate failures. Real-model recordings, release
 qualification and publication approval remain incomplete.

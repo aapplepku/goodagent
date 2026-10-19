@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-18T23:15:50.564393+00:00",
+  "created_at": "2026-10-19T03:07:07.175031+00:00",
   "files": [
     {
       "bytes": 296,
@@ -72,10 +72,10 @@
       "source": "infra/github/public-ci.yml"
     },
     {
-      "bytes": 8259,
+      "bytes": 8845,
       "mode": 420,
       "path": ".github/workflows/collect-release-evidence.yml",
-      "sha256": "7a9860335c2297749072030a5de7e4c5e7f647c2da3ce824164930ab8c61f4a7",
+      "sha256": "c15c5a0cee6640006d68e4e11e256299e7c921112f5d199d98df1f5eb5e5beb3",
       "source": ".github/workflows/collect-release-evidence.yml"
     },
     {
@@ -184,10 +184,10 @@
       "source": "PLANS.md"
     },
     {
-      "bytes": 11711,
+      "bytes": 11701,
       "mode": 420,
       "path": "README.md",
-      "sha256": "b8c3b6421276441421c25b00a7cf7e5a0b9ab33aa3bbe7bc5411b3d51daebf54",
+      "sha256": "56d1e861d811fa698be73f8f93ecf3b6897b541ea8d1b41758ea7c4f9a93747f",
       "source": "README.md"
     },
     {
@@ -744,17 +744,17 @@
       "source": "apps/shopper/src/components/catalog-browser.module.css"
     },
     {
-      "bytes": 12647,
+      "bytes": 16477,
       "mode": 420,
       "path": "apps/shopper/src/components/catalog-browser.test.tsx",
-      "sha256": "3a90aa1f295f400dd4a1d824d3baa38242d0e5c3ca75064bd88a11797ec1c8b6",
+      "sha256": "fa6da27b4751b424a9a8e9a985cab33fff8aeb0420747b55a667c2687c28c442",
       "source": "apps/shopper/src/components/catalog-browser.test.tsx"
     },
     {
-      "bytes": 12571,
+      "bytes": 12782,
       "mode": 420,
       "path": "apps/shopper/src/components/catalog-browser.tsx",
-      "sha256": "46762abe4459c92a0264cfaf7bc4b801d858453b7dab4493ee806c24558be3d9",
+      "sha256": "23a08967cc5ae3a24ea58135cbf66c76c3aa362935192b024175b693e042bbd6",
       "source": "apps/shopper/src/components/catalog-browser.tsx"
     },
     {
@@ -821,17 +821,17 @@
       "source": "apps/shopper/src/components/shopper-app-recovery.test.tsx"
     },
     {
-      "bytes": 59764,
+      "bytes": 64518,
       "mode": 420,
       "path": "apps/shopper/src/components/shopper-app.test.tsx",
-      "sha256": "e67a220d7f6fd2501439ef4be44f8e577cbea331084f85e74f6b38c3366d88c1",
+      "sha256": "67afc490fd4a8dfd8535d96cd56badb69f33f136dbeade74f4bfc6a9cab0d6b3",
       "source": "apps/shopper/src/components/shopper-app.test.tsx"
     },
     {
-      "bytes": 74576,
+      "bytes": 75247,
       "mode": 420,
       "path": "apps/shopper/src/components/shopper-app.tsx",
-      "sha256": "02c281cfaaab9cc2be5683b3a36ca38e71570d2cf95d91ec41c4ec00f24e60a0",
+      "sha256": "1769143c92e54f38cf0cc7c31d7499e92d7205eb13a0335822296cfcdc450bd2",
       "source": "apps/shopper/src/components/shopper-app.tsx"
     },
     {
@@ -863,24 +863,24 @@
       "source": "apps/shopper/src/components/shopper-welcome.tsx"
     },
     {
-      "bytes": 14269,
+      "bytes": 15384,
       "mode": 420,
       "path": "apps/shopper/src/components/store-entry.lifecycle.test.tsx",
-      "sha256": "7093435ff7edbcb8b7d0f00514abe7fb87cb05f5419333c0583c9a8596ab0116",
+      "sha256": "d69ae43d40e2299bf399e2919d8670a92ed5ac282cae99a241d2cf4662417e8d",
       "source": "apps/shopper/src/components/store-entry.lifecycle.test.tsx"
     },
     {
-      "bytes": 8885,
+      "bytes": 9555,
       "mode": 420,
       "path": "apps/shopper/src/components/store-entry.test.tsx",
-      "sha256": "8428e621917abee9f98a7a9fbac4c6dd9074ba4fbee6499768b23f609974ae99",
+      "sha256": "ee730a1e2d300fbfcffae0d40498f07c6292fce145fdcf2e0516ebae072b533f",
       "source": "apps/shopper/src/components/store-entry.test.tsx"
     },
     {
-      "bytes": 4588,
+      "bytes": 4621,
       "mode": 420,
       "path": "apps/shopper/src/components/store-entry.tsx",
-      "sha256": "8a23791e2887f6f0c9c088417577c1b8e1dd196990cf239338da9a3e799889a4",
+      "sha256": "2e83d887f9959e3488f4234738e8e79c6b2f688a811d7ea1e1019d391856eebb",
       "source": "apps/shopper/src/components/store-entry.tsx"
     },
     {
@@ -1038,10 +1038,10 @@
       "source": "apps/web/capture/alpha-recording-utils.ts"
     },
     {
-      "bytes": 17907,
+      "bytes": 17823,
       "mode": 420,
       "path": "apps/web/capture/alpha-recordings.spec.ts",
-      "sha256": "4c23b6e7bc30aa62e1491126008a7a3d6adf7c5a889b42b8615e77d5e63ea76d",
+      "sha256": "3ef043479886ec18cc0fdc88651a0897d149b2adc73e5b8841bf93cbe6e67dd7",
       "source": "apps/web/capture/alpha-recordings.spec.ts"
     },
     {
@@ -1059,10 +1059,10 @@
       "source": "apps/web/capture/catalog-demo-utils.ts"
     },
     {
-      "bytes": 20234,
+      "bytes": 20422,
       "mode": 420,
       "path": "apps/web/capture/catalog-demo.spec.ts",
-      "sha256": "007c81b1fe6962ca6f84507513a01a167c0dbb87680019233ad7c25ce094b99e",
+      "sha256": "4a8f5554d1f4b2c1188ff7e103882d1f98e180bfe0a4a6687cf6dee84d33c869",
       "source": "apps/web/capture/catalog-demo.spec.ts"
     },
     {
@@ -1122,10 +1122,10 @@
       "source": "apps/web/e2e/model-planning.spec.ts"
     },
     {
-      "bytes": 30090,
+      "bytes": 30367,
       "mode": 420,
       "path": "apps/web/e2e/owner-continuity.ts",
-      "sha256": "d597b84b6f6f1f9c5a836bb1d41edd2689cddab53a866099095833b90077a53c",
+      "sha256": "fdc3eb2b0d2bc741aadf29fc18cf67a4ccda1fb4ba15abec6921ce87f33bbe4c",
       "source": "apps/web/e2e/owner-continuity.ts"
     },
     {
@@ -1136,10 +1136,10 @@
       "source": "apps/web/e2e/recovery.spec.ts"
     },
     {
-      "bytes": 64556,
+      "bytes": 65159,
       "mode": 420,
       "path": "apps/web/e2e/self-service.spec.ts",
-      "sha256": "7f4f4fa3ffb1270a3cb9b2aa3a2fed32927552ccb8a7023065641f628c6bb71e",
+      "sha256": "920c3657047be197457aa02d3b9694b4643e64342c925358b0c934351e3c33b2",
       "source": "apps/web/e2e/self-service.spec.ts"
     },
     {
@@ -1164,10 +1164,10 @@
       "source": "apps/web/e2e/simulator-first.spec.ts"
     },
     {
-      "bytes": 4392,
+      "bytes": 7883,
       "mode": 420,
       "path": "apps/web/e2e/store-welcome.ts",
-      "sha256": "826354eed067d13655efcab8d5ffec918d14cbdbd90f4a314f5076d2dcb9627f",
+      "sha256": "f4035fab453ad9ed17253da90a892f7669427c493e4860af94853f0263155f74",
       "source": "apps/web/e2e/store-welcome.ts"
     },
     {
@@ -2165,10 +2165,10 @@
       "source": "docs/ALPHA_SCREENSHOTS.md"
     },
     {
-      "bytes": 40656,
+      "bytes": 43350,
       "mode": 420,
       "path": "docs/ALPHA_VALIDATION.md",
-      "sha256": "dd1649177b410f36d4f4cae24cbd0413cf8b1539cb47b03231467b86c23a1b9c",
+      "sha256": "168c6820cc2d36f6cd4ee8ddefbf1c8f129c9528e986f6c54c7318cc3767c19f",
       "source": "docs/ALPHA_VALIDATION.md"
     },
     {
@@ -2189,7 +2189,7 @@
       "bytes": 6809,
       "mode": 420,
       "path": "docs/BASIC_CATALOG_DEMO.md",
-      "sha256": "37a03477a6df1554dcad207a512c619ac5df68db66eb304ed5e926ec722bfb54",
+      "sha256": "4d06c67514e24d3f26bee132868ec3136eb068bef638d59a6ceb20f747ab5807",
       "source": "docs/BASIC_CATALOG_DEMO.md"
     },
     {
@@ -2207,10 +2207,10 @@
       "source": "docs/BUILD_DEPENDENCY_VERIFICATION.md"
     },
     {
-      "bytes": 9225,
+      "bytes": 10415,
       "mode": 420,
       "path": "docs/CART_CHECKOUT.md",
-      "sha256": "32671023ab40baf0696429fb47ed94b2da6ff3bc31c660f7aa2de953f805f609",
+      "sha256": "d941062cd96d007a4286f82a91aa545650764c261dbef2f569008be3934bc366",
       "source": "docs/CART_CHECKOUT.md"
     },
     {
@@ -2221,10 +2221,10 @@
       "source": "docs/CI_DEVELOPMENT.md"
     },
     {
-      "bytes": 14573,
+      "bytes": 15705,
       "mode": 420,
       "path": "docs/CURRENT_RELEASE_SECURITY.md",
-      "sha256": "7db8966a8a768ef16e7f898a1cb1dd0827753784c46dea315d494ee7ae04af7c",
+      "sha256": "2cc902a142a46c574bac0b5dc612eb11a735972c9132b7527c08d909c53f59f5",
       "source": "docs/CURRENT_RELEASE_SECURITY.md"
     },
     {
@@ -2263,6 +2263,13 @@
       "source": "docs/EXAMPLE_GOALS.md"
     },
     {
+      "bytes": 3688,
+      "mode": 420,
+      "path": "docs/EXPERIMENTAL_STATUS.md",
+      "sha256": "63cf93a885bed1d365ca5f3ed0ee7b0cdf5414cd952f1e50a03e6d57c5f01850",
+      "source": "docs/EXPERIMENTAL_STATUS.md"
+    },
+    {
       "bytes": 8625,
       "mode": 420,
       "path": "docs/EXTENDING.md",
@@ -2284,10 +2291,10 @@
       "source": "docs/FEATURE_REQUESTS.md"
     },
     {
-      "bytes": 13389,
+      "bytes": 13881,
       "mode": 420,
       "path": "docs/FIRST_STORE_DEMO.md",
-      "sha256": "f4f3755514bb6196c2abbe4e43a5db1578af0a04eb7c6ccfaebc7b51190a53ff",
+      "sha256": "aab2056013d857478ec855718a6c90b48eda3baf9bdc13def5c8ff44b38e6bab",
       "source": "docs/FIRST_STORE_DEMO.md"
     },
     {
@@ -2431,10 +2438,10 @@
       "source": "docs/SECURITY_VERIFICATION.md"
     },
     {
-      "bytes": 29344,
+      "bytes": 29934,
       "mode": 420,
       "path": "docs/SELF_SERVICE_SETUP.md",
-      "sha256": "9c34ea80c231a139ae383f0804b377ffbfddf2ff42e0562daa150187ec5111dd",
+      "sha256": "cbdbe0536aca9535e0e672bcfd918736e9cfea1b7cbe51033c4438d2e1e8a39c",
       "source": "docs/SELF_SERVICE_SETUP.md"
     },
     {
@@ -4846,10 +4853,10 @@
       "source": "packages/backend/src/open_commerce/api/services.py"
     },
     {
-      "bytes": 23006,
+      "bytes": 23147,
       "mode": 420,
       "path": "packages/backend/src/open_commerce/api/shopper.py",
-      "sha256": "32b544504b5b6980f2512171f8a763c29a42cb98f52a9bece489de614f2e59f8",
+      "sha256": "18b345570f47d2c70392ef171641b03c1a581668723869e1b55959f3a618ac9c",
       "source": "packages/backend/src/open_commerce/api/shopper.py"
     },
     {
@@ -5028,17 +5035,17 @@
       "source": "packages/backend/src/open_commerce/commerce/errors.py"
     },
     {
-      "bytes": 9295,
+      "bytes": 9427,
       "mode": 420,
       "path": "packages/backend/src/open_commerce/commerce/models.py",
-      "sha256": "bcda55ba52d354929a22dc5dfe62bd34af0667a5c737e0fe71a141b3fd701bc1",
+      "sha256": "447a0bd8d99dd07351e2382ca540369aceb0eef31947ead7391048d557d408cf",
       "source": "packages/backend/src/open_commerce/commerce/models.py"
     },
     {
-      "bytes": 49494,
+      "bytes": 50140,
       "mode": 420,
       "path": "packages/backend/src/open_commerce/commerce/service.py",
-      "sha256": "0d848fa39a759f8be3f237f5c9eb0f6a9a7e25907500573c86c539c264a1e9ed",
+      "sha256": "b1d13fb2d37110d0c702aa5365ff35f1a8030dd3db0d2d2ebcc0591a668390bd",
       "source": "packages/backend/src/open_commerce/commerce/service.py"
     },
     {
@@ -7772,10 +7779,10 @@
       "source": "scripts/check_dco.py"
     },
     {
-      "bytes": 8394,
+      "bytes": 10429,
       "mode": 420,
       "path": "scripts/check_frozen_checkout.py",
-      "sha256": "57072c1e3d277d74ee47a2539e86b890f11c51648aa59a6e99a02c3613d80a36",
+      "sha256": "d81f231ac69a0f202a332ba5ff35fc8483d0968587b213dc701fce3be333f985",
       "source": "scripts/check_frozen_checkout.py"
     },
     {
@@ -7814,10 +7821,10 @@
       "source": "scripts/collect_qdrant_legal.py"
     },
     {
-      "bytes": 13934,
+      "bytes": 14760,
       "mode": 420,
       "path": "scripts/collect_release_evidence.py",
-      "sha256": "92e65a89e67ca1cf725f2694e7e483686fae11424d2872bafa32d8514af1ca98",
+      "sha256": "a2f2ea1c592888156defd16fe225356e48990cc20a22aa528374a6b2e89f5d9e",
       "source": "scripts/collect_release_evidence.py"
     },
     {
@@ -8038,10 +8045,10 @@
       "source": "scripts/stage_ci_artifacts.py"
     },
     {
-      "bytes": 16484,
+      "bytes": 16604,
       "mode": 420,
       "path": "scripts/stage_release_upload.py",
-      "sha256": "5e492023a145d9046eac7ab33f57ddfda6037da64cce91610dd8116fd144861f",
+      "sha256": "116c88fd59609df8bfbf13c6a1f4b61912a105b524552791a3e8f819ed681bd9",
       "source": "scripts/stage_release_upload.py"
     },
     {
@@ -11958,10 +11965,10 @@
       "source": "tests/contract/test_capability_summary.py"
     },
     {
-      "bytes": 3869,
+      "bytes": 4123,
       "mode": 420,
       "path": "tests/contract/test_catalog_demo_capture.py",
-      "sha256": "0ef593d39706041c74a9710e2b0a9d3fa643524645d00f4c98ba6f917b36da9b",
+      "sha256": "ff15575aed0afe8a31432dc662cb7b9d01eabee3b80d4e8bdd7014bfed694ed0",
       "source": "tests/contract/test_catalog_demo_capture.py"
     },
     {
@@ -11979,17 +11986,17 @@
       "source": "tests/contract/test_cli_boundaries.py"
     },
     {
-      "bytes": 21473,
+      "bytes": 23534,
       "mode": 420,
       "path": "tests/contract/test_collect_release_evidence.py",
-      "sha256": "e305ba993214cc718f93a37e035e92946ef8a1432a876c694a79ab8499ab9d19",
+      "sha256": "1f0082a54afcddd9bf426e20cda65863712e5ad9a363ecd6061b5c89f40a6e4c",
       "source": "tests/contract/test_collect_release_evidence.py"
     },
     {
-      "bytes": 7041,
+      "bytes": 7794,
       "mode": 420,
       "path": "tests/contract/test_collection_workflow.py",
-      "sha256": "2bdb669e07c0360c15b3dc8fb3230df9242f03dda3b0cbac36b922f865ccea4c",
+      "sha256": "f9891ceeebb1eda82a3983b0fb8fa4a235a92963c54d411148e32b65d2695f86",
       "source": "tests/contract/test_collection_workflow.py"
     },
     {
@@ -12049,10 +12056,10 @@
       "source": "tests/contract/test_deterministic_demo_runtime.py"
     },
     {
-      "bytes": 13354,
+      "bytes": 17028,
       "mode": 420,
       "path": "tests/contract/test_frozen_checkout.py",
-      "sha256": "c51a7a9168b7938d6e4ebf845843cc48390bcafbd20e56652e7d721496522ec0",
+      "sha256": "f8682796e5a7507887b4e9ed0125af93906c5a87bc5e3a3afb8db0cfb77e4f8c",
       "source": "tests/contract/test_frozen_checkout.py"
     },
     {
@@ -12315,10 +12322,10 @@
       "source": "tests/contract/test_source_scan_snapshot.py"
     },
     {
-      "bytes": 28691,
+      "bytes": 30141,
       "mode": 420,
       "path": "tests/contract/test_stage_release_upload.py",
-      "sha256": "9ab1b66dcd6aa1e495b5f70a8f6c3e7ccfcf76d4d201162b047d75a5eae5187b",
+      "sha256": "45f8a3829e437adf46485625469cb74e0e26983af78bc69d2ccab2af8f6faa2e",
       "source": "tests/contract/test_stage_release_upload.py"
     },
     {
@@ -12446,6 +12453,13 @@
       "path": "tests/integration/test_capability_fixtures.py",
       "sha256": "db1b9f9627de6b0f6ede76171719c97aeff0f52fc9cd4e8fc9e563db91e07914",
       "source": "tests/integration/test_capability_fixtures.py"
+    },
+    {
+      "bytes": 10533,
+      "mode": 420,
+      "path": "tests/integration/test_cart_admission_fence.py",
+      "sha256": "257390219ba7c66010f08ac3e2d6bd200c6f5f3b91d7a49e1aa1668a0e79656a",
+      "source": "tests/integration/test_cart_admission_fence.py"
     },
     {
       "bytes": 11442,
@@ -12836,5 +12850,5 @@
   "provenance": "Current working source, including uncommitted implementation; explicit hash-bound source-only notice derivatives; no Git history copied",
   "purpose": "Private alpha candidate; not qualified or approved for publication",
   "schema_version": 1,
-  "source_tree_sha256": "8af09bf0b628ad5ea3620da5223f34de1078181035fe563229c1600600cf1526"
+  "source_tree_sha256": "6dee6f0449fe2a0f16e9db832f0fedbdaa1e9ce9103174dd61189b11169e28a5"
 }

@@ -413,6 +413,7 @@ async def add_shopper_cart_item(
         request=payload,
         idempotency_key=idempotency_key,
         request_id=request.state.request_id,
+        account_version=account._data_version,
     )
 
 
@@ -435,6 +436,7 @@ async def update_shopper_cart_item(
         request=payload,
         idempotency_key=idempotency_key,
         request_id=request.state.request_id,
+        account_version=account._data_version,
     )
 
 
@@ -455,6 +457,7 @@ async def delete_shopper_cart_item(
         line_id=line_id,
         idempotency_key=idempotency_key,
         request_id=request.state.request_id,
+        account_version=account._data_version,
     )
 
 

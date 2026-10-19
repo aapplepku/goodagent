@@ -119,8 +119,7 @@ test("two private alpha recordings from a fresh sample store", async ({ browser,
     const popup = owner.context.waitForEvent("page");
     await owner.page.getByRole("button", { name: "Open shopper preview" }).click();
     const preview = await popup;
-    await expect(preview.getByRole("heading", { name: "Browse the store" })).toBeVisible();
-    await preview.getByRole("button", { name: "Start something new", exact: true }).click();
+    await expect(preview.getByRole("heading", { name: "What are we shopping for?" })).toBeVisible();
     const previewReply = await chat(preview, "Find dishwasher-safe drinking glasses under $30.");
     expect(previewReply.assistant_message.products?.length).toBeGreaterThan(0);
     expect(previewReply.assistant_message.products?.every(p => p.price_minor <= 3000 && p.currency === "USD")).toBe(true);

@@ -48,8 +48,12 @@ class Acquisition:
     checkout_calls: int = 0
     on_checkout: Callable[[int], None] | None = None
 
-    def verify_checkout(self, root: Path, commit: str) -> dict[str, Any]:
+    def verify_checkout(
+        self, root: Path, commit: str, *, expected_root: str | None = None
+    ) -> dict[str, Any]:
         assert root == self.root and commit == COMMIT
+        history = self.checkout_binding.get("history")
+        assert expected_root == (history["root_commit"] if history else None)
         self.checkout_calls += 1
         if self.on_checkout is not None:
             self.on_checkout(self.checkout_calls)
@@ -191,6 +195,53 @@ def test_real_source_and_image_collection_never_invent_approval(
                     assert stream.read() == candidate.source.source_files[member.name]
     for path, raw in retained.items():
         assert (candidate.root / path).read_bytes() == raw
+
+
+def test_followup_collection_binds_the_same_explicit_history_across_both_phases(
+    candidate: Acquisition,
+) -> None:
+    root_commit = "a" * 40
+    history = {
+        "root_commit": root_commit,
+        "commits": [root_commit, COMMIT],
+        "policy": "pinned-linear-export-v1",
+    }
+    candidate.checkout_binding["history"] = history
+    source_receipt = collector.source_collection(
+        candidate.root, COMMIT, 1, candidate.now, export_root=root_commit
+    )
+    result = collector.image_collection(
+        candidate.root, COMMIT, candidate.now, export_root=root_commit
+    )
+    assert source_receipt["history"] == result["history"] == history
+    assert result["qualification_passed"] is result["security_approved"] is False
+
+
+@pytest.mark.parametrize("change", ["missing", "root", "members", "policy"])
+def test_image_collection_rejects_changed_or_missing_source_history(
+    candidate: Acquisition, change: str
+) -> None:
+    root_commit = "a" * 40
+    history = {
+        "root_commit": root_commit,
+        "commits": [root_commit, COMMIT],
+        "policy": "pinned-linear-export-v1",
+    }
+    candidate.checkout_binding["history"] = history
+    collector.source_collection(candidate.root, COMMIT, 1, candidate.now, export_root=root_commit)
+    receipt = candidate.read(collector.SOURCE_RESULT)
+    if change == "missing":
+        receipt.pop("history")
+    elif change == "root":
+        receipt["history"]["root_commit"] = "b" * 40
+    elif change == "members":
+        receipt["history"]["commits"].pop()
+    else:
+        receipt["history"]["policy"] = "unreviewed"
+    candidate.write(collector.SOURCE_RESULT, receipt)
+    with pytest.raises(GateError, match="source_receipt_identity"):
+        collector.image_collection(candidate.root, COMMIT, candidate.now, export_root=root_commit)
+    assert not (candidate.root / collector.RESULT).exists()
 
 
 @pytest.mark.parametrize("findings,scanner_exit", [(True, 0), (True, 2), (True, -1), (False, 1)])

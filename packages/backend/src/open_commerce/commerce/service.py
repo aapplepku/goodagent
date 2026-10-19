@@ -56,6 +56,7 @@ from open_commerce.persistence.repositories.audit import SqlAuditRepository
 from open_commerce.persistence.repositories.commerce import CatalogSelection, CommerceRepository
 from open_commerce.persistence.repositories.requests import RequestRepository
 from open_commerce.persistence.runtime_db import RuntimeDatabase
+from open_commerce.stores.shoppers import ShopperAccounts
 
 MAX_CART_LINES = 100
 MAX_CART_TOTAL_MINOR = 2_500_000
@@ -171,10 +172,14 @@ class DurableCommerceService:
         request: CartItemAddRequest,
         idempotency_key: str,
         request_id: str,
+        account_version: int | None = None,
     ) -> Cart:
         now = utc_now()
         scope = f"shopper:cart:add:{account_id}"
         async with self.database.transaction(tenant_id, write=True) as session:
+            await ShopperAccounts(self.database).account(
+                session, tenant_id, account_id, account_version=account_version
+            )
             receipts = RequestRepository(session, tenant_id)
             cached = await receipts.replay(scope=scope, key=idempotency_key, request=request)
             if cached is not None:
@@ -259,11 +264,15 @@ class DurableCommerceService:
         request: CartItemUpdateRequest,
         idempotency_key: str,
         request_id: str,
+        account_version: int | None = None,
     ) -> Cart:
         now = utc_now()
         receipt_request = {"line_id": str(line_id), "quantity": request.quantity}
         scope = f"shopper:cart:update:{account_id}"
         async with self.database.transaction(tenant_id, write=True) as session:
+            await ShopperAccounts(self.database).account(
+                session, tenant_id, account_id, account_version=account_version
+            )
             receipts = RequestRepository(session, tenant_id)
             cached = await receipts.replay(
                 scope=scope, key=idempotency_key, request=receipt_request
@@ -320,11 +329,15 @@ class DurableCommerceService:
         line_id: UUID,
         idempotency_key: str,
         request_id: str,
+        account_version: int | None = None,
     ) -> Cart:
         now = utc_now()
         receipt_request = {"line_id": str(line_id)}
         scope = f"shopper:cart:delete:{account_id}"
         async with self.database.transaction(tenant_id, write=True) as session:
+            await ShopperAccounts(self.database).account(
+                session, tenant_id, account_id, account_version=account_version
+            )
             receipts = RequestRepository(session, tenant_id)
             cached = await receipts.replay(
                 scope=scope, key=idempotency_key, request=receipt_request

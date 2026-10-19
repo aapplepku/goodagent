@@ -1,10 +1,51 @@
 # Alpha validation status
 
-As of October 18, 2026 UTC. **Not a release approval.** No public repository, release,
+As of October 19, 2026 UTC. **Not a release approval.** No public repository, release,
 package or container publication is implied by this document. This is a sanitized
 summary; private review transcripts, credentials and account data are not included.
 
 ## Current Reading Guide
+
+### Catalog, Checkout And Preview Follow-Up
+
+A stable local run ending October 19 at 02:12 UTC passed lint, type checking,
+generated OpenAPI/client freshness, **4,134 Python cases, 245 integration cases
+and 624 frontend/SDK cases**. Python retained three host permission-bit skips and
+five failures: four genuine qualification failures (runtime dependency notices, expired
+build assessments, deployment/source mismatch and expired optional-runtime
+assessments), plus a recorder-source contract still pinned to the old preview
+entry. The reviewed entry-only change updates that strict pin; model calls and
+acceptance assertions remain unchanged. Integration retained 11 opt-in skips.
+No security/attribution gate was waived.
+All 1,833 selected records stayed unchanged during that run, with source tree
+`8470d79a1a70441afdad3e1ff714fb9fa4df2eadf6dfb225766ae4932ad4af6e`.
+
+Both native browser/cache checks passed. They include one owner-to-guest journey,
+legacy sign-in rendering and the warm image-cache rejection check, not two fresh
+complete store journeys. Selected desktop/mobile frames were inspected for
+catalog thumbnail continuity and the supplied checkout deadline. The fixture uses
+synthetic products/images and Basic mode, not real-model conversation evidence.
+
+Scoped fixes prevent unchanged catalog images from being reset on rerender,
+recover replacement images after a failure, show the server's actual checkout
+hold deadline, and open authorized private previews directly at chat without
+automatically sending or marking search tested. Public shoppers still browse
+first. Independent source/PM review and regression tests cover those changes.
+
+A later narrow cart hardening forwards the authenticated account-data version
+and rechecks it inside the write transaction before replay or mutation. This
+fences already-admitted commands after deletion or expiry; it is not a complete
+cart-retry protocol. An ambiguous Add after a lost response can still become a
+new intent, and reload-safe original-intent recovery remains open. See
+[cart authority and limits](CART_CHECKOUT.md). The later backend/test and recorder
+corrections are not silently included in the earlier tested source identity above.
+
+The updated collection preflight supports explicitly pinned, bounded linear
+follow-ups to the history-free export while retaining the default single-commit
+rule. Local tests and actual-candidate preflight passed, but independent CI review,
+protected adoption and hosted execution remain unfinished. Fresh exact-artifact
+security/attribution review, installation/recovery qualification, model acceptance,
+the two real-model recordings and final owner approval remain separate gates.
 
 ### CI Diagnostic Privacy Hardening
 

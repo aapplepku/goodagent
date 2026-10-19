@@ -83,6 +83,9 @@ in its original checkout and use another checkout for a fresh installation.
 To prepare configuration without starting services, run
 `python3 scripts/setup_self_hosted.py --configure-only`. An isolated check can use
 `--env-file .opencommerce/test-install.env` after creating the parent directory.
+Start or rerun that installation with
+`python3 scripts/setup_self_hosted.py --env-file .opencommerce/test-install.env`;
+`make setup` always selects the root `.env`.
 Use the printed command, including that file, for every subsequent Compose action.
 Setup ignores ambient application/Compose overrides so a shell's old demo settings
 cannot silently replace the selected file. `DOCKER_CONTEXT` is retained for an
@@ -90,7 +93,8 @@ explicitly selected local engine. A port selected at setup can still become occu
 before startup; report/check the conflict and retain volumes rather than resetting data.
 
 For optional real conversation, set `OPEN_COMMERCE_MANAGER_MODEL_PROVIDER=openai`
-and `OPEN_COMMERCE_OPENAI_API_KEY` privately in `.env`, then rerun `make setup`.
+and `OPEN_COMMERCE_OPENAI_API_KEY` privately in the installation's environment file,
+then rerun its setup command.
 A blank or whitespace-only key is treated as missing, not as a configured model
 credential. A nonempty key still needs a successful connection check.
 Both agents use the server key. Model calls incur provider costs and remain bounded
@@ -142,9 +146,15 @@ Validate the actual proxy and HTTPS behavior before exposing an installation.
 3. Confirm products. Durable workers ingest supported raster images, build the
    search projection and verify counts. Progress is persisted, failed indexing can
    be retried, and the currently shared version stays available.
-4. Open a private preview and test shopper search. Preview grants are short-lived,
-   one-use links; their sessions are scoped to this exact store/catalog and cannot
-   call merchant APIs. AI connection verification is a separate synthetic probe.
+4. Choose **Open shopper preview**. Verified previews open directly in chat;
+   send a product-name search. **Browse catalog** is still available, and shared
+   public store links continue to open browsing first. Opening chat sends nothing
+   automatically and makes no model request.
+   Browsing alone does not complete **Shopper search tested**. Basic mode can
+   complete this check; **AI connection verified** is optional for sharing.
+   Preview grants are short-lived, one-use links; their sessions are scoped to this
+   exact store/catalog and cannot call merchant APIs. AI connection verification
+   is a separate synthetic probe.
 5. Review image issues, acknowledge demo-only checkout, and enable the store link.
    Publication records the exact reviewed catalog, an idempotency receipt and prior
    version. Disabling sharing immediately denies ordinary guest/store access.

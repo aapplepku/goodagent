@@ -151,6 +151,9 @@ export async function verifyCatalogContinuity(page: Page, info: TestInfo, owner:
     expect(grant.request().postDataJSON()).toEqual({ catalog_id: catalog });
     const shopper = await opened;
     try {
+      await expect(shopper.getByRole("heading", { name: "What are we shopping for?", exact: true })).toBeVisible();
+      expect((await readiness()).checklist.search_tested).toBe(false);
+      await shopper.getByRole("button", { name: "Browse catalog", exact: true }).click();
       await expect(shopper.getByRole("heading", { name: "Browse the store", exact: true })).toBeVisible();
       await shopper.locator("details").first().getByText("Details", { exact: true }).click();
       await shopper.getByRole("button", { name: "Ask the assistant", exact: true }).first().click();

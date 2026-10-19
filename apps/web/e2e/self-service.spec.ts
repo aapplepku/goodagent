@@ -5,7 +5,7 @@ import { promisify } from "node:util";
 import { resolve } from "node:path";
 import { continuityCatalog, verifyCatalogContinuity, verifyChannelSaveRecovery, verifyOwnerKeyboard, verifyReviewedImportConfirmation, verifyStoreIdentity, verifyWorkspaceResetRecovery } from "./owner-continuity";
 import { verifyGuestPanelRecovery, verifyShopperRecoveryCode } from "./shopper-recovery";
-import { verifyStoreWelcomeImages } from "./store-welcome";
+import { verifyCatalogImageContinuity, verifyStoreWelcomeImages } from "./store-welcome";
 import { verifyShopperMemoryControls } from "./shopper-memory";
 
 test.skip(
@@ -134,10 +134,10 @@ test("owner reviews products, previews privately, shares; guest keeps progress",
   await page.getByRole("button", { name: "Open shopper preview" }).click();
   const preview = await popup;
   await expect(
-    preview.getByRole("heading", { name: "Browse the store" }),
+    preview.getByRole("heading", { name: "What are we shopping for?" }),
   ).toBeVisible();
+  await expect(preview.getByText("2 products at Trail & Table", { exact: true })).toBeVisible();
   const previewMs = Date.now() - started;
-  await preview.getByRole("button", { name: "Start something new", exact: true }).click();
   await expect(preview.getByText("Basic mode: AI chat is not connected.", { exact: true })).toBeVisible();
   await expect(preview.getByLabel("Shopping request", { exact: true })).toHaveAttribute("placeholder", "Search for a product or category...");
   await expect(preview.locator(".shop-message")).toHaveCount(0);
@@ -148,6 +148,8 @@ test("owner reviews products, previews privately, shares; guest keeps progress",
   const readinessResponse = await page.request.get(`${ownerOrigin}/api/runtime/v1/merchant/store`);
   expect(readinessResponse.status()).toBe(200);
   const readiness: StoreReadiness = await readinessResponse.json();
+  expect(readiness.checklist.search_tested).toBe(false);
+  expect(readiness.store.sharing_enabled).toBe(false);
   await preview.getByRole("button", { name: "Browse catalog", exact: true }).click();
   await expect(
     preview.getByText("Private preview", { exact: false }).first(),
@@ -211,7 +213,7 @@ test("owner reviews products, previews privately, shares; guest keeps progress",
     expect((await exchanged).status()).toBe(valid ? 200 : 401);
     await expect(preview).toHaveURL(new URL(previewPath, process.env.SHOPPER_PLAYWRIGHT_BASE_URL).href);
     if (valid) {
-      await expect(preview.getByRole("heading", { name: "Browse the store" })).toBeVisible();
+      await expect(preview.getByRole("heading", { name: "What are we shopping for?" })).toBeVisible();
       await expect(preview.getByText("Private preview", { exact: false }).first()).toBeVisible();
     } else {
       await expect(preview.getByRole("heading", { name: "This store is unavailable" })).toBeVisible();
@@ -270,6 +272,7 @@ test("owner reviews products, previews privately, shares; guest keeps progress",
   await expect.poll(() => shopper.locator(".prompt-row img").evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(16);
   await captures(shopper, "public-shopper-basic-welcome");
   await shopper.getByRole("button", { name: "Browse catalog", exact: true }).click();
+  await verifyCatalogImageContinuity(shopper, testInfo, fixtureAssets);
   await shopper.setViewportSize({ width: 390, height: 844 });
   await shopper.getByLabel("In stock", { exact: true }).check();
   await expect(shopper.getByText("2 products matching filters", { exact: true })).toBeVisible();
@@ -427,6 +430,11 @@ test("owner reviews products, previews privately, shares; guest keeps progress",
     shopper.getByText("Travel mug", { exact: true }).last(),
   ).toBeVisible();
   await shopper.getByRole("button", { name: "Review checkout" }).click();
+  const holdDeadline = shopper.locator(".checkout-heading time");
+  await expect(holdDeadline).toBeVisible();
+  expect(Number.isFinite(Date.parse((await holdDeadline.getAttribute("datetime"))!))).toBe(true);
+  await expect(shopper.getByText("Inventory is held for 15 minutes.", { exact: true })).toHaveCount(0);
+  await captures(shopper, "checkout-hold-deadline");
   // Drop the response only after the real server has processed the explicit payment.
   let dropped = false;
   let confirmationRequests = 0;

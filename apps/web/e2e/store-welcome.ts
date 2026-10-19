@@ -1,5 +1,5 @@
-import { expect, type Page, type Request, type TestInfo } from "@playwright/test";
-import type { StoreReadiness } from "@open-commerce/sdk-typescript";
+import { expect, type Page, type Request, type Route, type TestInfo } from "@playwright/test";
+import type { CatalogBrowseResponse, StoreReadiness } from "@open-commerce/sdk-typescript";
 import { execFile } from "node:child_process";
 import { resolve } from "node:path";
 import { promisify } from "node:util";
@@ -31,8 +31,7 @@ export async function verifyStoreWelcomeImages(page: Page, info: TestInfo, store
   }
   async function reopen() {
     await page.reload();
-    await expect(page.getByRole("heading", { name: "Browse the store", exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "Start something new", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "What are we shopping for?", exact: true })).toBeVisible();
     await expect(page.getByLabel("Conversation mode", { exact: true })).toHaveText("Basic mode: AI chat is not connected.");
   }
   await reopen();
@@ -85,4 +84,71 @@ export async function verifyStoreWelcomeImages(page: Page, info: TestInfo, store
   await reopen();
   await expect.poll(() => page.locator(".prompt-row img").evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(16);
   return fixture.assets;
+}
+
+export async function verifyCatalogImageContinuity(page: Page, info: TestInfo, assets: string[]) {
+  const catalog = page.getByRole("region", { name: "Browse store catalog" });
+  const photos = catalog.getByRole("img");
+  await expect(photos).toHaveCount(2);
+  for (const photo of await photos.all()) {
+    await expect.poll(() => photo.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(16);
+  }
+  const target = new URL((await photos.first().getAttribute("src"))!, page.url()).href;
+  const title = (await photos.first().getAttribute("alt"))!;
+  const allowed = new Set(assets.map((value) => new URL(value, page.url()).href));
+  expect(allowed.has(target)).toBe(true);
+  const replacement = assets.find((value) => new URL(value, page.url()).href !== target)!;
+  expect(replacement).toBeTruthy();
+  await page.waitForLoadState("networkidle");
+  let repeated = 0;
+  const observe = (request: Request) => { if (allowed.has(request.url())) repeated += 1; };
+  page.on("request", observe);
+  try {
+    const filter = catalog.getByRole("textbox", { name: "Find catalog products" });
+    await filter.pressSequentially("mug");
+    await filter.fill("");
+    await page.waitForLoadState("networkidle");
+    expect(repeated).toBe(0);
+    await capture(page, info, "catalog-thumbnails-stable");
+  } finally { page.off("request", observe); }
+
+  // Only these browser responses change; persisted catalog data stays untouched.
+  const pattern = "**/api/runtime/v1/shopper/catalog?*";
+  let replaced = 0;
+  const replaceCatalog = async (route: Route) => {
+    const response = await route.fetch();
+    const data: CatalogBrowseResponse = await response.json();
+    for (const product of data.items) {
+      if (product.image_url && new URL(product.image_url, page.url()).href === target) {
+        product.image_url = replacement;
+        replaced += 1;
+      }
+    }
+    await route.fulfill({ response, json: data });
+  };
+  let failures = 0;
+  await page.route(target, (route) => {
+    failures += 1;
+    return route.fulfill({ status: 404, json: {}, headers: { "cache-control": "no-store" } });
+  });
+  try {
+    await page.reload();
+    await expect(page.getByRole("heading", { name: "Browse the store", exact: true })).toBeVisible();
+    await expect.poll(() => failures).toBeGreaterThan(0);
+    await expect(catalog.getByRole("img", { name: title, exact: true })).toHaveCount(0);
+    await expect(catalog.getByText("Image unavailable", { exact: true })).toBeVisible();
+    await page.route(pattern, replaceCatalog);
+    await catalog.getByRole("button", { name: "Refresh catalog", exact: true }).click();
+    await expect.poll(() => replaced).toBeGreaterThan(0);
+    const recovered = catalog.getByRole("img", { name: title, exact: true });
+    await expect.poll(() => recovered.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(16);
+    expect(await recovered.evaluate((image: HTMLImageElement) => image.currentSrc)).toBe(new URL(replacement, page.url()).href);
+    await capture(page, info, "catalog-thumbnail-recovered");
+  } finally {
+    await page.unroute(pattern, replaceCatalog);
+    await page.unroute(target);
+  }
+  await catalog.getByRole("button", { name: "Refresh catalog", exact: true }).click();
+  await expect.poll(() => catalog.getByRole("img", { name: title, exact: true }).evaluate((image: HTMLImageElement) => image.currentSrc)).toBe(target);
+  await expect.poll(() => catalog.getByRole("img", { name: title, exact: true }).evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(16);
 }

@@ -18,6 +18,7 @@ jobs:
     env:
       COMPOSE_PROJECT_NAME: opencommerce-evidence-${{ github.run_id }}-${{ github.run_attempt }}
       NEXT_TELEMETRY_DISABLED: "1"
+      APPROVED_EXPORT_ROOT: 949910304aa5e978826df034e65b1de579d9e330
     steps:
       - name: Require a fresh default-branch collection
         env:
@@ -49,11 +50,16 @@ jobs:
           uv sync --frozen --all-packages --group dev
           npm exec --yes pnpm@10.17.1 -- install --frozen-lockfile
           mkdir -p .opencommerce/ci-evidence "$RUNNER_TEMP/evidence-docker"
-      - name: Bind the clean initial export commit
+      - name: Bind the clean candidate to the audited export root
         id: before
         env:
           EXPECTED_COMMIT: ${{ github.sha }}
-        run: .venv/bin/python -m scripts.check_frozen_checkout --commit "$EXPECTED_COMMIT" > .opencommerce/ci-evidence/checkout-before.json
+        run: |
+          .venv/bin/python -m scripts.check_frozen_checkout --commit "$EXPECTED_COMMIT" \
+            --export-root "$APPROVED_EXPORT_ROOT" > .opencommerce/ci-evidence/checkout-before.json
+          env -i PATH="$PATH" HOME="$HOME" GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null \
+            GIT_NO_REPLACE_OBJECTS=1 GIT_NO_LAZY_FETCH=1 GIT_TERMINAL_PROMPT=0 \
+            .venv/bin/python scripts/check_dco.py --all --head "$EXPECTED_COMMIT"
       - name: Collect and validate source scans without accepting findings
         id: source
         env:
@@ -66,7 +72,8 @@ jobs:
           scanner_exit=$?
           set -e
           .venv/bin/python -m scripts.collect_release_evidence source \
-            --commit "$EXPECTED_COMMIT" --scanner-exit "$scanner_exit"
+            --commit "$EXPECTED_COMMIT" --export-root "$APPROVED_EXPORT_ROOT" \
+            --scanner-exit "$scanner_exit"
       - name: Build only the candidate images with controlled inputs
         id: build
         run: |
@@ -98,13 +105,17 @@ jobs:
         id: finalize
         env:
           EXPECTED_COMMIT: ${{ github.sha }}
-        run: .venv/bin/python -m scripts.collect_release_evidence images --commit "$EXPECTED_COMMIT"
+        run: |
+          .venv/bin/python -m scripts.collect_release_evidence images --commit "$EXPECTED_COMMIT" \
+            --export-root "$APPROVED_EXPORT_ROOT"
       - name: Recheck checkout even after a failed stage
         id: after
         if: ${{ always() && steps.before.outcome == 'success' }}
         env:
           EXPECTED_COMMIT: ${{ github.sha }}
-        run: .venv/bin/python -m scripts.check_frozen_checkout --commit "$EXPECTED_COMMIT" > .opencommerce/ci-evidence/checkout-after.json
+        run: |
+          .venv/bin/python -m scripts.check_frozen_checkout --commit "$EXPECTED_COMMIT" \
+            --export-root "$APPROVED_EXPORT_ROOT" > .opencommerce/ci-evidence/checkout-after.json
       - name: Record actual stage outcomes and exact evidence hashes
         id: provenance
         if: always()

@@ -5,10 +5,10 @@
 Open-source AI agents for store owners and their shoppers. Bring a product catalog,
 review it, and try a conversational store without replacing your existing shop.
 
-**Experimental self-hosted alpha in preparation.** This checkout is not yet a
-qualified public release. Use non-sensitive test data on your own computer.
+**Experimental source snapshot, not a qualified v0 release.** Use non-sensitive
+test data on your own computer. Read the [current status and known limitations](docs/EXPERIMENTAL_STATUS.md)
+before installing or contributing.
 Checkout is a demo: no real payments, inventory writes, shipping or fulfillment.
-GoodAgent is the public name; repository publication is pending owner approval.
 
 ## One Store, Two Experiences
 

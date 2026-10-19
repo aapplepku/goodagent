@@ -182,6 +182,79 @@ function fakeClient() {
 }
 
 describe("ShopperApp", () => {
+  it("shows the actual checkout deadline instead of promising a new fifteen-minute hold", async () => {
+    const client = fakeClient();
+    client.shopperAccount.mockResolvedValue({ account });
+    client.shopperCart.mockResolvedValue(await client.addShopperCartItem());
+    const preview = await client.previewShopperCheckout();
+    preview.reservation_expires_at = "2098-07-15T12:34:56Z";
+    client.previewShopperCheckout.mockResolvedValue(preview);
+    const view = render(<ShopperApp client={client} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Open cart with 1 items" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Review checkout" })).toBeEnabled());
+    fireEvent.click(screen.getByRole("button", { name: "Review checkout" }));
+    await screen.findByRole("button", { name: "Approve test payment" });
+    const deadline = view.container.querySelector("time[datetime='2098-07-15T12:34:56Z']");
+    expect(deadline).toBeVisible();
+    expect(deadline).toHaveTextContent("2098");
+    expect(screen.queryByText("Inventory is held for 15 minutes.")).not.toBeInTheDocument();
+    expect(client.confirmShopperCheckout).not.toHaveBeenCalled();
+  });
+
+  it.each(["not-a-deadline", null, undefined, 0, "", "   "])("requires a new review when the checkout deadline is unusable: %s", async (deadline) => {
+    const client = fakeClient();
+    client.shopperAccount.mockResolvedValue({ account });
+    client.shopperCart.mockResolvedValue(await client.addShopperCartItem());
+    const preview = await client.previewShopperCheckout();
+    const corrupted: unknown = { ...preview, reservation_expires_at: deadline };
+    client.previewShopperCheckout.mockResolvedValue(corrupted as typeof preview);
+    render(<ShopperApp client={client} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Open cart with 1 items" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Review checkout" })).toBeEnabled());
+    fireEvent.click(screen.getByRole("button", { name: "Review checkout" }));
+    expect(await screen.findByText(/Hold expiry is unavailable/)).toBeVisible();
+    expect(screen.getByRole("button", { name: "Approve test payment" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Test decline" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Back to cart" }));
+    expect(await screen.findByRole("button", { name: "Review checkout" })).toBeEnabled();
+    expect(client.confirmShopperCheckout).not.toHaveBeenCalled();
+  });
+
+  it("does not claim the inventory hold is still active after a test decline", async () => {
+    const client = fakeClient();
+    client.shopperAccount.mockResolvedValue({ account });
+    client.shopperCart.mockResolvedValue(await client.addShopperCartItem());
+    client.confirmShopperCheckout.mockResolvedValue({ checkout_id: "85000000-0000-0000-0000-000000000001", status: "requires_payment_method", order: null, failure_code: "TEST_DECLINE", message: "Synthetic decline" });
+    render(<ShopperApp client={client} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Open cart with 1 items" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Review checkout" })).toBeEnabled());
+    fireEvent.click(screen.getByRole("button", { name: "Review checkout" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Test decline" }));
+    await screen.findByText(/Payment declined as requested/);
+    expect(screen.queryByText(/inventory hold remains active/i)).not.toBeInTheDocument();
+    expect(client.confirmShopperCheckout).toHaveBeenCalledTimes(1);
+  });
+
+  it("waits for checkout recovery before enabling a fresh review", async () => {
+    const client = fakeClient();
+    client.shopperAccount.mockResolvedValue({ account });
+    client.shopperCart.mockResolvedValue(await client.addShopperCartItem());
+    let finishRecovery!: (value: null) => void;
+    client.shopperCheckout.mockImplementationOnce(() => new Promise((resolve) => { finishRecovery = resolve; }));
+    render(<ShopperApp client={client} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Open cart with 1 items" }));
+    const review = screen.getByRole("button", { name: "Review checkout" });
+    expect(review).toBeDisabled();
+    fireEvent.click(review);
+    expect(client.previewShopperCheckout).not.toHaveBeenCalled();
+    await act(async () => finishRecovery(null));
+    await waitFor(() => expect(review).toBeEnabled());
+    fireEvent.click(review);
+    await screen.findByRole("button", { name: "Approve test payment" });
+    expect(client.previewShopperCheckout).toHaveBeenCalledTimes(1);
+    expect(client.confirmShopperCheckout).not.toHaveBeenCalled();
+  });
+
   it("preserves a newer composer draft when an earlier send fails", async () => {
     const client = fakeClient();
     client.shopperAccount.mockResolvedValue({ account });

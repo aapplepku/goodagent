@@ -47,6 +47,7 @@ class SourceReceipt(images.StrictModel):
     archive: dict[str, Any]
     result: dict[str, Any]
     recorded_at: images.Timestamp
+    history: dict[str, Any] | None = None
 
 
 def validate_exit(scanner_exit: int, result: dict[str, Any]) -> None:
@@ -154,8 +155,16 @@ def archive_digest(root: Path) -> dict[str, Any]:
         reader.close()
 
 
-def source_collection(root: Path, commit: str, scanner_exit: int, now: datetime) -> dict[str, Any]:
-    before = verify_checkout(root, commit)
+def checkout_binding(root: Path, commit: str, export_root: str | None) -> dict[str, Any]:
+    if export_root is None:
+        return verify_checkout(root, commit)
+    return verify_checkout(root, commit, expected_root=export_root)
+
+
+def source_collection(
+    root: Path, commit: str, scanner_exit: int, now: datetime, *, export_root: str | None = None
+) -> dict[str, Any]:
+    before = checkout_binding(root, commit, export_root)
     reader = images.BundleReader(root)
     try:
         inventory = reference(reader, SOURCE_PREFIX + "/inventory.json")
@@ -179,12 +188,12 @@ def source_collection(root: Path, commit: str, scanner_exit: int, now: datetime)
         root, ref.path, ref.sha256, before["source_tree_sha256"], now=now
     )
     validate_exit(scanner_exit, result)
-    images.require(verify_checkout(root, commit) == before, "checkout_changed")
+    images.require(checkout_binding(root, commit, export_root) == before, "checkout_changed")
     checksum = pack_bundle(root / SOURCE_PREFIX / "source", root / SOURCE_ARCHIVE)
     archive = archive_digest(root)
     images.require(archive["sha256"] == checksum, "source_archive_changed")
     validate_archive(root, archive, manifest.source)
-    images.require(verify_checkout(root, commit) == before, "checkout_changed")
+    images.require(checkout_binding(root, commit, export_root) == before, "checkout_changed")
     final = source.verify_source_collection(
         root, ref.path, ref.sha256, before["source_tree_sha256"], now=now
     )
@@ -204,19 +213,24 @@ def source_collection(root: Path, commit: str, scanner_exit: int, now: datetime)
         "result": result,
         "recorded_at": now.isoformat(),
     }
+    if "history" in before:
+        receipt["history"] = before["history"]
     write_new(root, SOURCE_RESULT, receipt)
     return receipt
 
 
-def image_collection(root: Path, commit: str, now: datetime) -> dict[str, Any]:
-    before = verify_checkout(root, commit)
+def image_collection(
+    root: Path, commit: str, now: datetime, *, export_root: str | None = None
+) -> dict[str, Any]:
+    before = checkout_binding(root, commit, export_root)
     reader = images.BundleReader(root)
     try:
         receipt_ref = reference(reader, SOURCE_RESULT)
         receipt = SourceReceipt.model_validate(reader.document(receipt_ref))
         images.require(
             receipt.commit_sha == commit
-            and receipt.source_tree_sha256 == before["source_tree_sha256"],
+            and receipt.source_tree_sha256 == before["source_tree_sha256"]
+            and receipt.history == before.get("history"),
             "source_receipt_identity",
         )
         images.require(
@@ -274,7 +288,7 @@ def image_collection(root: Path, commit: str, now: datetime) -> dict[str, Any]:
             for group in report["Results"]:
                 counts.update(finding["Severity"] for finding in group.get("Vulnerabilities", []))
             artifacts.append(artifact.model_dump())
-        images.require(verify_checkout(root, commit) == before, "checkout_changed")
+        images.require(checkout_binding(root, commit, export_root) == before, "checkout_changed")
         images.require(
             source.verify_source_collection(
                 root,
@@ -310,6 +324,8 @@ def image_collection(root: Path, commit: str, now: datetime) -> dict[str, Any]:
                 "Source-to-build execution requires the retained trusted workflow and provenance.",
             ],
         }
+        if "history" in before:
+            result["history"] = before["history"]
         write_new(root, RESULT, result)
         return result
     finally:
@@ -320,16 +336,19 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("phase", choices=["source", "images"])
     parser.add_argument("--commit", required=True)
+    parser.add_argument("--export-root", help="Separately trusted original export commit pin")
     parser.add_argument("--scanner-exit", type=int)
     args = parser.parse_args()
     try:
         now = datetime.now(UTC)
         if args.phase == "source":
             images.require(args.scanner_exit is not None, "scanner_exit_required")
-            result = source_collection(Path.cwd(), args.commit, args.scanner_exit, now)
+            result = source_collection(
+                Path.cwd(), args.commit, args.scanner_exit, now, export_root=args.export_root
+            )
         else:
             images.require(args.scanner_exit is None, "unexpected_scanner_exit")
-            result = image_collection(Path.cwd(), args.commit, now)
+            result = image_collection(Path.cwd(), args.commit, now, export_root=args.export_root)
         print(json.dumps(result))
         return 0
     except (OSError, ValueError, ValidationError, KeyError, TypeError, AttributeError):

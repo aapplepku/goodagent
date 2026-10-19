@@ -10,10 +10,11 @@ def source(path: str) -> str:
     return (ROOT / path).read_text()
 
 
-def test_real_model_recorder_is_unchanged() -> None:
+def test_reviewed_real_model_recorder_stays_separate_from_basic_capture() -> None:
     original = ROOT / "apps/web/capture/alpha-recordings.spec.ts"
+    # Reviewed preview-entry change only; model calls and acceptance checks are unchanged.
     assert hashlib.sha256(original.read_bytes()).hexdigest() == (
-        "4c23b6e7bc30aa62e1491126008a7a3d6adf7c5a889b42b8615e77d5e63ea76d"
+        "3ef043479886ec18cc0fdc88651a0897d149b2adc73e5b8841bf93cbe6e67dd7"
     )
 
 
@@ -75,6 +76,8 @@ def test_capture_preserves_actual_boundary_and_failure_evidence() -> None:
     assert 'getByLabel("Catalog products", { exact: true })' in spec
     assert 'resultCard.getByRole("img").evaluate' in spec
     assert 'guestProduct.getByRole("img").evaluate' in spec
+    assert 'getByText("1 product matching filters", { exact: true })' in spec
+    assert '"1 products matching filters"' not in spec
     assert "caption_alignment_review_required: true" in spec
 
 

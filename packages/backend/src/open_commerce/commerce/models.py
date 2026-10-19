@@ -268,6 +268,7 @@ class CommerceRuntime(Protocol):
         request: CartItemAddRequest,
         idempotency_key: str,
         request_id: str,
+        account_version: int | None = None,
     ) -> Cart: ...
 
     async def update_item(
@@ -279,6 +280,7 @@ class CommerceRuntime(Protocol):
         request: CartItemUpdateRequest,
         idempotency_key: str,
         request_id: str,
+        account_version: int | None = None,
     ) -> Cart: ...
 
     async def delete_item(
@@ -289,6 +291,7 @@ class CommerceRuntime(Protocol):
         line_id: UUID,
         idempotency_key: str,
         request_id: str,
+        account_version: int | None = None,
     ) -> Cart: ...
 
     async def preview_checkout(

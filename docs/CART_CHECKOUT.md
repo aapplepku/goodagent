@@ -18,6 +18,15 @@ Every command derives tenant and account identity from server-owned context. The
 browser cannot submit a price, currency, stock figure, account ID, tenant ID, card
 number, security code, billing address, or arbitrary payment token.
 
+Cart add, quantity-change and remove routes carry the server-captured account-data
+version into the serialized write transaction. Active identity, guest expiry,
+preview scope and that version are rechecked before either receipt replay or a
+mutation. A request admitted before personal-data deletion cannot add products
+after deletion commits. This is an admission fence, not durable recovery of an
+uncertain cart change: retrying Add after a lost response can still create a new
+intent. Do not treat a cart refresh as proof that an earlier command has finished.
+Reload-safe original-intent retry and cross-tab/deletion recovery remain open.
+
 ## Lifecycle
 
 1. Adding or changing a line rechecks the active catalog, current variant price,
@@ -58,6 +67,14 @@ and has no card-data field at all.
 ## Demo Order History
 
 ### Interrupted confirmation
+
+Checkout review displays the server's exact hold deadline, converted to the
+shopper's local date/time with a timezone label. Reopening a review does not
+promise a fresh fifteen-minute hold. An unavailable deadline requires returning
+to the cart for a new review; it does not enable a new test confirmation.
+The browser does not infer payment failure or mutate checkout state from its
+device clock. A decline notice no longer asserts that the hold is still active;
+the server revalidates reservations before any further explicit test confirmation.
 
 The client keeps a minimal store/account-scoped attempt pointer in tab session
 storage: checkout ID, cart version, hold expiry, idempotency key and test method.

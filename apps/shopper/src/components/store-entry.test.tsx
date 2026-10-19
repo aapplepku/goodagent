@@ -6,8 +6,8 @@ import StorePage from "@/app/s/[slug]/page";
 import { StoreEntry } from "./store-entry";
 
 vi.mock("./shopper-app", () => ({
-  ShopperApp: ({ store }: { store: Storefront }) => (
-    <section aria-label="Store catalog">{store.name}{store.preview && <span>Private preview</span>}</section>
+  ShopperApp: ({ store, initialView }: { store: Storefront; initialView: "chat" | "catalog" }) => (
+    <section aria-label="Store catalog" data-initial-view={initialView}>{store.name}{store.preview && <span>Private preview</span>}</section>
   ),
 }));
 
@@ -41,6 +41,15 @@ afterEach(() => {
 });
 
 describe("store entry and recovery", () => {
+  it.each([false, true])("opens verified preview %s at its intended first task without sending a message", async (preview) => {
+    request.mockResolvedValueOnce(response({ ...storefront, preview })).mockResolvedValueOnce(response({}));
+    render(<StoreEntry slug={storefront.slug} />);
+    expect(await screen.findByRole("region", { name: "Store catalog" })).toHaveAttribute("data-initial-view", preview ? "chat" : "catalog");
+    expect(request.mock.calls.map(([input]) => path(input))).toEqual([
+      "/api/runtime/v1/shopper/store", "/api/runtime/v1/shopper/auth/guest",
+    ]);
+  });
+
   it("shows loading until both store and guest initialization succeed", async () => {
     const pendingStore = deferred();
     const pendingGuest = deferred();

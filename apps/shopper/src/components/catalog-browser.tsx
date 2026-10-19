@@ -13,7 +13,7 @@ import {
   Search,
 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createShopperClient, shopperErrorMessage } from "@/lib/api";
 import { useShopperSessionError } from "@/lib/session-errors";
 import styles from "./catalog-browser.module.css";
@@ -319,27 +319,11 @@ function Product({
   onAsk: (query: string) => void;
   onInspect?: (product: CatalogBrowseProduct) => void;
 }) {
-  const [failed, setFailed] = useState(false);
   const imageUrl = safeImageUrl(product.image_url);
   return (
     <article className={styles.product}>
       <div className={styles.image}>
-        {imageUrl && !failed ? (
-          <Image
-            src={imageUrl}
-            referrerPolicy="no-referrer"
-            alt={product.title}
-            fill
-            sizes="(max-width: 720px) 50vw, 250px"
-            unoptimized
-            onError={() => setFailed(true)}
-          />
-        ) : (
-          <span>
-            <ImageOff size={26} />
-            Image unavailable
-          </span>
-        )}
+        <ProductImage key={imageUrl} source={imageUrl} title={product.title} />
       </div>
       <div className={styles.copy}>
         <span>{product.category || "Store catalog"}</span>
@@ -390,6 +374,28 @@ function Product({
         </details>
       </div>
     </article>
+  );
+}
+
+function ProductImage({ source, title }: { source: string | null; title: string }) {
+  const [failed, setFailed] = useState(false);
+  // Stable error callbacks prevent Next Image from resetting an unchanged src.
+  const handleError = useCallback(() => setFailed(true), []);
+  return source && !failed ? (
+    <Image
+      src={source}
+      referrerPolicy="no-referrer"
+      alt={title}
+      fill
+      sizes="(max-width: 720px) 50vw, 250px"
+      unoptimized
+      onError={handleError}
+    />
+  ) : (
+    <span>
+      <ImageOff size={26} />
+      Image unavailable
+    </span>
   );
 }
 

@@ -192,6 +192,8 @@ test("private no-AI catalog to store demonstration", async ({ browser, request }
     const preview = await popup;
     const previewClip = record("private-preview", preview, previewStart);
     previewClip.caption("Private preview: attributed sample photos, synthetic prices. No model connection test.");
+    await expect(preview.getByRole("heading", { name: "What are we shopping for?" })).toBeVisible();
+    await preview.getByRole("button", { name: "Browse catalog", exact: true }).click();
     await expect(preview.getByRole("heading", { name: "Browse the store" })).toBeVisible();
     const sampleImage = preview.getByLabel("Catalog products", { exact: true }).getByRole("img").first();
     await expect(sampleImage).toBeVisible();
@@ -259,7 +261,7 @@ test("private no-AI catalog to store demonstration", async ({ browser, request }
     expect((await filteredResponse.json()).items.map((item: { product_id: string }) => item.product_id)).toEqual(["B0896LJNLH"]);
     receipt.last_stage = "guest_grid_ready";
     await expect(guest.getByLabel("Catalog products", { exact: true })).toHaveAttribute("aria-busy", "false");
-    await expect(guest.getByText("1 products matching filters", { exact: true })).toBeVisible();
+    await expect(guest.getByText("1 product matching filters", { exact: true })).toBeVisible();
     const guestProduct = guest.getByLabel("Catalog products", { exact: true }).getByRole("article");
     await expect(guestProduct).toHaveCount(1);
     await expect(guestProduct).toContainText(selected!.title);

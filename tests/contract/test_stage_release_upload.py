@@ -66,6 +66,40 @@ def collected(candidate: Acquisition) -> Acquisition:
     return candidate
 
 
+@pytest.mark.parametrize("changed", [None, "before", "after", "result"])
+def test_followup_upload_requires_consistent_checkout_and_receipt_history(
+    candidate: Acquisition, changed: str | None
+) -> None:
+    root_commit = "a" * 40
+    candidate.checkout_binding["history"] = {
+        "root_commit": root_commit,
+        "commits": [root_commit, COMMIT],
+        "policy": "pinned-linear-export-v1",
+    }
+    collector.source_collection(candidate.root, COMMIT, 1, candidate.now, export_root=root_commit)
+    for path in upload.CHECKOUTS:
+        candidate.write(path, {"valid": True, **candidate.checkout_binding})
+    upload.prepare_images(candidate.root)
+    collector.image_collection(candidate.root, COMMIT, candidate.now, export_root=root_commit)
+    if changed is not None:
+        path = (
+            collector.RESULT
+            if changed == "result"
+            else collector.OUTPUT + f"/checkout-{changed}.json"
+        )
+        document = candidate.read(path)
+        document["history"]["root_commit"] = "b" * 40
+        candidate.write(path, document)
+    provenance(candidate)
+    if changed is None:
+        assert upload.finalize_upload(candidate.root)["complete"] is True
+        result = candidate.read(upload.UPLOAD + "/" + collector.RESULT)
+        assert result["history"] == candidate.checkout_binding["history"]
+    else:
+        with pytest.raises(gate.GateError):
+            upload.finalize_upload(candidate.root)
+
+
 def test_complete_mirror_keeps_screened_images_raw_findings_and_no_approval(
     collected: Acquisition,
 ) -> None:

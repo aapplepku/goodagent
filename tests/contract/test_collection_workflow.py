@@ -41,6 +41,21 @@ def test_collection_is_manual_read_only_and_fresh_default_branch() -> None:
     assert "security/current-release-approval.json" not in WORKFLOW.read_text()
 
 
+def test_followup_collection_uses_protected_literal_root_and_checks_all_dco() -> None:
+    job = yaml.safe_load(WORKFLOW.read_text())["jobs"]["collect"]
+    root_pin = job["env"]["APPROVED_EXPORT_ROOT"]
+    assert root_pin == "949910304aa5e978826df034e65b1de579d9e330"
+    assert "${{" not in root_pin
+    steps = {step["id"]: step for step in job["steps"] if "id" in step}
+    for name in ("before", "source", "finalize", "after"):
+        assert '--export-root "$APPROVED_EXPORT_ROOT"' in steps[name]["run"]
+    before = steps["before"]["run"]
+    assert 'scripts/check_dco.py --all --head "$EXPECTED_COMMIT"' in before
+    assert "GIT_NO_REPLACE_OBJECTS=1" in before
+    assert "GIT_CONFIG_GLOBAL=/dev/null" in before
+    assert "env -i" in before
+
+
 def test_build_and_scan_use_same_controlled_inputs_without_running_apps() -> None:
     steps = yaml.safe_load(WORKFLOW.read_text())["jobs"]["collect"]["steps"]
     by_id = {step["id"]: step for step in steps if "id" in step}

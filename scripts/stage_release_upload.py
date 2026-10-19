@@ -290,6 +290,7 @@ def finalize_upload(root: Path) -> dict[str, Any]:
             re.fullmatch(r"[0-9a-f]{40}", receipt.commit_sha) is not None
             and result["commit_sha"] == receipt.commit_sha
             and result["source_tree_sha256"] == receipt.source_tree_sha256
+            and result.get("history") == receipt.history
             and result["source"] == receipt.result
             and receipt.result.get("complete") is True,
             "collection_source_binding",
@@ -327,6 +328,7 @@ def finalize_upload(root: Path) -> dict[str, Any]:
                 checkout.get("valid") is True
                 and checkout["commit_sha"] == receipt.commit_sha
                 and checkout["source_tree_sha256"] == receipt.source_tree_sha256
+                and checkout.get("history") == receipt.history
                 and checkout["snapshot"] == snapshot.model_dump(),
                 "checkout_binding",
             )

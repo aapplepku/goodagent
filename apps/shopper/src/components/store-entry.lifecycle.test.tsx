@@ -68,10 +68,24 @@ afterEach(() => {
 });
 
 describe("real store route and transport", () => {
+  it("opens the verified preview chat without sending and leaves catalog browsing available", async () => {
+    previews.set("alpha", 1);
+    render(await page("alpha"));
+    expect(await screen.findByRole("heading", { name: "What are we shopping for?" })).toBeVisible();
+    expect(screen.getByLabelText("Shopping request")).toHaveValue("");
+    expect(screen.getByText("Private preview")).toBeVisible();
+    expect(count("/chat")).toBe(0);
+    expect(count("/catalog")).toBe(0);
+    fireEvent.click(screen.getByRole("button", { name: "Browse catalog" }));
+    expect(await screen.findByRole("heading", { name: productName("alpha") })).toBeVisible();
+    expect(count("/chat")).toBe(0);
+  });
+
   it("isolates branding, catalog, preview and same-account memory receipts across keyed routes", async () => {
     previews.set("alpha", 1);
     saveMemoryChange(`alpha:${accountId}`, receipt);
     const view = render(await page("alpha"));
+    fireEvent.click(await screen.findByRole("button", { name: "Browse catalog" }));
     await screen.findByRole("heading", { name: productName("alpha") });
     expect(screen.getByText("Private preview")).toBeVisible();
     expect(screen.getByText(/Memory setting is unverified/)).toBeVisible();
@@ -89,6 +103,7 @@ describe("real store route and transport", () => {
     expect(calls.slice(boundary).every((call) => call.slug === "beta")).toBe(true);
     go("alpha");
     view.rerender(await page("alpha"));
+    fireEvent.click(await screen.findByRole("button", { name: "Browse catalog" }));
     await screen.findByRole("heading", { name: productName("alpha") });
     expect(screen.getByText(/Memory setting is unverified/)).toBeVisible();
     expect(count("/preferences")).toBe(0);
@@ -185,6 +200,7 @@ describe("same-document preview navigation", () => {
     await act(async () => { window.dispatchEvent(new HashChangeEvent("hashchange")); });
     expect(count("/preview")).toBe(1);
     await act(async () => { window.location.hash = "preview=synthetic-fresh"; });
+    fireEvent.click(await screen.findByRole("button", { name: "Browse catalog" }));
     await screen.findByRole("heading", { name: "alpha Product 1" });
     expect(screen.getByText("Private preview")).toBeVisible();
     expect(window.location.hash).toBe("");
@@ -205,6 +221,7 @@ describe("same-document preview navigation", () => {
     go("alpha", "#preview=synthetic-next-first");
     // pushState emits neither hashchange nor popstate; only the real Next hook's context changes.
     view.rerender(nextTree());
+    fireEvent.click(await screen.findByRole("button", { name: "Browse catalog" }));
     await screen.findByRole("heading", { name: "alpha Product 1" });
     let resolve!: (result: Response) => void;
     override = (call) => call.path.endsWith("/catalog") ? new Promise<Response>((done) => { resolve = done; }) : undefined;
@@ -213,6 +230,7 @@ describe("same-document preview navigation", () => {
     override = undefined;
     go("alpha", "#preview=synthetic-next-second");
     view.rerender(nextTree());
+    fireEvent.click(await screen.findByRole("button", { name: "Browse catalog" }));
     await screen.findByRole("heading", { name: "alpha Product 2" });
     await act(async () => resolve(denial()));
     expect(screen.getByRole("heading", { name: "alpha Product 2" })).toBeVisible();

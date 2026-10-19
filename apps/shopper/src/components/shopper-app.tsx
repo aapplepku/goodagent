@@ -1746,6 +1746,7 @@ function CartDrawer({
   onCheck: () => void;
   onRetry?: () => void;
 }) {
+  const expiry = checkout ? formatHoldExpiry(checkout.reservation_expires_at) : null;
   return (
     <aside className="cart-drawer">
       <header>
@@ -1807,7 +1808,10 @@ function CartDrawer({
               <CreditCard size={21} />
               <div>
                 <h2>Review checkout</h2>
-                <p>Inventory is held for 15 minutes.</p>
+                <p>
+                  {expiry ? <>Inventory hold expires <time dateTime={checkout.reservation_expires_at}>{expiry}</time>.</>
+                    : "Hold expiry is unavailable. Return to your cart and review again."}
+                </p>
               </div>
             </div>
             <div className="checkout-lines">
@@ -1833,15 +1837,14 @@ function CartDrawer({
             </div>
             {confirmation?.status === "requires_payment_method" && (
               <p className="payment-declined">
-                Payment declined as requested. The inventory hold remains
-                active.
+                Payment declined as requested.
               </p>
             )}
             {notice && <p className="cart-notice">{notice}</p>}
             <div className="payment-actions">
               <button
                 type="button"
-                disabled={pending !== null || checking}
+                disabled={pending !== null || checking || !expiry}
                 onClick={() => onConfirm("test_success")}
               >
                 <CheckCircle2 size={16} />
@@ -1851,7 +1854,7 @@ function CartDrawer({
               </button>
               <button
                 type="button"
-                disabled={pending !== null || checking}
+                disabled={pending !== null || checking || !expiry}
                 onClick={() => onConfirm("test_decline")}
               >
                 Test decline
@@ -1980,6 +1983,16 @@ function Loading() {
       <p>Opening the store...</p>
     </main>
   );
+}
+
+function formatHoldExpiry(value: unknown): string | null {
+  if (typeof value !== "string" || !value.trim()) return null;
+  const deadline = new Date(value);
+  if (!Number.isFinite(deadline.getTime())) return null;
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric", month: "short", day: "numeric",
+    hour: "numeric", minute: "2-digit", second: "2-digit", timeZoneName: "short",
+  }).format(deadline);
 }
 
 function formatTime(value: string) {
